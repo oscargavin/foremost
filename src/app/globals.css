@@ -1,0 +1,401 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Factory.ai Inspired Design Tokens - Foremost.ai */
+:root {
+  /* Page backgrounds - Factory.ai warm grays */
+  --background: #eeeeee;
+  --background-card: #fafafa;
+  --background-dark: #1f1d1c;
+  --background-button: #101010;
+
+  /* Text colors - adjusted for WCAG AA contrast (4.5:1 minimum) */
+  --foreground: #020202;
+  --foreground-secondary: #4d4947;
+  --foreground-muted: #524e4b; /* Darkened from #5c5855 for 4.5:1 contrast */
+  --foreground-subtle: #666260; /* Darkened from #8a8380 for 4.5:1 contrast */
+  --foreground-light: #eeeeee;
+  --foreground-light-muted: #ccc9c7;
+
+  /* Factory orange accent */
+  --accent-orange: #ee6018;
+  --accent-orange-light: #ef6f2e;
+  --accent-orange-border: #d15010;
+
+  /* Borders - warm grays */
+  --border: #b8b3b0;
+  --border-secondary: #a49d9a;
+  --border-dark: #4d4947;
+  --border-darker: #5c5855;
+
+  /* Subtle backgrounds */
+  --surface-subtle: #d6d3d2;
+
+  /* shadcn compatibility - mapped to Factory.ai colors */
+  --card: #fafafa;
+  --card-foreground: #020202;
+  --popover: #fafafa;
+  --popover-foreground: #020202;
+  --primary: #101010;
+  --primary-foreground: #eeeeee;
+  --secondary: #eeeeee;
+  --secondary-foreground: #020202;
+  --muted: #d6d3d2;
+  --muted-foreground: #524e4b;
+  --accent: #eeeeee;
+  --accent-foreground: #020202;
+  --destructive: #dc2626;
+  --destructive-foreground: #fafafa;
+  --input: #b8b3b0;
+  --ring: #ee6018;
+  --radius: 6px;
+}
+
+@theme inline {
+  /* Colors - Factory.ai design system */
+  --color-background: var(--background);
+  --color-background-card: var(--background-card);
+  --color-background-dark: var(--background-dark);
+  --color-background-button: var(--background-button);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-light: var(--foreground-light);
+  --color-foreground-light-muted: var(--foreground-light-muted);
+
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-orange-light: var(--accent-orange-light);
+  --color-accent-orange-border: var(--accent-orange-border);
+
+  --color-border: var(--border);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-dark: var(--border-dark);
+  --color-border-darker: var(--border-darker);
+
+  --color-surface-subtle: var(--surface-subtle);
+
+  /* shadcn color mappings */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Font sizes with line heights and letter spacing */
+  --text-hero: 60px;
+  --text-page: 48px;
+  --text-section: 48px;
+  --text-card: 24px;
+  --text-pricing: 36px;
+  --text-body-large: 18px;
+  --text-body: 16px;
+  --text-body-small: 14px;
+  --text-code: 12px;
+  --text-testimonial: 33.28px;
+
+  /* Letter spacing */
+  --tracking-hero: -2.88px;
+  --tracking-page: -1.44px;
+  --tracking-section: -1.44px;
+  --tracking-pricing: -0.72px;
+  --tracking-body-large: -0.36px;
+  --tracking-code: -0.24px;
+  --tracking-label: -0.0175rem;
+
+  /* Border radius - Factory.ai scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing (extends default) */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-30: 7.5rem;
+
+  /* Transitions - Factory.ai timing */
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 250ms;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* Mobile: 56px navbar + 16px padding */
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 80px; /* sm: 64px navbar + 16px padding */
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 85px; /* md: 65px navbar + 20px padding */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Heading styles - all weight 400 (Factory.ai pattern) */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
+/* Selection color - orange accent */
+::selection {
+  background-color: var(--accent-orange);
+  color: var(--foreground-light);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+/* Section blending - borders, shadows, gradients */
+@layer utilities {
+  /* Subtle top border - creates soft separation */
+  .section-border-top {
+    border-top: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+  }
+
+  /* Inner shadow - creates subtle depth */
+  .section-shadow-inset {
+    box-shadow: inset 0 1px 3px color-mix(in srgb, var(--foreground) 3%, transparent);
+  }
+
+  /* Outer shadow - lifts section */
+  .section-shadow-outer {
+    box-shadow: 0 -1px 2px color-mix(in srgb, var(--foreground) 2%, transparent),
+                0 4px 12px color-mix(in srgb, var(--foreground) 4%, transparent);
+  }
+
+  /* Gradient fade at top - blends with previous section */
+  .section-gradient-top {
+    position: relative;
+  }
+  .section-gradient-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--background), transparent);
+    pointer-events: none;
+  }
+
+  /* Gradient fade at bottom - blends into next section */
+  .section-gradient-bottom {
+    position: relative;
+  }
+  .section-gradient-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--background), transparent);
+    pointer-events: none;
+  }
+
+  /* Card section gradients - uses card bg color */
+  .section-card-gradient-top::before {
+    background: linear-gradient(to bottom, var(--background-card), transparent);
+  }
+  .section-card-gradient-bottom::after {
+    background: linear-gradient(to top, var(--background-card), transparent);
+  }
+
+  /* Combined inset effect for elevated sections */
+  .section-elevated {
+    border-top: 1px solid color-mix(in srgb, white 12%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, white 5%, transparent),
+      inset 0 -1px 0 color-mix(in srgb, white 8%, transparent),
+      0 1px 3px color-mix(in srgb, var(--foreground) 3%, transparent);
+  }
+
+  /* Dark section blending */
+  .section-dark-blend {
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, white 5%, transparent),
+      0 -4px 20px color-mix(in srgb, var(--background-dark) 50%, transparent);
+  }
+}
+
+/* Subtle background patterns - utility-first, barely visible */
+@layer utilities {
+  /* Fine grid pattern - good for content sections */
+  .bg-pattern-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center center;
+  }
+
+  /* Subtle diagonal lines - clean, minimal texture */
+  .bg-pattern-grid-subtle {
+    background-image: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 8px,
+      color-mix(in srgb, var(--border) 35%, transparent) 8px,
+      color-mix(in srgb, var(--border) 35%, transparent) 9px
+    );
+  }
+
+  /* Dot pattern - minimal, professional */
+  .bg-pattern-dots {
+    background-image: radial-gradient(color-mix(in srgb, var(--border) 50%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Larger dot pattern - more sparse */
+  .bg-pattern-dots-sparse {
+    background-image: radial-gradient(color-mix(in srgb, var(--border) 40%, transparent) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+  }
+
+  /* Diagonal lines - subtle movement, suggests progress */
+  .bg-pattern-diagonal {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      color-mix(in srgb, var(--border) 20%, transparent) 10px,
+      color-mix(in srgb, var(--border) 20%, transparent) 11px
+    );
+  }
+
+  /* Cross pattern - intersecting lines, suggests connectivity */
+  .bg-pattern-cross {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--border) 25%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--border) 25%, transparent) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Noise texture overlay - adds depth without pattern */
+  .bg-noise {
+    position: relative;
+  }
+  .bg-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  /* Fade edges - vignette effect for pattern sections */
+  .bg-pattern-fade {
+    mask-image: radial-gradient(ellipse 80% 70% at center, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at center, black 30%, transparent 100%);
+  }
+
+  /* Dark section patterns */
+  .dark .bg-pattern-grid-subtle,
+  .bg-dark .bg-pattern-grid-subtle {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--border-dark) 30%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--border-dark) 30%, transparent) 1px, transparent 1px);
+  }
+
+  .dark .bg-pattern-dots,
+  .bg-dark .bg-pattern-dots {
+    background-image: radial-gradient(color-mix(in srgb, var(--border-dark) 40%, transparent) 1px, transparent 1px);
+  }
+}
+
+/* Logo dot ambient pulse animation */
+@keyframes logo-dot-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.85;
+  }
+}
+
+.animate-logo-pulse {
+  animation: logo-dot-pulse 2.5s ease-in-out infinite;
+}
+
+.group:hover .animate-logo-pulse {
+  animation: none;
+}
+
+/* Safe area utilities for notched devices */
+@layer utilities {
+  .safe-area-pt {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-area-pl {
+    padding-left: env(safe-area-inset-left);
+  }
+  .safe-area-pr {
+    padding-right: env(safe-area-inset-right);
+  }
+  .safe-area-p {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+  }
+  .safe-area-px {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
