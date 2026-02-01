@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion";
-import { SkipLink, ScrollProgress } from "@/components/ui";
+import { SkipLink, ScrollProgress, ErrorBoundary, ChatFallback } from "@/components/ui";
 import {
   SchemaScript,
   organizationSchema,
@@ -86,7 +86,9 @@ export default function RootLayout({
         <MotionProvider>
           <ScrollProgress />
           {children}
-          <ClaudeChat />
+          <ErrorBoundary fallback={<ChatFallback />}>
+            <ClaudeChat />
+          </ErrorBoundary>
         </MotionProvider>
       </body>
     </html>

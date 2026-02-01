@@ -20,24 +20,28 @@ interface QuestionnaireSummaryEmailProps {
 
 export function QuestionnaireSummaryEmail({
   summary,
-  mode = 'quote',
+  mode = "quote",
   service,
 }: QuestionnaireSummaryEmailProps) {
-  // Generate pre-header text for inbox preview
   const preheaderText = service
     ? `New ${service} inquiry ready for review`
     : `New consultation inquiry completed - review responses`;
 
-  // Design system aligned with Foremost
+  // Factory.ai Design System
   const colors = {
     background: "#eeeeee",
     backgroundCard: "#fafafa",
     foreground: "#020202",
     accent: "#ee6018",
-    accentLight: "#fef3ee",
-    muted: "#f5f5f5",
-    mutedForeground: "#666260",
+    accentLight: "#ef6f2e",
+    mutedForeground: "#5c5855",
+    subtleForeground: "#8a8380",
     border: "#b8b3b0",
+  };
+
+  const fonts = {
+    sans: "Geist, 'Geist Fallback', ui-sans-serif, system-ui, sans-serif",
+    mono: "'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace",
   };
 
   // Convert markdown to styled HTML for email
@@ -46,27 +50,27 @@ export function QuestionnaireSummaryEmail({
       // Main headings
       .replace(
         /^# (.*$)/gm,
-        `<h1 style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin: 32px 0 16px 0; color: ${colors.foreground}; border-bottom: 1px solid ${colors.border}; padding-bottom: 12px;">$1</h1>`
+        `<h1 style="font-family: ${fonts.sans}; font-size: 24px; font-weight: 400; letter-spacing: 0; line-height: 24px; margin: 32px 0 16px 0; color: ${colors.foreground}; border-bottom: 1px solid ${colors.border}; padding-bottom: 12px;">$1</h1>`
       )
       // Subheadings
       .replace(
         /^## (.*$)/gm,
-        `<h2 style="font-size: 16px; font-weight: 500; letter-spacing: -0.01em; margin: 24px 0 12px 0; color: ${colors.foreground};">$1</h2>`
+        `<h2 style="font-family: ${fonts.sans}; font-size: 18px; font-weight: 400; letter-spacing: -0.36px; margin: 24px 0 12px 0; color: ${colors.foreground};">$2</h2>`
       )
       // Bold text
-      .replace(/\*\*(.*?)\*\*/g, `<strong style="font-weight: 500; color: ${colors.foreground};">$1</strong>`)
+      .replace(/\*\*(.*?)\*\*/g, `<strong style="font-weight: 400; color: ${colors.foreground};">$1</strong>`)
       // Italic text
       .replace(/\*(.*?)\*/g, "<em>$1</em>")
       // Horizontal rules (---)
       .replace(/^---$/gm, `<hr style="border: none; border-top: 1px solid ${colors.border}; margin: 24px 0;" />`)
-      // List items - wrap in styled list
+      // List items
       .replace(
         /^(\s*)-\s+(.*$)/gm,
         `<div style="display: flex; margin-bottom: 8px; padding-left: 0;"><span style="color: ${colors.accent}; margin-right: 8px;">→</span><span>$2</span></div>`
       )
       // Double line breaks
       .replace(/\n\n/g, "<br /><br />")
-      // Single line breaks (be careful with this)
+      // Single line breaks
       .replace(/\n/g, "<br />");
   };
 
@@ -76,8 +80,10 @@ export function QuestionnaireSummaryEmail({
     <Html>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light only" />
+        <meta name="supported-color-schemes" content="light only" />
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+          :root { color-scheme: light only; }
           @media only screen and (max-width: 600px) {
             .container { padding: 32px 16px !important; }
             h1 { font-size: 24px !important; }
@@ -87,7 +93,7 @@ export function QuestionnaireSummaryEmail({
       <Preview>{preheaderText}</Preview>
       <Body
         style={{
-          fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+          fontFamily: fonts.sans,
           margin: 0,
           padding: 0,
           backgroundColor: colors.background,
@@ -109,24 +115,25 @@ export function QuestionnaireSummaryEmail({
           <Section style={{ marginBottom: "40px" }}>
             <Text
               style={{
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.2em",
+                fontFamily: fonts.mono,
+                fontSize: "12px",
+                fontWeight: 400,
+                letterSpacing: "-0.24px",
                 textTransform: "uppercase",
-                color: colors.accent,
-                margin: "0 0 8px 0",
+                color: colors.foreground,
+                margin: "0 0 16px 0",
               }}
             >
-              New Inquiry
+              <span style={{ color: colors.accent }}>●</span> New Inquiry
             </Text>
 
             <Heading
               as="h1"
               style={{
-                fontSize: "28px",
+                fontSize: "32px",
                 fontWeight: 400,
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
+                letterSpacing: "-1.44px",
+                lineHeight: "32px",
                 color: colors.foreground,
                 margin: 0,
               }}
@@ -136,9 +143,12 @@ export function QuestionnaireSummaryEmail({
 
             <Text
               style={{
-                fontSize: "13px",
+                fontFamily: fonts.mono,
+                fontSize: "14px",
+                fontWeight: 400,
+                letterSpacing: "-0.28px",
                 color: colors.mutedForeground,
-                margin: "12px 0 0 0",
+                margin: "16px 0 0 0",
               }}
             >
               {new Date().toLocaleDateString("en-GB", {
@@ -147,7 +157,7 @@ export function QuestionnaireSummaryEmail({
                 month: "long",
                 year: "numeric",
                 hour: "2-digit",
-                minute: "2-digit"
+                minute: "2-digit",
               })}
             </Text>
           </Section>
@@ -156,15 +166,19 @@ export function QuestionnaireSummaryEmail({
           <Section
             style={{
               backgroundColor: colors.backgroundCard,
+              border: `1px solid ${colors.border}`,
               padding: "20px 24px",
               marginBottom: "32px",
-              borderRadius: "8px",
+              borderRadius: "6px",
             }}
           >
             <Text
               style={{
-                fontSize: "13px",
-                lineHeight: 1.7,
+                fontFamily: fonts.mono,
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "21px",
+                letterSpacing: "-0.28px",
                 color: colors.foreground,
                 margin: 0,
               }}
@@ -173,14 +187,17 @@ export function QuestionnaireSummaryEmail({
             </Text>
           </Section>
 
-          <Hr style={{ borderColor: colors.border, margin: "0 0 32px 0" }} />
+          <Hr style={{ border: "none", borderTop: `1px solid ${colors.border}`, margin: "0 0 32px 0" }} />
 
           {/* Summary Content */}
           <Section style={{ marginBottom: "32px" }}>
             <div
               style={{
-                fontSize: "13px",
-                lineHeight: 1.7,
+                fontFamily: fonts.mono,
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "21px",
+                letterSpacing: "-0.28px",
                 color: colors.foreground,
               }}
               dangerouslySetInnerHTML={{ __html: formattedSummary }}
@@ -188,11 +205,14 @@ export function QuestionnaireSummaryEmail({
           </Section>
 
           {/* Footer */}
-          <Hr style={{ borderColor: colors.border, margin: "32px 0 24px 0" }} />
+          <Hr style={{ border: "none", borderTop: `1px solid ${colors.border}`, margin: "32px 0 24px 0" }} />
           <Text
             style={{
-              fontSize: "11px",
-              color: colors.mutedForeground,
+              fontFamily: fonts.mono,
+              fontSize: "12px",
+              fontWeight: 400,
+              letterSpacing: "-0.24px",
+              color: colors.subtleForeground,
               margin: 0,
             }}
           >

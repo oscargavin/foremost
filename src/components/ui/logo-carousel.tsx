@@ -1,6 +1,7 @@
 "use client";
 
-import { m } from "motion/react";
+import { useState, useEffect, useRef } from "react";
+import { m, useReducedMotion, useAnimationControls } from "motion/react";
 import { Text } from "./text";
 
 const clients = [
@@ -10,36 +11,109 @@ const clients = [
   { name: "Vanguard Health", initials: "VH" },
   { name: "Sterling Finance", initials: "SF" },
   { name: "Apex Manufacturing", initials: "AM" },
+  { name: "Horizon Logistics", initials: "HL" },
+  { name: "Pinnacle Group", initials: "PG" },
+  { name: "Evergreen Capital", initials: "EC" },
+  { name: "Blackstone Advisory", initials: "BA" },
+  { name: "Quantum Dynamics", initials: "QD" },
+  { name: "Oaktree Holdings", initials: "OH" },
+  { name: "Summit Partners", initials: "SP" },
+  { name: "Granite Systems", initials: "GS" },
+  { name: "Cardinal Health Group", initials: "CH" },
+  { name: "Regency Investments", initials: "RI" },
 ];
 
-// Stagger container for viewport-triggered animation
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-} as const;
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 400,
-      damping: 25,
-    },
-  },
-};
+function LogoItem({
+  client,
+  isHovered,
+}: {
+  client: (typeof clients)[number];
+  isHovered: boolean;
+}) {
+  return (
+    <m.div
+      className="flex items-center gap-2.5 text-foreground-muted px-4 sm:px-6 shrink-0 cursor-default"
+      whileHover={{ scale: 1.02 }}
+      animate={{
+        opacity: isHovered ? 0.6 : 1,
+      }}
+      transition={{ duration: 0.2 }}
+    >
+      <m.span
+        className="w-9 h-9 rounded-md bg-surface-subtle flex items-center justify-center text-xs font-mono"
+        whileHover={{
+          scale: 1.08,
+          backgroundColor: "rgba(0,0,0,0.05)",
+        }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      >
+        {client.initials}
+      </m.span>
+      <span className="text-sm font-medium tracking-tight whitespace-nowrap">
+        {client.name}
+      </span>
+    </m.div>
+  );
+}
 
 export function LogoCarousel() {
+  const prefersReducedMotion = useReducedMotion();
+  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimationControls();
+  const [trackWidth, setTrackWidth] = useState(0);
+
+  // Measure track width for animation
+  useEffect(() => {
+    if (containerRef.current) {
+      const firstTrack = containerRef.current.querySelector(
+        "[data-track]"
+      ) as HTMLElement;
+      if (firstTrack) {
+        setTrackWidth(firstTrack.offsetWidth);
+      }
+    }
+  }, []);
+
+  // Start infinite animation
+  useEffect(() => {
+    if (prefersReducedMotion || trackWidth === 0) return;
+
+    const animate = async () => {
+      await controls.start({
+        x: -trackWidth,
+        transition: {
+          duration: 40,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop",
+        },
+      });
+    };
+
+    animate();
+  }, [controls, trackWidth, prefersReducedMotion]);
+
+  // Handle pause/resume on hover
+  useEffect(() => {
+    if (isPaused) {
+      controls.stop();
+    } else if (trackWidth > 0 && !prefersReducedMotion) {
+      controls.start({
+        x: -trackWidth,
+        transition: {
+          duration: 40,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop",
+        },
+      });
+    }
+  }, [isPaused, controls, trackWidth, prefersReducedMotion]);
+
   return (
-    <div className="py-8 sm:py-10 md:py-12 border-y border-border">
+    <div className="py-10 sm:py-12 md:py-14 border-y border-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-9">
         <m.div
           initial={{ opacity: 0 }}
@@ -47,38 +121,78 @@ export function LogoCarousel() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.4 }}
         >
-          <Text variant="small" className="text-foreground-subtle text-center mb-8">
+          <Text
+            variant="small"
+            className="text-foreground-subtle text-center mb-8"
+          >
             Trusted by leadership teams at
           </Text>
         </m.div>
-        <m.div
-          className="flex flex-wrap justify-center items-center gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-4 sm:gap-y-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          {clients.map((client) => (
-            <m.div
-              key={client.name}
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors duration-200 cursor-default"
-            >
-              <m.span
-                className="w-8 h-8 rounded bg-surface-subtle flex items-center justify-center text-xs font-mono"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                {client.initials}
-              </m.span>
-              <span className="text-sm font-medium tracking-tight">
-                {client.name}
-              </span>
-            </m.div>
-          ))}
-        </m.div>
       </div>
+
+      {/* Carousel container with gradient masks */}
+      <m.div
+        ref={containerRef}
+        className="relative"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => {
+          setIsPaused(false);
+          setHoveredIndex(null);
+        }}
+      >
+        {/* Left gradient mask */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        {/* Right gradient mask */}
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        {/* Scrolling track */}
+        <m.div
+          className="flex"
+          animate={controls}
+          style={{ willChange: "transform" }}
+        >
+          {/* First set of logos */}
+          <div data-track className="flex items-center py-2 shrink-0">
+            {clients.map((client, index) => (
+              <div
+                key={client.name}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <LogoItem
+                  client={client}
+                  isHovered={hoveredIndex !== null && hoveredIndex !== index}
+                />
+              </div>
+            ))}
+          </div>
+          {/* Duplicate for seamless loop */}
+          <div
+            className="flex items-center py-2 shrink-0"
+            aria-hidden="true"
+          >
+            {clients.map((client, index) => (
+              <div
+                key={`dup-${client.name}`}
+                onMouseEnter={() => setHoveredIndex(index + clients.length)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <LogoItem
+                  client={client}
+                  isHovered={
+                    hoveredIndex !== null &&
+                    hoveredIndex !== index + clients.length
+                  }
+                />
+              </div>
+            ))}
+          </div>
+        </m.div>
+      </m.div>
     </div>
   );
 }

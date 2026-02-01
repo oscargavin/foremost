@@ -32,7 +32,7 @@ export function CTACard({
           <div
             className={cn(
               "relative",
-              "bg-background-button rounded-lg p-5 sm:p-8 md:p-10"
+              "bg-background-dark rounded-lg p-5 sm:p-8 md:p-10"
             )}
             style={{
               border: "3px dashed rgba(255, 255, 255, 0.4)",

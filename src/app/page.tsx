@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { Navbar, Container, Section, Footer } from "@/components/layout";
 import {
   Button,
@@ -13,14 +14,17 @@ import {
   LogoCarousel,
   Testimonials,
   TiltCard,
+  HeroAnimation,
+  ErrorBoundary,
+  ScannerFallback,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
-import { AIScanner } from "@/components/scanner";
 import {
   SchemaScript,
   professionalServiceSchema,
   breadcrumbs,
 } from "@/components/seo";
+import { AIScanner } from "@/components/scanner";
 
 export const metadata: Metadata = {
   title: "Board-Level AI Advisory for Leaders | Foremost",
@@ -96,8 +100,9 @@ export default function Home() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
+        <Section className="pt-32 pb-20 relative overflow-hidden">
+          <HeroAnimation />
+          <Container className="relative z-10">
             <div className="max-w-4xl">
               <Heading as="h1" size="hero" className="mb-6">
                 <TextReveal>
@@ -253,7 +258,17 @@ export default function Home() {
         {/* AI Scanner Section */}
         <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
-            <AIScanner />
+            <ErrorBoundary fallback={<ScannerFallback />}>
+              <Suspense
+                fallback={
+                  <div className="min-h-[420px] flex items-center justify-center">
+                    <div className="text-foreground-muted text-sm font-mono">Loading scanner...</div>
+                  </div>
+                }
+              >
+                <AIScanner />
+              </Suspense>
+            </ErrorBoundary>
           </Container>
         </Section>
 

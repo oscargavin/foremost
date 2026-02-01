@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { Navbar, Container, Section, Footer } from "@/components/layout";
-import { Heading, Text, SectionLabel } from "@/components/ui";
-import { FadeIn } from "@/components/motion";
+import { Heading, Text, SectionLabel, ContactAnimation } from "@/components/ui";
+import { FadeIn, TextReveal, StaggerChildren, StaggerItem } from "@/components/motion";
 import { ContactForm } from "./contact-form";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
+import { ContactInfoCardAnimated, DecorativeCorners, PulsingDot } from "./contact-animations";
 
 export const metadata: Metadata = {
   title: "Contact Our AI Consultants | Foremost",
@@ -43,90 +44,151 @@ export default function ContactPage() {
       <SchemaScript schema={breadcrumbs.contact} />
       <Navbar />
       <main id="main-content" tabIndex={-1}>
-        {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <FadeIn>
-              <div className="max-w-4xl">
-                <Heading as="h1" size="hero" className="mb-6">
-                  Contact Foremost AI Consultants
+        {/* Hero Section - Dramatic asymmetric layout */}
+        <Section className="pt-32 pb-12 md:pb-0 md:min-h-[85vh] relative overflow-hidden">
+          <ContactAnimation />
+          <Container className="relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start lg:items-center lg:min-h-[calc(85vh-128px)]">
+              {/* Left column - Typography focused */}
+              <div className="lg:col-span-5 lg:pr-8">
+                <FadeIn>
+                  <SectionLabel className="mb-6">Let&apos;s Talk</SectionLabel>
+                </FadeIn>
+                <Heading as="h1" size="hero" className="mb-8">
+                  <TextReveal>Start a Conversation</TextReveal>
                 </Heading>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-xl text-foreground-muted"
-                >
-                  Start a conversation about bringing clarity to your AI agenda
-                  and business transformation goals.
-                </Text>
+                <FadeIn delay={0.3}>
+                  <Text
+                    variant="bodyLarge"
+                    mono
+                    className="text-foreground-muted max-w-md"
+                  >
+                    No pitch deck. No sales process. Just a direct conversation
+                    about what AI could mean for your business.
+                  </Text>
+                </FadeIn>
+
+                {/* Contact info cards - stacked vertically on mobile, visible on desktop */}
+                <div className="mt-12 space-y-6 hidden lg:block">
+                  <ContactInfoCardAnimated
+                    label="Email"
+                    value="office@foremost.ai"
+                    href="mailto:office@foremost.ai"
+                    index={0}
+                  />
+                  <ContactInfoCardAnimated
+                    label="LinkedIn"
+                    value="Foremost.ai"
+                    href="https://linkedin.com/company/foremost-ai"
+                    external
+                    index={1}
+                  />
+                </div>
+
+                {/* Response time indicator */}
+                <FadeIn delay={0.5}>
+                  <div className="mt-12 hidden lg:flex items-center gap-3">
+                    <PulsingDot />
+                    <span className="font-mono text-sm text-foreground-muted">
+                      Typically respond within 24 hours
+                    </span>
+                  </div>
+                </FadeIn>
               </div>
-            </FadeIn>
+
+              {/* Right column - Form in elevated card */}
+              <div className="lg:col-span-7">
+                <FadeIn delay={0.2}>
+                  <div className="relative">
+                    {/* Decorative corner accents with animation */}
+                    <DecorativeCorners />
+
+                    <div className="bg-background-card rounded-xl p-8 md:p-10 lg:p-12 border border-border shadow-lg relative overflow-hidden">
+                      {/* Subtle gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent-orange/[0.02] pointer-events-none" />
+
+                      <div className="relative">
+                        <div className="flex items-center justify-between mb-8">
+                          <Heading as="h2" size="card">
+                            Send a Message
+                          </Heading>
+                          <span className="font-mono text-xs text-foreground-subtle tracking-wide uppercase hidden sm:block">
+                            Direct Line
+                          </span>
+                        </div>
+
+                        <Suspense
+                          fallback={
+                            <div className="space-y-6">
+                              {[...Array(4)].map((_, i) => (
+                                <div key={i} className="space-y-2">
+                                  <div className="h-4 w-20 bg-surface-subtle rounded animate-pulse" />
+                                  <div className="h-12 bg-surface-subtle rounded-lg animate-pulse" />
+                                </div>
+                              ))}
+                              <div className="h-12 bg-surface-subtle rounded-lg animate-pulse mt-4" />
+                            </div>
+                          }
+                        >
+                          <ContactForm />
+                        </Suspense>
+                      </div>
+                    </div>
+                  </div>
+                </FadeIn>
+              </div>
+            </div>
           </Container>
         </Section>
 
-        {/* Contact Form Section */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+        {/* Mobile-only contact info section */}
+        <Section className="py-12 lg:hidden" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              {/* Form */}
-              <FadeIn>
-                <div className="max-w-md">
-                  <SectionLabel className="mb-4">Start a Conversation</SectionLabel>
-                  <Heading as="h2" size="card" className="mb-8">
-                    Send Us a Message
-                  </Heading>
-                  <Suspense fallback={<div className="h-96 animate-pulse bg-background-card rounded-lg" />}>
-                    <ContactForm />
-                  </Suspense>
-                </div>
-              </FadeIn>
-
-              {/* Contact Info */}
-              <FadeIn delay={0.2}>
-                <div>
-                  <SectionLabel className="mb-4">Contact Details</SectionLabel>
-                  <Heading as="h2" size="card" className="mb-8">
-                    Get in Touch Directly
-                  </Heading>
-
-                  <div className="space-y-8">
-                    <div>
-                      <Text className="font-mono text-sm text-foreground-muted mb-2">
-                        Email
-                      </Text>
-                      <a
-                        href="mailto:office@foremost.ai"
-                        className="text-lg text-foreground hover:text-foreground-secondary transition-colors"
-                      >
-                        office@foremost.ai
-                      </a>
-                    </div>
-
-                    <div>
-                      <Text className="font-mono text-sm text-foreground-muted mb-2">
-                        LinkedIn
-                      </Text>
-                      <a
-                        href="https://linkedin.com/company/foremost-ai"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-lg text-foreground hover:text-foreground-secondary transition-colors"
-                      >
-                        Foremost.ai
-                      </a>
-                    </div>
-
-                    <div className="pt-8 border-t border-border">
-                      <Text variant="muted" className="text-lg leading-relaxed">
-                        Prefer to schedule a call directly? We&apos;re happy to arrange
-                        a conversation at a time that works for you. Just drop us
-                        a note and we&apos;ll get back to you promptly.
-                      </Text>
-                    </div>
-                  </div>
+            <div className="space-y-6">
+              <ContactInfoCardAnimated
+                label="Email"
+                value="office@foremost.ai"
+                href="mailto:office@foremost.ai"
+                index={0}
+              />
+              <ContactInfoCardAnimated
+                label="LinkedIn"
+                value="Foremost.ai"
+                href="https://linkedin.com/company/foremost-ai"
+                external
+                index={1}
+              />
+              <FadeIn delay={0.3}>
+                <div className="flex items-center gap-3 pt-4">
+                  <PulsingDot />
+                  <span className="font-mono text-sm text-foreground-muted">
+                    Typically respond within 24 hours
+                  </span>
                 </div>
               </FadeIn>
             </div>
+          </Container>
+        </Section>
+
+        {/* Bottom quote section */}
+        <Section className="py-20" pattern="grid-subtle" blend="border">
+          <Container>
+            <FadeIn>
+              <div className="max-w-3xl mx-auto text-center">
+                <blockquote>
+                  <Text className="text-2xl md:text-[28px] leading-relaxed text-foreground">
+                    <TextReveal>
+                      &ldquo;The best conversations start with curiosity, not a pitch.&rdquo;
+                    </TextReveal>
+                  </Text>
+                </blockquote>
+                <FadeIn delay={0.4}>
+                  <Text variant="muted" className="mt-6 font-mono text-sm">
+                    We&apos;re here to listen first, advise second.
+                  </Text>
+                </FadeIn>
+              </div>
+            </FadeIn>
           </Container>
         </Section>
       </main>
@@ -134,3 +196,4 @@ export default function ContactPage() {
     </>
   );
 }
+

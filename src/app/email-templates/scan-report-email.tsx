@@ -22,19 +22,27 @@ interface ScanReportEmailProps {
 }
 
 export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps) {
-  // Pre-header text for inbox preview (under 90 chars)
   const preheaderText = `${result.opportunities.length} AI opportunities identified for ${result.businessName}`;
 
-  // Design system aligned with Foremost (Factory.ai inspired)
+  // Factory.ai Design System
   const colors = {
-    background: "#eeeeee", // Warm light gray
-    backgroundCard: "#fafafa", // Off-white
-    foreground: "#020202", // Almost black
-    accent: "#ee6018", // Orange accent
-    accentLight: "#fef3ee", // Light orange tint
-    muted: "#f5f5f5", // Warm gray
-    mutedForeground: "#666260",
-    border: "#b8b3b0", // Warm border
+    background: "#eeeeee",
+    backgroundCard: "#fafafa",
+    foreground: "#020202",
+    accent: "#ee6018",
+    accentLight: "#ef6f2e",
+    accentBorder: "#d15010",
+    mutedForeground: "#5c5855",
+    subtleForeground: "#8a8380",
+    border: "#b8b3b0",
+    darkBg: "#1f1d1c",
+    lightOnDark: "#eeeeee",
+    mutedOnDark: "#ccc9c7",
+  };
+
+  const fonts = {
+    sans: "Geist, 'Geist Fallback', ui-sans-serif, system-ui, sans-serif",
+    mono: "'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace",
   };
 
   const complexityLabels = ["Trivial", "Low", "Medium", "High", "Complex"];
@@ -43,8 +51,10 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
     <Html>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light only" />
+        <meta name="supported-color-schemes" content="light only" />
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+          :root { color-scheme: light only; }
           @media only screen and (max-width: 600px) {
             .container { padding: 32px 16px !important; }
             h1 { font-size: 26px !important; }
@@ -55,7 +65,7 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
       <Preview>{preheaderText}</Preview>
       <Body
         style={{
-          fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+          fontFamily: fonts.sans,
           margin: 0,
           padding: 0,
           backgroundColor: colors.background,
@@ -77,24 +87,25 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
           <Section style={{ marginBottom: "48px" }}>
             <Text
               style={{
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.2em",
+                fontFamily: fonts.mono,
+                fontSize: "12px",
+                fontWeight: 400,
+                letterSpacing: "-0.24px",
                 textTransform: "uppercase",
-                color: colors.accent,
+                color: colors.foreground,
                 margin: "0 0 24px 0",
               }}
             >
-              AI Opportunity Report
+              <span style={{ color: colors.accent }}>●</span> AI Opportunity Report
             </Text>
 
             <Heading
               as="h1"
               style={{
-                fontSize: "32px",
+                fontSize: "48px",
                 fontWeight: 400,
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
+                letterSpacing: "-1.44px",
+                lineHeight: "48px",
                 color: colors.foreground,
                 margin: 0,
               }}
@@ -104,10 +115,12 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
 
             <Text
               style={{
-                fontSize: "13px",
+                fontFamily: fonts.mono,
+                fontSize: "14px",
+                fontWeight: 400,
+                letterSpacing: "-0.28px",
                 color: colors.mutedForeground,
-                margin: "12px 0 0 0",
-                letterSpacing: "-0.01em",
+                margin: "16px 0 0 0",
               }}
             >
               {result.industry} · {result.pagesAnalysed} pages analysed
@@ -118,8 +131,9 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
           <Section style={{ marginBottom: "40px" }}>
             <Text
               style={{
-                fontSize: "14px",
-                lineHeight: 1.7,
+                fontSize: "16px",
+                fontWeight: 400,
+                lineHeight: "24px",
                 color: colors.foreground,
                 margin: 0,
               }}
@@ -128,14 +142,17 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
             </Text>
             <Text
               style={{
-                fontSize: "14px",
-                lineHeight: 1.7,
-                color: colors.foreground,
+                fontFamily: fonts.mono,
+                fontSize: "18px",
+                fontWeight: 400,
+                lineHeight: "21.6px",
+                letterSpacing: "-0.36px",
+                color: colors.mutedForeground,
                 margin: "16px 0 0 0",
               }}
             >
               We&apos;ve completed our analysis and identified{" "}
-              <span style={{ color: colors.accent, fontWeight: 500 }}>
+              <span style={{ color: colors.accentLight }}>
                 {result.opportunities.length} high-impact opportunities
               </span>{" "}
               for AI integration in your business.
@@ -143,21 +160,22 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
           </Section>
 
           {/* Divider */}
-          <Hr style={{ borderColor: colors.border, borderWidth: "1px", margin: "0 0 40px 0" }} />
+          <Hr style={{ border: "none", borderTop: `1px solid ${colors.border}`, margin: "0 0 40px 0" }} />
 
           {/* Summary */}
           <Section style={{ marginBottom: "48px" }}>
             <Text
               style={{
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.2em",
+                fontFamily: fonts.mono,
+                fontSize: "12px",
+                fontWeight: 400,
+                letterSpacing: "-0.24px",
                 textTransform: "uppercase",
-                color: colors.mutedForeground,
+                color: colors.foreground,
                 margin: "0 0 16px 0",
               }}
             >
-              Executive Summary
+              <span style={{ color: colors.accent }}>●</span> 01 — Executive Summary
             </Text>
 
             <Section
@@ -168,11 +186,13 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
             >
               <Text
                 style={{
-                  fontSize: "15px",
-                  lineHeight: 1.8,
+                  fontFamily: fonts.mono,
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  lineHeight: "25.6px",
+                  letterSpacing: "-0.32px",
                   color: colors.foreground,
                   margin: 0,
-                  fontWeight: 400,
                 }}
               >
                 {result.summary}
@@ -184,15 +204,16 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
           <Section style={{ marginBottom: "48px" }}>
             <Text
               style={{
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.2em",
+                fontFamily: fonts.mono,
+                fontSize: "12px",
+                fontWeight: 400,
+                letterSpacing: "-0.24px",
                 textTransform: "uppercase",
-                color: colors.mutedForeground,
+                color: colors.foreground,
                 margin: "0 0 24px 0",
               }}
             >
-              Identified Opportunities
+              <span style={{ color: colors.accent }}>●</span> 02 — Identified Opportunities
             </Text>
 
             {result.opportunities.map((opp, index) => (
@@ -200,9 +221,10 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                 key={opp.id}
                 style={{
                   backgroundColor: colors.backgroundCard,
+                  border: `1px solid ${colors.border}`,
                   padding: "24px",
                   marginBottom: "16px",
-                  borderRadius: "8px",
+                  borderRadius: "6px",
                 }}
               >
                 {/* Category & Number */}
@@ -210,9 +232,10 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                   <Column>
                     <Text
                       style={{
-                        fontSize: "10px",
-                        fontWeight: 500,
-                        letterSpacing: "0.15em",
+                        fontFamily: fonts.mono,
+                        fontSize: "12px",
+                        fontWeight: 400,
+                        letterSpacing: "-0.24px",
                         textTransform: "uppercase",
                         color: colors.accent,
                         margin: 0,
@@ -225,7 +248,7 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                     <Text
                       style={{
                         fontSize: "48px",
-                        fontWeight: 300,
+                        fontWeight: 400,
                         color: colors.border,
                         margin: 0,
                         lineHeight: 1,
@@ -240,12 +263,12 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                 <Heading
                   as="h3"
                   style={{
-                    fontSize: "18px",
-                    fontWeight: 500,
-                    letterSpacing: "-0.02em",
+                    fontSize: "24px",
+                    fontWeight: 400,
+                    letterSpacing: "0",
+                    lineHeight: "24px",
                     color: colors.foreground,
                     margin: "16px 0 8px 0",
-                    lineHeight: 1.3,
                   }}
                 >
                   {opp.title}
@@ -254,8 +277,11 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                 {/* Description */}
                 <Text
                   style={{
-                    fontSize: "13px",
-                    lineHeight: 1.7,
+                    fontFamily: fonts.mono,
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    letterSpacing: "-0.28px",
                     color: colors.mutedForeground,
                     margin: "0 0 20px 0",
                   }}
@@ -268,10 +294,12 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                   <Column style={{ width: "50%" }}>
                     <Text
                       style={{
-                        fontSize: "10px",
-                        letterSpacing: "0.1em",
+                        fontFamily: fonts.mono,
+                        fontSize: "12px",
+                        fontWeight: 400,
+                        letterSpacing: "-0.24px",
                         textTransform: "uppercase",
-                        color: colors.mutedForeground,
+                        color: colors.subtleForeground,
                         margin: "0 0 4px 0",
                       }}
                     >
@@ -280,7 +308,7 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                     <Text
                       style={{
                         fontSize: "14px",
-                        fontWeight: 500,
+                        fontWeight: 400,
                         color: colors.accent,
                         margin: 0,
                       }}
@@ -292,10 +320,12 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                   <Column style={{ width: "50%" }}>
                     <Text
                       style={{
-                        fontSize: "10px",
-                        letterSpacing: "0.1em",
+                        fontFamily: fonts.mono,
+                        fontSize: "12px",
+                        fontWeight: 400,
+                        letterSpacing: "-0.24px",
                         textTransform: "uppercase",
-                        color: colors.mutedForeground,
+                        color: colors.subtleForeground,
                         margin: "0 0 4px 0",
                       }}
                     >
@@ -303,7 +333,8 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                     </Text>
                     <Text
                       style={{
-                        fontSize: "13px",
+                        fontSize: "14px",
+                        fontWeight: 400,
                         color: colors.foreground,
                         margin: 0,
                       }}
@@ -318,10 +349,12 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                   <Section style={{ marginTop: "20px", paddingTop: "16px", borderTop: `1px solid ${colors.border}` }}>
                     <Text
                       style={{
-                        fontSize: "10px",
-                        letterSpacing: "0.1em",
+                        fontFamily: fonts.mono,
+                        fontSize: "12px",
+                        fontWeight: 400,
+                        letterSpacing: "-0.24px",
                         textTransform: "uppercase",
-                        color: colors.mutedForeground,
+                        color: colors.subtleForeground,
                         margin: "0 0 8px 0",
                       }}
                     >
@@ -331,8 +364,9 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
                       <Text
                         key={i}
                         style={{
-                          fontSize: "12px",
-                          lineHeight: 1.6,
+                          fontSize: "14px",
+                          fontWeight: 400,
+                          lineHeight: "22.4px",
                           color: colors.foreground,
                           margin: "0 0 4px 0",
                           paddingLeft: "12px",
@@ -347,22 +381,23 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
             ))}
           </Section>
 
-          {/* CTA */}
+          {/* CTA - Dark Section */}
           <Section
             style={{
-              backgroundColor: colors.foreground,
-              padding: "40px 32px",
+              backgroundColor: colors.darkBg,
+              padding: "48px 32px",
               textAlign: "center",
-              borderRadius: "8px",
+              borderRadius: "16px",
             }}
           >
             <Heading
               as="h3"
               style={{
-                fontSize: "20px",
+                fontSize: "24px",
                 fontWeight: 400,
-                letterSpacing: "-0.02em",
-                color: colors.background,
+                letterSpacing: "0",
+                lineHeight: "24px",
+                color: colors.lightOnDark,
                 margin: "0 0 12px 0",
               }}
             >
@@ -370,9 +405,12 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
             </Heading>
             <Text
               style={{
-                fontSize: "13px",
-                lineHeight: 1.7,
-                color: "rgba(238,238,238,0.7)",
+                fontFamily: fonts.mono,
+                fontSize: "14px",
+                fontWeight: 400,
+                lineHeight: "21px",
+                letterSpacing: "-0.28px",
+                color: colors.mutedOnDark,
                 margin: "0 0 28px 0",
               }}
             >
@@ -382,16 +420,15 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
               href="https://foremost.ai/contact"
               className="cta-button"
               style={{
-                backgroundColor: colors.accent,
-                color: "#ffffff",
-                padding: "16px 40px",
+                backgroundColor: colors.background,
+                color: colors.foreground,
+                border: `1px solid ${colors.border}`,
+                padding: "12px 24px",
                 fontSize: "16px",
-                fontWeight: 500,
+                fontWeight: 400,
                 textDecoration: "none",
                 display: "inline-block",
-                letterSpacing: "0.02em",
-                borderRadius: "6px",
-                minHeight: "44px",
+                borderRadius: "4px",
               }}
             >
               Discuss with an Advisor →
@@ -400,13 +437,15 @@ export function ScanReportEmail({ result, recipientName }: ScanReportEmailProps)
 
           {/* Footer */}
           <Section style={{ marginTop: "48px" }}>
-            <Hr style={{ borderColor: colors.border, margin: "0 0 24px 0" }} />
+            <Hr style={{ border: "none", borderTop: `1px solid ${colors.border}`, margin: "0 0 24px 0" }} />
             <Text
               style={{
-                fontSize: "11px",
-                color: colors.mutedForeground,
+                fontFamily: fonts.mono,
+                fontSize: "12px",
+                fontWeight: 400,
+                letterSpacing: "-0.24px",
+                color: colors.subtleForeground,
                 margin: 0,
-                letterSpacing: "0.02em",
               }}
             >
               Generated by{" "}

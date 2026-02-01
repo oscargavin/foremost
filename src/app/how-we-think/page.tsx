@@ -10,6 +10,7 @@ import {
   CTACard,
   TiltCard,
   Highlight,
+  HowWeThinkAnimation,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -95,9 +96,10 @@ export default function HowWeThinkPage() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <div className="max-w-4xl">
+        <Section className="pt-32 pb-20 relative overflow-hidden">
+          <HowWeThinkAnimation />
+          <Container className="relative z-10">
+            <div className="max-w-2xl">
               <Heading as="h1" size="hero" className="mb-6">
                 <TextReveal>Our AI Strategy Philosophy</TextReveal>
               </Heading>
@@ -105,7 +107,7 @@ export default function HowWeThinkPage() {
                 <Text
                   variant="bodyLarge"
                   mono
-                  className="max-w-2xl text-foreground-muted"
+                  className="max-w-md text-foreground-muted"
                 >
                   Four beliefs that shape how we work. They're unfashionable in
                   an industry that loves hype, but they're why our advice works.
@@ -120,7 +122,7 @@ export default function HowWeThinkPage() {
           <Section
             key={pillar.id}
             id={pillar.id}
-            className="py-20"
+            className={index === 0 ? "py-28" : "py-20"}
             variant={index % 2 === 0 ? "card" : "default"}
             pattern={index % 2 === 0 ? "grid-subtle" : "none"}
             blend={index % 2 === 0 ? "elevated" : "border"}

@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { after } from 'next/server';
 import { Resend } from 'resend';
 import { QuestionnaireSummaryEmail } from '@/app/email-templates/questionnaire-summary-email';
 import crypto from 'crypto';
@@ -12,7 +13,8 @@ function getResend(): Resend {
   return resend;
 }
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'office@foremost.ai';
-const REPLY_TO_EMAIL = process.env.REPLY_TO_EMAIL || 'hello@foremost.ai';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@foremost.ai';
+const REPLY_TO_EMAIL = process.env.REPLY_TO_EMAIL || FROM_EMAIL;
 
 // Retry configuration
 const MAX_RETRIES = 3;
@@ -119,35 +121,38 @@ ${chatHistory}
     const hourWindow = Math.floor(Date.now() / (1000 * 60 * 60));
     const idempotencyKey = `chat-summary-${contentHash}-${hourWindow}`;
 
-    // Send the email with retry logic
-    const { error } = await sendWithRetry(
-      getResend(),
-      {
-        from: 'Foremost Chat <hello@foremost.ai>',
-        replyTo: REPLY_TO_EMAIL,
-        to: CONTACT_EMAIL,
-        subject: `New Chat Inquiry - ${orchestratorMode === 'services' ? selectedService : 'General Quote'}`,
-        react: QuestionnaireSummaryEmail({ summary: emailContent }),
-      },
-      idempotencyKey
-    );
+    // Use after() to send email after response is returned (non-blocking)
+    after(async () => {
+      try {
+        const { error } = await sendWithRetry(
+          getResend(),
+          {
+            from: `Foremost Chat <${FROM_EMAIL}>`,
+            replyTo: REPLY_TO_EMAIL,
+            to: CONTACT_EMAIL,
+            subject: `New Chat Inquiry - ${orchestratorMode === 'services' ? selectedService : 'General Quote'}`,
+            react: QuestionnaireSummaryEmail({ summary: emailContent }),
+          },
+          idempotencyKey
+        );
 
-    if (error) {
-      console.error('Error sending summary email:', error);
-      return new Response(
-        JSON.stringify({ error: 'Failed to send summary email' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
+        if (error) {
+          console.error('Error sending summary email:', error);
+        }
+      } catch (error) {
+        console.error('Error in after() email sending:', error);
+      }
+    });
 
+    // Respond immediately - email is sent in the background
     return new Response(
-      JSON.stringify({ success: true, message: 'Summary email sent successfully' }),
+      JSON.stringify({ success: true, message: 'Summary email queued for delivery' }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('Error sending summary email:', error);
+    console.error('Error processing summary request:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Failed to send summary email' }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'Failed to process request' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

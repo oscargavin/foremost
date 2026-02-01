@@ -11,7 +11,7 @@ import {
 const anthropic = new Anthropic();
 
 // Helper to extract JSON from Claude's response
-function extractJSON<T>(text: string): T | null {
+export function extractJSON<T>(text: string): T | null {
   try {
     // Try to find JSON in the response
     const jsonMatch = text.match(/```json\n?([\s\S]*?)\n?```/) ||

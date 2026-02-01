@@ -1,9 +1,11 @@
 "use client";
 
+import { useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { m } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Text } from "./text";
+import { createPrefetchHandler } from "@/lib/preload";
 
 const INDUSTRIES = [
   { label: "Financial Services", slug: "financial-services" },
@@ -19,9 +21,23 @@ type Industry = (typeof INDUSTRIES)[number];
 export function IndustryFinder() {
   const router = useRouter();
 
-  const handleChipClick = (industry: Industry) => {
-    router.push(`/industries/${industry.slug}`);
-  };
+  // Create prefetch handler with memoization
+  const prefetch = useMemo(() => createPrefetchHandler(router), [router]);
+
+  const handleChipClick = useCallback(
+    (industry: Industry) => {
+      router.push(`/industries/${industry.slug}`);
+    },
+    [router]
+  );
+
+  const handleMouseEnter = useCallback(
+    (industry: Industry) => {
+      // Prefetch on hover for faster navigation
+      prefetch(`/industries/${industry.slug}`);
+    },
+    [prefetch]
+  );
 
   return (
     <div className="w-full max-w-2xl">
@@ -33,6 +49,8 @@ export function IndustryFinder() {
           <m.button
             key={industry.slug}
             onClick={() => handleChipClick(industry)}
+            onMouseEnter={() => handleMouseEnter(industry)}
+            onFocus={() => handleMouseEnter(industry)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={cn(

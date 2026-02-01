@@ -11,6 +11,7 @@ import {
   CTACard,
   TiltCard,
   Highlight,
+  WhoWeAreAnimation,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs, founderSchema } from "@/components/seo";
@@ -94,9 +95,10 @@ export default function WhoWeArePage() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <div className="max-w-4xl">
+        <Section className="pt-32 pb-20 relative overflow-hidden">
+          <WhoWeAreAnimation />
+          <Container className="relative z-10">
+            <div className="max-w-2xl">
               <Heading as="h1" size="hero" className="mb-6">
                 <TextReveal>
                   About Foremost: AI Advisory for Boards and Executives
@@ -106,7 +108,7 @@ export default function WhoWeArePage() {
                 <Text
                   variant="bodyLarge"
                   mono
-                  className="max-w-xl text-foreground-muted"
+                  className="max-w-md text-foreground-muted"
                 >
                   We help boards and executives make sense of AI. Not the hype.
                   The actual business implications.
@@ -117,7 +119,7 @@ export default function WhoWeArePage() {
         </Section>
 
         {/* Story Section */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+        <Section className="py-28" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
             <div className="max-w-3xl">
               <FadeIn>

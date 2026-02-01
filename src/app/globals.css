@@ -290,6 +290,13 @@ h1, h2, h3, h4, h5, h6 {
     );
   }
 
+  /* Diagonal pattern sections get explicit borders */
+  .bg-pattern-grid-subtle,
+  .bg-pattern-diagonal {
+    border-top: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
   /* Dot pattern - minimal, professional */
   .bg-pattern-dots {
     background-image: radial-gradient(color-mix(in srgb, var(--border) 50%, transparent) 1px, transparent 1px);
@@ -372,6 +379,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .group:hover .animate-logo-pulse {
   animation: none;
+}
+
+/* Success checkmark scale-in */
+@keyframes scale-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Safe area utilities for notched devices */

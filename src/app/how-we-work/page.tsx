@@ -11,6 +11,7 @@ import {
   CTACard,
   TiltCard,
   Highlight,
+  HowWeWorkAnimation,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -74,9 +75,10 @@ export default function HowWeWorkPage() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <div className="max-w-4xl">
+        <Section className="pt-32 pb-20 relative overflow-hidden">
+          <HowWeWorkAnimation />
+          <Container className="relative z-10">
+            <div className="max-w-2xl">
               <Heading as="h1" size="hero" className="mb-6">
                 <TextReveal>
                   Our AI Consulting Partnership Model
@@ -86,7 +88,7 @@ export default function HowWeWorkPage() {
                 <Text
                   variant="bodyLarge"
                   mono
-                  className="max-w-xl text-foreground-muted"
+                  className="max-w-md text-foreground-muted"
                 >
                   The goal is to make you better at this, not to make you need
                   us forever.
@@ -97,7 +99,7 @@ export default function HowWeWorkPage() {
         </Section>
 
         {/* Philosophy Section */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+        <Section className="py-28" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
             <div className="max-w-3xl">
               <FadeIn>

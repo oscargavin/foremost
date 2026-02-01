@@ -14,7 +14,8 @@ function getResend(): Resend {
   return resend;
 }
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'office@foremost.ai';
-const REPLY_TO_EMAIL = process.env.REPLY_TO_EMAIL || 'hello@foremost.ai';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@foremost.ai';
+const REPLY_TO_EMAIL = process.env.REPLY_TO_EMAIL || FROM_EMAIL;
 
 // Retry configuration
 const MAX_RETRIES = 3;
@@ -84,7 +85,7 @@ export async function sendScanReport({ result, email, name }: SendScanReportPara
       sendWithRetry(
         emailClient,
         {
-          from: 'Foremost AI <hello@foremost.ai>',
+          from: `Foremost AI <${FROM_EMAIL}>`,
           replyTo: REPLY_TO_EMAIL,
           to: email,
           subject: `Your AI Opportunity Report for ${result.businessName}`,
@@ -97,7 +98,7 @@ export async function sendScanReport({ result, email, name }: SendScanReportPara
       sendWithRetry(
         emailClient,
         {
-          from: 'Foremost Scanner <hello@foremost.ai>',
+          from: `Foremost Scanner <${FROM_EMAIL}>`,
           to: CONTACT_EMAIL,
           subject: `New Scanner Lead: ${result.businessName} (${result.industry})`,
           text: `

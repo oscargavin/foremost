@@ -11,6 +11,7 @@ import {
   CardContent,
   TiltCard,
   Highlight,
+  CareersAnimation,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -80,9 +81,10 @@ export default function CareersPage() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <div className="max-w-4xl">
+        <Section className="relative overflow-hidden pt-32 pb-20">
+          <CareersAnimation />
+          <Container className="relative z-10">
+            <div className="max-w-2xl">
               <Heading as="h1" size="hero" className="mb-6">
                 <TextReveal>AI Consulting Careers at Foremost</TextReveal>
               </Heading>
@@ -90,7 +92,7 @@ export default function CareersPage() {
                 <Text
                   variant="bodyLarge"
                   mono
-                  className="max-w-xl text-foreground-muted"
+                  className="max-w-md text-foreground-muted"
                 >
                   We're looking for people who'd rather give honest advice than
                   impressive presentations.
@@ -101,7 +103,7 @@ export default function CareersPage() {
         </Section>
 
         {/* Introduction */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+        <Section className="py-28" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
             <div className="max-w-3xl">
               <FadeIn>
