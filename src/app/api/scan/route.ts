@@ -2,7 +2,8 @@ import { NextRequest } from "next/server";
 import { scanWebsite } from "@/lib/scanner";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
-export const runtime = "nodejs";
+// Note: runtime config removed for cacheComponents compatibility
+// Next.js 16 uses Node.js runtime by default for API routes
 export const maxDuration = 60;
 
 // Rate limit configuration

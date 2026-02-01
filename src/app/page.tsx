@@ -10,13 +10,13 @@ import {
   Card,
   CardContent,
   CTACard,
-  IndustryFinder,
   LogoCarousel,
-  Testimonials,
   TiltCard,
   HeroAnimation,
   ErrorBoundary,
   ScannerFallback,
+  IndustryFinder,
+  Testimonials,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import {
@@ -25,6 +25,35 @@ import {
   breadcrumbs,
 } from "@/components/seo";
 import { AIScanner } from "@/components/scanner";
+
+// Loading skeletons for Suspense boundaries
+function ScannerSkeleton() {
+  return (
+    <div className="min-h-[420px] flex items-center justify-center">
+      <div className="text-foreground-muted text-sm font-mono">Loading scanner...</div>
+    </div>
+  );
+}
+
+function IndustryFinderSkeleton() {
+  return (
+    <div className="min-h-[200px] flex items-center justify-center">
+      <div className="text-foreground-muted text-sm font-mono">Loading...</div>
+    </div>
+  );
+}
+
+function TestimonialsSkeleton() {
+  return (
+    <Section className="py-20">
+      <Container>
+        <div className="min-h-[300px] flex items-center justify-center">
+          <div className="text-foreground-muted text-sm font-mono">Loading testimonials...</div>
+        </div>
+      </Container>
+    </Section>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Board-Level AI Advisory for Leaders | Foremost",
@@ -247,25 +276,23 @@ export default function Home() {
             </div>
 
             <FadeIn delay={0.2}>
-              <IndustryFinder />
+              <Suspense fallback={<IndustryFinderSkeleton />}>
+                <IndustryFinder />
+              </Suspense>
             </FadeIn>
           </Container>
         </Section>
 
         {/* Testimonials */}
-        <Testimonials />
+        <Suspense fallback={<TestimonialsSkeleton />}>
+          <Testimonials />
+        </Suspense>
 
-        {/* AI Scanner Section */}
+        {/* AI Scanner Section - Streams in via PPR */}
         <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
             <ErrorBoundary fallback={<ScannerFallback />}>
-              <Suspense
-                fallback={
-                  <div className="min-h-[420px] flex items-center justify-center">
-                    <div className="text-foreground-muted text-sm font-mono">Loading scanner...</div>
-                  </div>
-                }
-              >
+              <Suspense fallback={<ScannerSkeleton />}>
                 <AIScanner />
               </Suspense>
             </ErrorBoundary>

@@ -321,7 +321,7 @@ export async function* scanWebsite(
     yield {
       stage: "discovering",
       message: "Discovering your website structure",
-      detail: "Looking for sitemap and key pages...",
+      detail: "Looking for sitemap and key pages…",
       progress: 15,
     };
 
@@ -338,7 +338,7 @@ export async function* scanWebsite(
     yield {
       stage: "fetching",
       message: "Reading your website content",
-      detail: `Extracting content from ${pages.length} pages...`,
+      detail: `Extracting content from ${pages.length} pages…`,
       progress: 40,
     };
 
@@ -355,7 +355,7 @@ export async function* scanWebsite(
     yield {
       stage: "analysing",
       message: "Identifying AI opportunities",
-      detail: "Our AI is analysing your business for potential solutions...",
+      detail: "Our AI is analysing your business for potential solutions…",
       progress: 65,
     };
 
@@ -368,7 +368,7 @@ export async function* scanWebsite(
     yield {
       stage: "analysing",
       message: `Found ${opportunities.length} opportunities`,
-      detail: "Ranking by impact and feasibility...",
+      detail: "Ranking by impact and feasibility…",
       progress: 80,
     };
 
@@ -376,7 +376,7 @@ export async function* scanWebsite(
     yield {
       stage: "generating",
       message: "Generating your personalised insights",
-      detail: "Creating actionable recommendations...",
+      detail: "Creating actionable recommendations…",
       progress: 90,
     };
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "./container";
 import { AnimatedLink } from "@/components/ui";
+import { CopyrightYear } from "./copyright-year";
 
 const exploreLinks = [
   { href: "/who-we-are", label: "Who We Are" },
@@ -103,7 +104,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-16 pt-8 border-t border-border">
           <p className="text-sm text-foreground-muted">
-            © {new Date().getFullYear()} Foremost.ai. All rights reserved.
+            © <CopyrightYear /> Foremost.ai. All rights reserved.
           </p>
         </div>
       </Container>

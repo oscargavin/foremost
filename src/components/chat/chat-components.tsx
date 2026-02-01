@@ -249,9 +249,9 @@ export function ChatInput() {
   const { state, actions, meta } = useChatContext();
 
   const getPlaceholder = () => {
-    if (meta.showQuickActions) return "Or type your question...";
-    if (meta.showServiceSelector) return "Select a service above...";
-    return "Type your response...";
+    if (meta.showQuickActions) return "Or type your question…";
+    if (meta.showServiceSelector) return "Select a service above…";
+    return "Type your response…";
   };
 
   return (

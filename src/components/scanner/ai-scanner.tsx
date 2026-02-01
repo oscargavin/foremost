@@ -316,7 +316,7 @@ function EmailCapture({
                   "w-full px-3 py-2.5 rounded-md",
                   "bg-background border border-border",
                   "text-sm text-foreground placeholder:text-foreground-subtle",
-                  "focus:outline-none focus:ring-2 focus:ring-accent-orange/20 focus:border-accent-orange/40",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange/20 focus-visible:border-accent-orange/40",
                   "transition-colors"
                 )}
               />
@@ -342,7 +342,7 @@ function EmailCapture({
                   "bg-background border",
                   error ? "border-red-500/50" : "border-border",
                   "text-sm text-foreground placeholder:text-foreground-subtle",
-                  "focus:outline-none focus:ring-2 focus:ring-accent-orange/20 focus:border-accent-orange/40",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange/20 focus-visible:border-accent-orange/40",
                   "transition-colors"
                 )}
               />
@@ -653,9 +653,10 @@ export function AIScanner() {
                       autoComplete="url"
                       spellCheck={false}
                       className={cn(
-                        "flex-1 bg-transparent border-none outline-none min-w-0",
+                        "flex-1 bg-transparent border-none min-w-0",
                         "text-base text-foreground",
-                        "placeholder:text-foreground-subtle"
+                        "placeholder:text-foreground-subtle",
+                        "focus:outline-none"
                       )}
                     />
                   </div>
@@ -704,7 +705,7 @@ export function AIScanner() {
             />
 
             <p className="mt-6 text-lg text-foreground">
-              {state.view === "scanning" ? state.progress.message : "Initialising..."}
+              {state.view === "scanning" ? state.progress.message : "Initialising…"}
             </p>
 
             {state.view === "scanning" && state.progress.detail && (

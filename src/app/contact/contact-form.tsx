@@ -181,10 +181,12 @@ export function ContactForm() {
                   id="name"
                   type="text"
                   placeholder="Your name"
+                  autoComplete="name"
+                  spellCheck={false}
                   aria-required="true"
                   aria-invalid={errors.name ? "true" : undefined}
                   aria-describedby={errors.name ? "name-error" : undefined}
-                  className={`transition-all duration-200 ${
+                  className={`transition-colors duration-200 ${
                     focusedField === "name" ? "border-accent-orange ring-2 ring-accent-orange/10" : ""
                   } ${errors.name ? "border-destructive" : ""}`}
                   {...register("name")}
@@ -218,10 +220,12 @@ export function ContactForm() {
                   id="email"
                   type="email"
                   placeholder="you@company.com"
+                  autoComplete="email"
+                  spellCheck={false}
                   aria-required="true"
                   aria-invalid={errors.email ? "true" : undefined}
                   aria-describedby={errors.email ? "email-error" : undefined}
-                  className={`transition-all duration-200 ${
+                  className={`transition-colors duration-200 ${
                     focusedField === "email" ? "border-accent-orange ring-2 ring-accent-orange/10" : ""
                   } ${errors.email ? "border-destructive" : ""}`}
                   {...register("email")}
@@ -255,7 +259,8 @@ export function ContactForm() {
                 id="company"
                 type="text"
                 placeholder="Your company"
-                className={`transition-all duration-200 ${
+                autoComplete="organization"
+                className={`transition-colors duration-200 ${
                   focusedField === "company" ? "border-accent-orange ring-2 ring-accent-orange/10" : ""
                 }`}
                 {...register("company")}
@@ -273,8 +278,8 @@ export function ContactForm() {
               </Label>
               <Textarea
                 id="message"
-                placeholder="Tell us about your AI challenges and what you'd like to discuss..."
-                className={`min-h-[140px] resize-none transition-all duration-200 ${
+                placeholder="Tell us about your AI challenges and what you'd like to discuss…"
+                className={`min-h-[140px] resize-none transition-colors duration-200 ${
                   focusedField === "message" ? "border-accent-orange ring-2 ring-accent-orange/10" : ""
                 } ${errors.message ? "border-destructive" : ""}`}
                 aria-required="true"

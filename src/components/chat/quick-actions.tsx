@@ -43,7 +43,7 @@ export function QuickActions({ onSelect }: QuickActionsProps) {
             <button
               key={action.id}
               onClick={() => onSelect(action.id as OrchestratorMode | 'contact')}
-              className="group flex flex-col items-center justify-center p-3 sm:p-4 min-h-[90px] sm:min-h-[100px] border border-border rounded-lg bg-background-card hover:border-accent-orange hover:bg-accent-orange/5 active:bg-accent-orange/10 transition-all duration-200 animate-in fade-in slide-in-from-bottom-2"
+              className="group flex flex-col items-center justify-center p-3 sm:p-4 min-h-[90px] sm:min-h-[100px] border border-border rounded-lg bg-background-card hover:border-accent-orange hover:bg-accent-orange/5 active:bg-accent-orange/10 transition-[border-color,background-color] duration-200 animate-in fade-in slide-in-from-bottom-2"
               style={{
                 animationDelay: `${150 + index * 75}ms`,
                 animationFillMode: 'backwards',

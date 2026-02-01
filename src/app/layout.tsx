@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion";
 import { SkipLink, ScrollProgress, ErrorBoundary, ChatFallback } from "@/components/ui";
@@ -39,6 +40,9 @@ export const metadata: Metadata = {
     "board-level AI",
   ],
   authors: [{ name: "Foremost.ai" }],
+  other: {
+    "theme-color": "#eeeeee",
+  },
   openGraph: {
     type: "website",
     locale: "en_GB",
@@ -87,7 +91,9 @@ export default function RootLayout({
           <ScrollProgress />
           {children}
           <ErrorBoundary fallback={<ChatFallback />}>
-            <ClaudeChat />
+            <Suspense fallback={null}>
+              <ClaudeChat />
+            </Suspense>
           </ErrorBoundary>
         </MotionProvider>
       </body>

@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Enable Cache Components for Partial Prerendering (PPR)
+  // Allows mixing static, cached, and dynamic content in a single route
+  cacheComponents: true,
+
   async headers() {
     return [
       {

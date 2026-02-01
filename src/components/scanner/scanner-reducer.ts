@@ -42,7 +42,7 @@ export function scannerReducer(
           url: state.url,
           progress: {
             stage: "initialising",
-            message: "Initialising...",
+            message: "Initialising…",
             progress: 0,
           },
         };

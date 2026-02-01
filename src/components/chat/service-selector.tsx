@@ -59,7 +59,7 @@ export function ServiceSelector({ onSelect, onBack }: ServiceSelectorProps) {
             <button
               key={service.slug}
               onClick={() => onSelect(service.slug)}
-              className="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 border border-border rounded-lg bg-background-card hover:border-accent-orange hover:bg-accent-orange/5 active:bg-accent-orange/10 transition-all duration-200 text-left animate-in fade-in slide-in-from-bottom-2"
+              className="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 border border-border rounded-lg bg-background-card hover:border-accent-orange hover:bg-accent-orange/5 active:bg-accent-orange/10 transition-[border-color,background-color] duration-200 text-left animate-in fade-in slide-in-from-bottom-2"
               style={{
                 animationDelay: `${150 + index * 50}ms`,
                 animationFillMode: 'backwards',
