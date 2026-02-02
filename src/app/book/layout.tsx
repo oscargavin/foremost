@@ -1,0 +1,9 @@
+import "./book-overrides.css";
+
+export default function BookLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <div className="book-page">{children}</div>;
+}

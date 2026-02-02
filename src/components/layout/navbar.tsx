@@ -385,10 +385,38 @@ export function Navbar() {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button href="/contact" variant="primary">
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              href="/contact"
+              className="text-base text-foreground-secondary hover:text-foreground transition-colors duration-200"
+            >
               Contact
-            </Button>
+            </Link>
+            <m.div whileTap={{ scale: 0.97 }} className="relative group">
+              <Link
+                href="/book"
+                className="relative inline-flex items-center gap-2.5 px-4 py-2 h-9 bg-accent-orange text-white text-base font-normal rounded-[4px] overflow-hidden transition-all duration-200 hover:bg-accent-orange-light hover:shadow-lg hover:shadow-accent-orange/25"
+              >
+                {/* Shimmer effect on hover */}
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <span className="relative">Book a Call</span>
+                {/* Arrow icon */}
+                <svg
+                  className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </m.div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -630,7 +658,7 @@ export function Navbar() {
 
               {/* Footer CTA */}
               <m.div
-                className="mt-10 pt-6 border-t border-border/40"
+                className="mt-10 pt-6 border-t border-border/40 space-y-3"
                 initial={{ opacity: 0, y: 16, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, transition: { duration: 0.1 } }}
@@ -641,14 +669,37 @@ export function Navbar() {
                   delay: 0.5,
                 }}
               >
-                <Button
-                  href="/contact"
-                  variant="primary"
-                  className="w-full justify-center text-base min-h-[52px]"
+                <Link
+                  href="/book"
+                  className="relative group flex items-center justify-center gap-2.5 w-full h-[52px] bg-accent-orange text-white text-base font-normal rounded-[4px] overflow-hidden transition-all duration-200 active:scale-[0.98] hover:bg-accent-orange-light hover:shadow-lg hover:shadow-accent-orange/25"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Get in Touch
-                </Button>
+                  {/* Shimmer effect */}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  <span className="relative">Book a Call</span>
+                  {/* Arrow icon */}
+                  <svg
+                    className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+                <Link
+                  href="/contact"
+                  className="flex items-center justify-center w-full h-[52px] bg-background text-foreground text-base font-normal border border-border-secondary rounded-[4px] transition-colors duration-200 hover:bg-background-card hover:border-foreground-subtle active:scale-[0.98]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact Us
+                </Link>
               </m.div>
             </div>
           </m.div>

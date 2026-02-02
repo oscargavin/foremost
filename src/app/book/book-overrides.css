@@ -1,0 +1,4 @@
+/* Remove footer margin for full-bleed booking page design */
+body:has(.book-page) footer {
+  margin-top: 0;
+}
