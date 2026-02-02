@@ -41,11 +41,11 @@ const getPillVariants = (index: number) => {
       scale: 1,
       rotate: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 260,
         damping: 18,
         mass: 1,
-        opacity: { duration: 0.4, ease: "easeOut" },
+        opacity: { duration: 0.4, ease: "easeOut" as const },
       },
     },
   };
@@ -106,7 +106,7 @@ export function IndustryFinder() {
                     y: -6,
                     rotate: index % 2 === 0 ? 2 : -2,
                     transition: {
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 400,
                       damping: 15,
                     },
