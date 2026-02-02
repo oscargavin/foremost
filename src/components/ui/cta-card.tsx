@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { m, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { FadeIn } from "@/components/motion";
@@ -25,6 +28,8 @@ export function CTACard({
   buttonHref,
   className,
 }: CTACardProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className={cn("py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-9", className)}>
       <FadeIn>
@@ -56,7 +61,23 @@ export function CTACard({
             <div className="relative">
               {/* Top bar */}
               <div className="flex items-center justify-between mb-12 sm:mb-16 md:mb-20">
-                <span className="w-2.5 h-2.5 rounded-full bg-accent-orange flex-shrink-0" />
+                {/* Pulsing orange dot - draws attention */}
+                <m.span
+                  className="w-2.5 h-2.5 rounded-full bg-accent-orange flex-shrink-0"
+                  animate={
+                    prefersReducedMotion
+                      ? {}
+                      : {
+                          scale: [1, 1.3, 1],
+                          opacity: [1, 0.7, 1],
+                        }
+                  }
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
                 {topRightLink && (
                   <span className="font-mono text-xs uppercase tracking-widest text-white/40">
                     {topRightLink.text}

@@ -381,6 +381,42 @@ h1, h2, h3, h4, h5, h6 {
   animation: none;
 }
 
+/* Bubble float animation for sector pills - organic bobbing */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(-0.5deg);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Stagger the float timing for wave effect (applied via style animationDelay) */
+.animate-float:nth-child(odd) {
+  animation-duration: 3.5s;
+}
+
+.animate-float:nth-child(3n) {
+  animation-duration: 4.5s;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float {
+    animation: none;
+  }
+}
+
 /* Success checkmark scale-in */
 @keyframes scale-in {
   from {

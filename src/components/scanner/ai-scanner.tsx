@@ -1,6 +1,7 @@
 "use client";
 
 import { useReducer, useCallback, useEffect, useRef, useId, memo, useState } from "react";
+import { m, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import {
@@ -39,6 +40,8 @@ type IconName = keyof typeof iconMap;
 
 // Minimal progress indicator - Foremost style
 function ScanningProgress({ isActive, progress }: { isActive: boolean; progress: number }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div
       className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto"
@@ -74,19 +77,35 @@ function ScanningProgress({ isActive, progress }: { isActive: boolean; progress:
         />
       </svg>
 
-      {/* Center content */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      {/* Center content - breathing pulse when active */}
+      <m.div
+        className="absolute inset-0 flex items-center justify-center"
+        animate={
+          isActive && !prefersReducedMotion
+            ? {
+                scale: [1, 1.02, 1],
+                opacity: [1, 0.8, 1],
+              }
+            : { scale: 1, opacity: 1 }
+        }
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         <span className="text-4xl sm:text-5xl font-light text-foreground tabular-nums tracking-tight">
           {progress}
         </span>
-      </div>
+      </m.div>
     </div>
   );
 }
 
-// Stage timeline - simple dots
+// Stage timeline - simple dots with active pulse
 function ScanTimeline({ currentStage, stages }: { currentStage: string; stages: string[] }) {
   const stageIndex = stages.indexOf(currentStage);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <nav aria-label="Scan progress stages" className="mt-8 sm:mt-10">
@@ -97,16 +116,33 @@ function ScanTimeline({ currentStage, stages }: { currentStage: string; stages: 
 
           return (
             <li key={stage} className="flex items-center">
-              <div
-                className={cn(
-                  "w-1.5 h-1.5 rounded-full transition-all duration-300",
-                  isComplete && "bg-accent-orange",
-                  isCurrent && "bg-accent-orange scale-150",
-                  !isComplete && !isCurrent && "bg-foreground/10"
-                )}
-                aria-current={isCurrent ? "step" : undefined}
-                aria-label={stage}
-              />
+              {isCurrent && !prefersReducedMotion ? (
+                <m.div
+                  className="w-1.5 h-1.5 rounded-full bg-accent-orange"
+                  animate={{
+                    scale: [1.5, 1.8, 1.5],
+                    opacity: [1, 0.7, 1],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  aria-current="step"
+                  aria-label={stage}
+                />
+              ) : (
+                <div
+                  className={cn(
+                    "w-1.5 h-1.5 rounded-full transition-all duration-300",
+                    isComplete && "bg-accent-orange",
+                    isCurrent && "bg-accent-orange scale-150",
+                    !isComplete && !isCurrent && "bg-foreground/10"
+                  )}
+                  aria-current={isCurrent ? "step" : undefined}
+                  aria-label={stage}
+                />
+              )}
               {i < stages.length - 1 && (
                 <div
                   className={cn(
@@ -593,17 +629,12 @@ export function AIScanner() {
         Fixed-height container for input/scanning views to prevent layout shift.
         Results view is allowed to expand beyond this.
       */}
-      <div
-        className={cn(
-          "relative",
-          // Only apply min-height when not showing results (results can be taller)
-          currentView !== "results" && "min-h-[420px] sm:min-h-[460px]"
-        )}
-      >
+      <div className="relative">
         {/* Input view */}
         <div
           className={cn(
             "transition-all duration-500 ease-out",
+            "min-h-[420px] sm:min-h-[460px] flex flex-col justify-center",
             currentView === "input"
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none absolute inset-0"
@@ -705,6 +736,7 @@ export function AIScanner() {
         <div
           className={cn(
             "transition-all duration-500 ease-out",
+            "min-h-[420px] sm:min-h-[460px] flex flex-col justify-center",
             currentView === "scanning"
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none absolute inset-0"
@@ -740,6 +772,7 @@ export function AIScanner() {
         <div
           className={cn(
             "transition-all duration-500 ease-out",
+            "min-h-[420px] sm:min-h-[460px] flex flex-col justify-center",
             currentView === "error"
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none absolute inset-0"
