@@ -33,9 +33,8 @@ export function useScrollDirection({
 
       const direction = scrollY > lastScrollY.current ? "down" : "up";
 
-      if (direction !== scrollDirection) {
-        setScrollDirection(direction);
-      }
+      // Use functional setState to avoid stale closure
+      setScrollDirection((prev) => (direction !== prev ? direction : prev));
 
       lastScrollY.current = scrollY > 0 ? scrollY : 0;
       ticking.current = false;
@@ -55,7 +54,7 @@ export function useScrollDirection({
     window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", onScroll);
-  }, [scrollDirection, threshold]);
+  }, [threshold]);
 
   return { scrollDirection, isAtTop };
 }

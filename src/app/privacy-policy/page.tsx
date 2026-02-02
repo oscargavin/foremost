@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import { Heading, Text } from "@/components/ui";
 import { FadeIn } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -39,7 +39,6 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <SchemaScript schema={breadcrumbs.privacyPolicy} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
         <Section className="pt-32 pb-12">
@@ -219,7 +218,6 @@ export default function PrivacyPolicyPage() {
           </Container>
         </Section>
       </main>
-      <Footer />
     </>
   );
 }

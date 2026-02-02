@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion";
+import { Navbar, Footer } from "@/components/layout";
 import { SkipLink, ScrollProgress, ErrorBoundary, ChatFallback } from "@/components/ui";
 import {
   SchemaScript,
@@ -40,9 +41,6 @@ export const metadata: Metadata = {
     "board-level AI",
   ],
   authors: [{ name: "Foremost.ai" }],
-  other: {
-    "theme-color": "#eeeeee",
-  },
   openGraph: {
     type: "website",
     locale: "en_GB",
@@ -73,6 +71,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#eeeeee",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -89,7 +93,9 @@ export default function RootLayout({
         <SkipLink />
         <MotionProvider>
           <ScrollProgress />
+          <Navbar />
           {children}
+          <Footer />
           <ErrorBoundary fallback={<ChatFallback />}>
             <Suspense fallback={null}>
               <ClaudeChat />

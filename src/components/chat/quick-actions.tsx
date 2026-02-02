@@ -9,12 +9,14 @@ import {
   Mail,
 } from "lucide-react";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap = {
   ClipboardList,
   Briefcase,
   MessageCircle,
   Mail,
-};
+} as const;
+
+type IconName = keyof typeof iconMap;
 
 interface QuickActionsProps {
   onSelect: (mode: OrchestratorMode | 'contact') => void;
@@ -38,7 +40,7 @@ export function QuickActions({ onSelect }: QuickActionsProps) {
       {/* Quick actions grid */}
       <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">
         {quickActions.map((action, index) => {
-          const Icon = iconMap[action.icon] || MessageCircle;
+          const Icon = iconMap[action.icon as IconName] ?? MessageCircle;
           return (
             <button
               key={action.id}

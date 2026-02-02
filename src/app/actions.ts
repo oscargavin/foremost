@@ -1,6 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
+import { unstable_rethrow } from "next/navigation";
 import crypto from "crypto";
 import { ContactFormEmail } from "./email-templates/contact-form-email";
 import { contactSchema } from "@/lib/schemas/contact";
@@ -99,28 +100,39 @@ export async function submitContactForm(
   const hourWindow = Math.floor(Date.now() / (1000 * 60 * 60));
   const idempotencyKey = `contact-form-${contentHash}-${hourWindow}`;
 
-  const { error } = await sendWithRetry(
-    getResend(),
-    {
-      from: `Foremost Contact <${FROM_EMAIL}>`,
-      to: CONTACT_EMAIL,
-      replyTo: email,
-      subject: `Contact Form: ${name}${company ? ` (${company})` : ""}`,
-      react: ContactFormEmail({ name, email, company, message }),
-    },
-    idempotencyKey
-  );
+  try {
+    const { error } = await sendWithRetry(
+      getResend(),
+      {
+        from: `Foremost Contact <${FROM_EMAIL}>`,
+        to: CONTACT_EMAIL,
+        replyTo: email,
+        subject: `Contact Form: ${name}${company ? ` (${company})` : ""}`,
+        react: ContactFormEmail({ name, email, company, message }),
+      },
+      idempotencyKey
+    );
 
-  if (error) {
-    console.error("Error sending contact email:", error);
+    if (error) {
+      console.error("Error sending contact email:", error);
+      return {
+        success: false,
+        message: "Failed to send your message. Please try again.",
+      };
+    }
+
+    return {
+      success: true,
+      message: "Thank you for reaching out. We'll be in touch within 24 hours.",
+    };
+  } catch (error) {
+    // Re-throw Next.js internal errors (redirect, notFound, etc.)
+    unstable_rethrow(error);
+
+    console.error("Unexpected error in contact form:", error);
     return {
       success: false,
-      message: "Failed to send your message. Please try again.",
+      message: "An unexpected error occurred. Please try again.",
     };
   }
-
-  return {
-    success: true,
-    message: "Thank you for reaching out. We'll be in touch within 24 hours.",
-  };
 }

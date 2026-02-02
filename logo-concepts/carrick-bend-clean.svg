@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!--
+    Foremost.ai - Carrick Bend Logo
+    Clean geometric interpretation
+  -->
+
+  <defs>
+    <style>
+      .stroke {
+        fill: none;
+        stroke: #ee6018;
+        stroke-width: 5.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .bg {
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+
+  <!--
+    Structure: 4 petal loops + central diamond weave
+    Drawing order matters for over/under effect
+  -->
+
+  <!-- LAYER 1: Strand A - goes UNDER at top-right and bottom-left -->
+
+  <!-- Strand A: Full path (draw background first for under-crossings) -->
+  <path class="bg" d="
+    M 15,35
+    Q 5,35 5,50
+    Q 5,65 15,65
+    Q 25,65 35,55
+    Q 42,48 50,50
+    Q 58,52 65,45
+    Q 75,35 85,35
+    Q 95,35 95,50
+    Q 95,65 85,65
+    Q 75,65 65,55
+    Q 58,48 50,50
+    Q 42,52 35,45
+    Q 25,35 15,35
+  "/>
+
+  <path class="stroke" d="
+    M 15,35
+    Q 5,35 5,50
+    Q 5,65 15,65
+    Q 25,65 35,55
+    Q 42,48 50,50
+    Q 58,52 65,45
+    Q 75,35 85,35
+    Q 95,35 95,50
+    Q 95,65 85,65
+    Q 75,65 65,55
+    Q 58,48 50,50
+    Q 42,52 35,45
+    Q 25,35 15,35
+  "/>
+
+  <!-- LAYER 2: Strand B - goes OVER at top-right and bottom-left -->
+
+  <path class="bg" d="
+    M 35,15
+    Q 35,5 50,5
+    Q 65,5 65,15
+    Q 65,25 55,35
+    Q 48,42 50,50
+    Q 52,58 45,65
+    Q 35,75 35,85
+    Q 35,95 50,95
+    Q 65,95 65,85
+    Q 65,75 55,65
+    Q 48,58 50,50
+    Q 52,42 45,35
+    Q 35,25 35,15
+  "/>
+
+  <path class="stroke" d="
+    M 35,15
+    Q 35,5 50,5
+    Q 65,5 65,15
+    Q 65,25 55,35
+    Q 48,42 50,50
+    Q 52,58 45,65
+    Q 35,75 35,85
+    Q 35,95 50,95
+    Q 65,95 65,85
+    Q 65,75 55,65
+    Q 48,58 50,50
+    Q 52,42 45,35
+    Q 35,25 35,15
+  "/>
+
+</svg>

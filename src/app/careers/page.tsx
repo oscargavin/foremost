@@ -1,7 +1,6 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
-  Button,
   Heading,
   Text,
   SectionLabel,
@@ -11,7 +10,7 @@ import {
   CardContent,
   TiltCard,
   Highlight,
-  CareersAnimation,
+  HeroSection,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -51,19 +50,19 @@ const qualities = [
   {
     title: "Clear Communicators",
     description:
-      "People who can explain complex things simply. If you can't make a board understand it, you don't understand it well enough.",
+      "People who explain complex things simply. If you can't make a board understand it, you don't understand it.",
     highlight: "explain complex things simply",
   },
   {
     title: "Active Listeners",
     description:
-      "Advisors who listen more than they talk. The client knows their business. You're there to help them think, not to show off.",
+      "Advisors who listen more than they talk. The client knows their business; you're there to help them think, not show off.",
     highlight: "help them think",
   },
   {
     title: "Results-Focused",
     description:
-      "People who get frustrated by impressive slides that don't change anything. Outcomes matter, not outputs.",
+      "People frustrated by impressive slides that change nothing. Outcomes matter, not outputs.",
     highlight: "Outcomes matter, not outputs",
   },
   {
@@ -78,29 +77,23 @@ export default function CareersPage() {
   return (
     <>
       <SchemaScript schema={breadcrumbs.careers} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="relative overflow-hidden pt-32 pb-20">
-          <CareersAnimation />
-          <Container className="relative z-10">
-            <div className="max-w-2xl">
-              <Heading as="h1" size="hero" className="mb-6">
-                <TextReveal>AI Consulting Careers at Foremost</TextReveal>
-              </Heading>
-              <FadeIn delay={0.4}>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-md text-foreground-muted"
-                >
-                  We're looking for people who'd rather give honest advice than
-                  impressive presentations.
-                </Text>
-              </FadeIn>
-            </div>
-          </Container>
-        </Section>
+        <HeroSection variant="careers">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>AI Consulting Careers at Foremost</TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              We're looking for people who'd rather give honest advice than
+              impressive presentations.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Introduction */}
         <Section className="py-28" variant="card" pattern="grid-subtle" blend="elevated">
@@ -114,10 +107,9 @@ export default function CareersPage() {
               </Heading>
               <FadeIn delay={0.3}>
                 <Text variant="muted" className="text-lg leading-relaxed">
-                  We advise boards and executives on AI. That means understanding
-                  both the technology and the organisational reality. The politics,
-                  the fear, the legitimate concerns that never make it into the
-                  strategy documents. If you're good at{" "}
+                  We advise boards and executives on AI — the technology and
+                  the organisational reality. The politics, the fear, the concerns
+                  that never make it into strategy documents. If you're good at{" "}
                   <Highlight>reading rooms and cutting through noise</Highlight>,
                   we should talk.
                 </Text>
@@ -240,12 +232,11 @@ export default function CareersPage() {
         <CTACard
           label="Join Us"
           topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to join us?"
+          heading="Think you'd fit? Let's talk."
           buttonText="Get in Touch"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

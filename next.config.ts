@@ -5,6 +5,17 @@ const nextConfig: NextConfig = {
   // Allows mixing static, cached, and dynamic content in a single route
   cacheComponents: true,
 
+  // Image optimization configuration
+  images: {
+    minimumCacheTTL: 31536000, // 1 year cache for optimized images
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "foremost.ai",
+      },
+    ],
+  },
+
   async headers() {
     return [
       {
@@ -21,6 +32,18 @@ const nextConfig: NextConfig = {
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' https://api.anthropic.com https://api.resend.com",
+              "frame-ancestors 'none'",
+            ].join("; "),
           },
         ],
       },

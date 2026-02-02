@@ -188,14 +188,6 @@ export function SchemaScript({ schema }: SchemaScriptProps) {
   );
 }
 
-// Pre-combined schemas for the homepage (includes all global schemas)
-export const homepageSchemas = [
-  organizationSchema,
-  professionalServiceSchema,
-  websiteSchema,
-  breadcrumbs.home,
-];
-
 // Person schema for team members
 export const founderSchema = {
   "@context": "https://schema.org",

@@ -21,7 +21,7 @@ export function ContactInfoCardAnimated({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="group flex items-center justify-between p-4 -mx-4 rounded-lg hover:bg-surface-subtle/50 transition-colors cursor-pointer"
+      className="group flex items-center justify-between min-h-14 p-4 mx-0 sm:-mx-4 rounded-lg hover:bg-surface-subtle/50 transition-colors cursor-pointer"
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}

@@ -14,7 +14,7 @@ interface TextProps {
 
 const variantStyles: Record<TextVariant, string> = {
   body: "text-base leading-[1.5] text-foreground",
-  bodyLarge: "text-lg leading-[1.2] tracking-[-0.36px] text-foreground-muted",
+  bodyLarge: "text-base sm:text-lg leading-relaxed sm:leading-[1.2] tracking-[-0.36px] text-foreground-muted",
   muted: "text-base leading-[1.5] text-foreground-muted",
   small: "text-sm text-foreground-muted",
 };

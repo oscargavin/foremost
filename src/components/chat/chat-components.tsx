@@ -254,10 +254,20 @@ export function ChatInput() {
     return "Type your response…";
   };
 
+  const getLabel = () => {
+    if (meta.showQuickActions) return "Type your question";
+    if (meta.showServiceSelector) return "Chat input";
+    return "Type your response";
+  };
+
   return (
     <div className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] border-t border-border bg-background-card">
       <form onSubmit={actions.submitForm} className="flex items-center gap-2">
+        <label htmlFor="chat-input" className="sr-only">
+          {getLabel()}
+        </label>
         <input
+          id="chat-input"
           type="text"
           value={state.input}
           onChange={(e) => actions.setInput(e.target.value)}

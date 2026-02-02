@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Button,
   Heading,
@@ -11,7 +11,7 @@ import {
   CTACard,
   TiltCard,
   Highlight,
-  HowWeWorkAnimation,
+  HeroSection,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -49,21 +49,21 @@ export const metadata: Metadata = {
 
 const approaches = [
   {
-    title: "We Listen First, Then Challenge",
+    title: "Listen First, Then Challenge",
     description:
-      "We spend the first part of any engagement just listening. Then we push back on assumptions. If you wanted validation, you'd have hired a different firm.",
+      "We spend the first part of any engagement listening. Then we push back on assumptions. If you wanted validation, you'd have hired a different firm.",
     highlight: "push back on assumptions",
   },
   {
-    title: "The Strategy Is Yours, Not Ours",
+    title: "Your Strategy, Not Ours",
     description:
-      "We don't arrive with frameworks to sell. You know your business. We help you think through the AI implications clearly enough to make your own decisions.",
-    highlight: "make your own decisions",
+      "We don't arrive with frameworks to sell. You know your business; we help you think through the AI implications clearly enough to decide.",
+    highlight: "clearly enough to decide",
   },
   {
-    title: "Deep Partnerships, Small Client Count",
+    title: "Deep Partnerships, Few Clients",
     description:
-      "We take on fewer clients than we could. This isn't a scaling business. Good advisory work requires attention, and attention is finite.",
+      "We take on fewer clients than we could. We don't scale. Good advisory requires attention, and attention is finite.",
     highlight: "attention is finite",
   },
 ];
@@ -72,31 +72,24 @@ export default function HowWeWorkPage() {
   return (
     <>
       <SchemaScript schema={breadcrumbs.howWeWork} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20 relative overflow-hidden">
-          <HowWeWorkAnimation />
-          <Container className="relative z-10">
-            <div className="max-w-2xl">
-              <Heading as="h1" size="hero" className="mb-6">
-                <TextReveal>
-                  Our AI Consulting Partnership Model
-                </TextReveal>
-              </Heading>
-              <FadeIn delay={0.4}>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-md text-foreground-muted"
-                >
-                  The goal is to make you better at this, not to make you need
-                  us forever.
-                </Text>
-              </FadeIn>
-            </div>
-          </Container>
-        </Section>
+        <HeroSection variant="how-we-work">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>
+              Our AI Consulting Partnership Model
+            </TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              The goal is to make you better at this — not to make you need us forever.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Philosophy Section */}
         <Section className="py-28" variant="card" pattern="grid-subtle" blend="elevated">
@@ -110,8 +103,8 @@ export default function HowWeWorkPage() {
               </Heading>
               <FadeIn delay={0.3}>
                 <Text variant="muted" className="text-lg leading-relaxed">
-                  Most consultancies create dependency. That's their business
-                  model. Ours is the opposite: build your internal capability
+                  Most consultancies create dependency — that's their business
+                  model. Ours is the opposite: build your capability
                   until <Highlight>you don't need us anymore</Highlight>.
                 </Text>
               </FadeIn>
@@ -171,15 +164,14 @@ export default function HowWeWorkPage() {
                 <div className="space-y-8">
                   <Text variant="muted" className="text-lg leading-relaxed">
                     Long engagements aren't a sign of success.{" "}
-                    <Highlight>Your team knowing what to do without calling us</Highlight> is.
+                    <Highlight>Your team knowing what to do without calling us</Highlight> — that's success.
                   </Text>
                   <blockquote className="border-l-2 border-accent-orange pl-6 py-2">
                     <Text
                       as="p"
                       className="text-[24px] leading-[1.4] text-foreground italic"
                     >
-                      When we leave, you should feel more capable. Not more
-                      dependent.
+                      When we leave, you should feel more capable, not more dependent.
                     </Text>
                   </blockquote>
                 </div>
@@ -231,14 +223,14 @@ export default function HowWeWorkPage() {
 
         {/* CTA Card */}
         <CTACard
-          label="Get Started"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to build capability, not dependency?"
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          heading="Waiting has a cost."
+          description="Founding clients work with us directly and pay less than those who come later."
+          buttonText="Talk to Us"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

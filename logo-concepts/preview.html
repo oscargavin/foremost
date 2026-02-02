@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Foremost Logo Concepts - SVG Preview</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    h1 { color: #020202; font-weight: 400; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin: 0 0 20px 0;
+      font-weight: 400;
+      color: #666;
+      font-size: 14px;
+    }
+    .preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+    .preview svg {
+      max-width: 150px;
+      max-height: 150px;
+    }
+    .sizes {
+      display: flex;
+      gap: 20px;
+      align-items: end;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    .sizes .size {
+      text-align: center;
+    }
+    .sizes .size span {
+      display: block;
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+    }
+    .dark {
+      background: #1f1d1c;
+    }
+    .dark h3 {
+      color: #999;
+    }
+    .reference {
+      max-width: 150px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Foremost Logo Concepts</h1>
+
+  <div class="grid">
+    <!-- Reference -->
+    <div class="card">
+      <h3>Reference (AI Generated)</h3>
+      <div class="preview">
+        <img src="carrick-bend-geometric.png" class="reference" alt="Reference">
+      </div>
+    </div>
+
+    <!-- SVG Attempt 1 -->
+    <div class="card">
+      <h3>SVG v1 - Basic</h3>
+      <div class="preview">
+        <object data="carrick-bend-logo.svg" type="image/svg+xml"></object>
+      </div>
+    </div>
+
+    <!-- SVG Attempt 2 -->
+    <div class="card">
+      <h3>SVG v2 - Interlocking</h3>
+      <div class="preview">
+        <object data="carrick-bend-logo-v2.svg" type="image/svg+xml"></object>
+      </div>
+    </div>
+
+    <!-- SVG Attempt 3 -->
+    <div class="card">
+      <h3>SVG v3 - Clean</h3>
+      <div class="preview">
+        <object data="carrick-bend-clean.svg" type="image/svg+xml"></object>
+      </div>
+    </div>
+
+    <!-- Dark mode test -->
+    <div class="card dark">
+      <h3>Dark Background Test</h3>
+      <div class="preview">
+        <img src="carrick-bend-geometric.png" class="reference" alt="Reference on dark">
+      </div>
+    </div>
+
+    <!-- Inline SVG for direct editing -->
+    <div class="card">
+      <h3>Inline SVG (Editable)</h3>
+      <div class="preview">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="150" height="150">
+          <!-- Simple geometric Carrick bend approximation -->
+          <g fill="none" stroke="#ee6018" stroke-width="6" stroke-linecap="round">
+            <!-- Outer loops -->
+            <circle cx="25" cy="25" r="18" />
+            <circle cx="75" cy="25" r="18" />
+            <circle cx="25" cy="75" r="18" />
+            <circle cx="75" cy="75" r="18" />
+            <!-- Center connections -->
+            <line x1="35" y1="35" x2="65" y2="65" />
+            <line x1="65" y1="35" x2="35" y2="65" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px; padding: 20px; background: #fff3e0; border-radius: 8px;">
+    <h3 style="margin: 0 0 10px 0; font-weight: 500;">Recommendation</h3>
+    <p style="margin: 0; color: #666; line-height: 1.6;">
+      Hand-coding bezier curves for a complex knot is imprecise. Better approaches:
+    </p>
+    <ul style="color: #666; line-height: 1.8;">
+      <li><strong>Figma/Illustrator:</strong> Trace the PNG reference with pen tool for clean curves</li>
+      <li><strong>Vectorizer.ai:</strong> Auto-trace the raster, then clean up</li>
+      <li><strong>Inkscape (free):</strong> Path > Trace Bitmap, then manual refinement</li>
+    </ul>
+  </div>
+</body>
+</html>

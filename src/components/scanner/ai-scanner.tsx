@@ -25,7 +25,7 @@ import {
   type ScannerState,
 } from "./scanner-reducer";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap = {
   MessageSquare,
   Zap,
   Target,
@@ -33,7 +33,9 @@ const iconMap: Record<string, React.ElementType> = {
   BarChart,
   FileText,
   Sparkles,
-};
+} as const;
+
+type IconName = keyof typeof iconMap;
 
 // Minimal progress indicator - Foremost style
 function ScanningProgress({ isActive, progress }: { isActive: boolean; progress: number }) {
@@ -124,7 +126,7 @@ function ScanTimeline({ currentStage, stages }: { currentStage: string; stages: 
 
 // Opportunity card with Foremost styling
 function OpportunityCard({ opportunity, index }: { opportunity: AIOpportunity; index: number }) {
-  const Icon = iconMap[opportunity.icon] || Sparkles;
+  const Icon = iconMap[opportunity.icon as IconName] ?? Sparkles;
   const [isVisible, setIsVisible] = useState(false);
   const cardId = useId();
 
@@ -233,7 +235,7 @@ function OpportunityCard({ opportunity, index }: { opportunity: AIOpportunity; i
   );
 }
 
-// Email capture gate component
+// Email capture gate component - shows first opportunity free, gates the rest
 function EmailCapture({
   result,
   onUnlock,
@@ -265,17 +267,20 @@ function EmailCapture({
 
     if (response.error) {
       setError(response.error);
-      // Focus back to email input on error
       emailInputRef.current?.focus();
     } else {
       onUnlock();
     }
   };
 
+  // Show first opportunity as a preview
+  const previewOpportunity = result.opportunities[0];
+  const remainingCount = result.opportunities.length - 1;
+
   return (
-    <div className="text-center px-2 sm:px-0">
+    <div className="px-2 sm:px-0">
       {/* Header */}
-      <div className="mb-8 sm:mb-10">
+      <div className="text-center mb-8 sm:mb-10">
         <h3 className="text-2xl sm:text-3xl font-normal text-foreground mb-2 tracking-tight">
           We found{" "}
           <span className="text-accent-orange">{result.opportunities.length} opportunities</span>
@@ -290,14 +295,24 @@ function EmailCapture({
         </div>
       </div>
 
-      {/* Email capture form */}
+      {/* Preview: Show first opportunity free */}
+      {previewOpportunity && (
+        <div className="max-w-lg mx-auto mb-8">
+          <p className="text-xs font-mono text-foreground-subtle uppercase tracking-wider mb-3 text-center">
+            One on us
+          </p>
+          <OpportunityCard opportunity={previewOpportunity} index={0} />
+        </div>
+      )}
+
+      {/* Email capture for remaining */}
       <div className="max-w-sm mx-auto">
         <div className="p-6 rounded-lg bg-background-card border border-border">
           <h4 className="text-base font-normal text-foreground mb-1">
-            Get your full report
+            See the rest
           </h4>
           <p className="text-sm text-foreground-muted mb-5">
-            We&apos;ll email you the complete analysis.
+            We&apos;ll send you the full analysis — {remainingCount} more opportunities, prioritised.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-3" aria-describedby={`${formId}-privacy`}>
@@ -376,7 +391,7 @@ function EmailCapture({
                   <span>Sending...</span>
                 </>
               ) : (
-                <span>Send Report</span>
+                <span>Send Full Report</span>
               )}
             </button>
           </form>

@@ -11,7 +11,7 @@ import {
   Shield,
 } from "lucide-react";
 
-const serviceIcons: Record<ServiceSlug, React.ElementType> = {
+const serviceIcons: Record<ServiceSlug, typeof Compass> = {
   'ai-strategy': Compass,
   'board-education': GraduationCap,
   'readiness-assessment': CheckSquare,

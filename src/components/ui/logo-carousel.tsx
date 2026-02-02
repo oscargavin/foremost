@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { m, useReducedMotion, useAnimationControls } from "motion/react";
+import { useState, useEffect, useRef, memo } from "react";
+import { m, useReducedMotion, useMotionValue, useAnimationFrame } from "motion/react";
 import { Text } from "./text";
 
 const clients = [
@@ -23,7 +23,7 @@ const clients = [
   { name: "Regency Investments", initials: "RI" },
 ];
 
-function LogoItem({
+const LogoItem = memo(function LogoItem({
   client,
   isHovered,
 }: {
@@ -54,15 +54,15 @@ function LogoItem({
       </span>
     </m.div>
   );
-}
+});
 
 export function LogoCarousel() {
   const prefersReducedMotion = useReducedMotion();
   const [isPaused, setIsPaused] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const controls = useAnimationControls();
   const [trackWidth, setTrackWidth] = useState(0);
+  const x = useMotionValue(0);
 
   // Measure track width for animation
   useEffect(() => {
@@ -76,41 +76,24 @@ export function LogoCarousel() {
     }
   }, []);
 
-  // Start infinite animation
-  useEffect(() => {
-    if (prefersReducedMotion || trackWidth === 0) return;
+  // Pixels per second for consistent speed
+  const speed = trackWidth / 40;
 
-    const animate = async () => {
-      await controls.start({
-        x: -trackWidth,
-        transition: {
-          duration: 40,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        },
-      });
-    };
+  // Continuous animation using useAnimationFrame for smooth pause/resume
+  useAnimationFrame((_, delta) => {
+    if (prefersReducedMotion || isPaused || trackWidth === 0) return;
 
-    animate();
-  }, [controls, trackWidth, prefersReducedMotion]);
+    // Move based on delta time for consistent speed regardless of frame rate
+    const movement = (delta / 1000) * speed;
+    let newX = x.get() - movement;
 
-  // Handle pause/resume on hover
-  useEffect(() => {
-    if (isPaused) {
-      controls.stop();
-    } else if (trackWidth > 0 && !prefersReducedMotion) {
-      controls.start({
-        x: -trackWidth,
-        transition: {
-          duration: 40,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        },
-      });
+    // Loop back when we've scrolled one full track width
+    if (newX <= -trackWidth) {
+      newX = newX + trackWidth;
     }
-  }, [isPaused, controls, trackWidth, prefersReducedMotion]);
+
+    x.set(newX);
+  });
 
   return (
     <div className="py-10 sm:py-12 md:py-14 border-y border-border overflow-hidden">
@@ -152,8 +135,7 @@ export function LogoCarousel() {
         {/* Scrolling track */}
         <m.div
           className="flex"
-          animate={controls}
-          style={{ willChange: "transform" }}
+          style={{ x, willChange: "transform" }}
         >
           {/* First set of logos */}
           <div data-track className="flex items-center py-2 shrink-0">

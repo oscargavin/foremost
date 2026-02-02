@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Button,
   Heading,
@@ -9,8 +9,9 @@ import {
   Card,
   CardContent,
   CTACard,
+  HeroSection,
 } from "@/components/ui";
-import { FadeIn, StaggerChildren, StaggerItem } from "@/components/motion";
+import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, generateBreadcrumbSchema } from "@/components/seo";
 
 const BASE_URL = "https://foremost.ai";
@@ -56,17 +57,17 @@ const useCases = [
   {
     title: "Risk Modelling & Credit Assessment",
     description:
-      "AI models that improve credit decisions while staying explainable enough for regulators. The hard part isn't the algorithm - it's proving it's fair.",
+      "AI that improves credit decisions while staying explainable for regulators. The hard part isn't the algorithm — it's proving fairness.",
   },
   {
     title: "Fraud Detection & Prevention",
     description:
-      "Real-time fraud detection that catches sophisticated schemes without drowning your team in false positives. Getting that balance right is tricky.",
+      "Real-time detection that catches sophisticated schemes without drowning your team in false positives. Balance is tricky.",
   },
   {
     title: "Algorithmic Trading & Market Analysis",
     description:
-      "AI that processes market data faster than humans can. The question is whether the risk management keeps up.",
+      "AI that processes market data faster than humans. The question is whether risk management keeps up.",
   },
   {
     title: "Regulatory Compliance & Reporting",
@@ -76,12 +77,12 @@ const useCases = [
   {
     title: "Customer Analytics & Personalisation",
     description:
-      "Better product recommendations based on actual behaviour. Improves retention if done right, irritates customers if done wrong.",
+      "Product recommendations based on actual behaviour. Done right, improves retention. Done wrong, irritates customers.",
   },
   {
     title: "Claims Processing & Underwriting",
     description:
-      "Faster insurance decisions without unfair outcomes. The FCA cares about both speed and fairness.",
+      "Faster insurance decisions without unfair outcomes. The FCA cares about both.",
   },
 ];
 
@@ -89,17 +90,17 @@ const differentiators = [
   {
     title: "Deep Regulatory Expertise",
     description:
-      "FCA, PRA, MiFID II, GDPR - we know what the regulators actually care about. Generic AI advice that ignores compliance is worse than useless.",
+      "FCA, PRA, MiFID II, GDPR — we know what regulators actually care about. Generic AI advice that ignores compliance is useless.",
   },
   {
     title: "Security-First Approach",
     description:
-      "Financial services have the strictest security requirements for good reason. We design AI strategies that your CISO will actually approve.",
+      "Financial services have strict security requirements for good reason. We design AI strategies your CISO will approve.",
   },
   {
     title: "Board-Level Understanding",
     description:
-      "We explain AI in terms boards understand: risk, return, capital allocation. Not technical jargon.",
+      "We explain AI in terms boards understand: risk, return, capital allocation — not technical jargon.",
   },
 ];
 
@@ -120,80 +121,76 @@ export default function FinancialServicesPage() {
   return (
     <>
       <SchemaScript schema={breadcrumbSchema} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <FadeIn>
-              <div className="max-w-4xl">
-                <SectionLabel className="mb-6">
-                  AI Consulting for Financial Services
-                </SectionLabel>
-                <Heading as="h1" size="hero" className="mb-6">
-                  AI Advisory for Financial Services
-                </Heading>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-xl text-foreground-muted"
-                >
-                  AI advisory for banks, asset managers, and insurers who can't
-                  afford to get compliance wrong.
-                </Text>
-              </div>
-            </FadeIn>
-          </Container>
-        </Section>
+        <HeroSection variant="industry-financial">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>AI Advisory for Financial Services</TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              AI advisory for banks, asset managers, and insurers who can't
+              afford to get compliance wrong.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Challenge Section */}
         <Section className="py-20" pattern="grid-subtle" blend="border">
           <Container>
-            <FadeIn>
-              <div className="max-w-3xl">
+            <div className="max-w-3xl">
+              <FadeIn>
                 <SectionLabel className="mb-8">The Challenge</SectionLabel>
-                <Heading as="h2" size="section" className="mb-8">
-                  AI Adoption in a Regulated Environment
-                </Heading>
+              </FadeIn>
+              <Heading as="h2" size="section" className="mb-8">
+                <TextReveal>AI Adoption in a Regulated Environment</TextReveal>
+              </Heading>
+              <FadeIn delay={0.3}>
                 <div className="space-y-6">
                   <Text variant="muted" className="text-lg leading-relaxed">
                     Financial services AI is harder than other sectors. The FCA
-                    wants explainability. The PRA wants stability. Customers
-                    want instant everything. And one compliance failure can cost
-                    more than ten successful projects saved.
+                    wants explainability; the PRA wants stability; customers
+                    want instant everything. One compliance failure costs more
+                    than ten successful projects saved.
                   </Text>
                   <Text variant="muted" className="text-lg leading-relaxed">
                     Add legacy systems that predate the internet, data trapped
-                    in silos, and a talent market where everyone's competing for
-                    the same people. Most AI pilots stall before they reach
-                    production.
+                    in silos, and a talent market where everyone competes for
+                    the same people. Most AI pilots stall before production.
                   </Text>
                   <Text
                     as="p"
                     className="text-[24px] leading-[1.4] text-foreground"
                   >
-                    The question isn't whether to use AI. It's how to do it
-                    without breaking anything.
+                    The question is how to use AI without breaking anything.
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
           </Container>
         </Section>
 
         {/* Use Cases Section */}
         <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">Industry Applications</SectionLabel>
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">Industry Applications</SectionLabel>
+              </FadeIn>
               <Heading as="h2" size="section" className="mb-6">
-                AI Use Cases for Financial Services
+                <TextReveal>AI Use Cases for Financial Services</TextReveal>
               </Heading>
-              <Text variant="muted" className="max-w-2xl mb-12">
-                Where AI actually helps in financial services, and what it takes
-                to make it work.
-              </Text>
-            </FadeIn>
+              <FadeIn delay={0.4}>
+                <Text variant="muted" className="max-w-2xl">
+                  Where AI actually helps in financial services, and what it takes
+                  to make it work.
+                </Text>
+              </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {useCases.map((useCase, index) => (
                 <StaggerItem key={index}>
@@ -214,16 +211,20 @@ export default function FinancialServicesPage() {
         {/* Why Foremost Section */}
         <Section className="py-20" blend="border">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">Why Foremost</SectionLabel>
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">Why Foremost</SectionLabel>
+              </FadeIn>
               <Heading as="h2" size="section" className="mb-6">
-                Your Partner for Financial Services AI
+                <TextReveal>Your Partner for Financial Services AI</TextReveal>
               </Heading>
-              <Text variant="muted" className="max-w-2xl mb-12">
-                Why financial services firms work with us instead of generalist
-                consultancies.
-              </Text>
-            </FadeIn>
+              <FadeIn delay={0.4}>
+                <Text variant="muted" className="max-w-2xl">
+                  Why financial services firms work with us instead of generalist
+                  consultancies.
+                </Text>
+              </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {differentiators.map((item, index) => (
                 <StaggerItem key={index}>
@@ -246,10 +247,10 @@ export default function FinancialServicesPage() {
           <Container>
             <FadeIn>
               <SectionLabel className="mb-4">Related Industries</SectionLabel>
-              <Heading as="h2" size="section" className="mb-8">
-                AI Advisory for Similar Sectors
-              </Heading>
             </FadeIn>
+            <Heading as="h2" size="section" className="mb-8">
+              <TextReveal>AI Advisory for Similar Sectors</TextReveal>
+            </Heading>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {relatedIndustries.map((industry) => (
                 <StaggerItem key={industry.href}>
@@ -276,8 +277,11 @@ export default function FinancialServicesPage() {
         <Section className="py-20" variant="card" blend="elevated">
           <Container>
             <FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div>
+              <SectionLabel className="mb-4">Continue Exploring</SectionLabel>
+            </FadeIn>
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Think
                   </LinkWithArrow>
@@ -285,7 +289,9 @@ export default function FinancialServicesPage() {
                     The beliefs that shape our AI advisory
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-work" className="text-lg">
                     How We Work
                   </LinkWithArrow>
@@ -293,7 +299,9 @@ export default function FinancialServicesPage() {
                     Our partnership model
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/who-we-are" className="text-lg">
                     Who We Are
                   </LinkWithArrow>
@@ -301,21 +309,21 @@ export default function FinancialServicesPage() {
                     Meet the team
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </StaggerItem>
+            </StaggerChildren>
           </Container>
         </Section>
 
         {/* CTA Card */}
         <CTACard
-          label="Get Started"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to navigate AI with confidence?"
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          heading="In financial services, fast followers still lose."
+          description="Founding clients work with us directly and pay less than those who come later."
+          buttonText="Talk to Us"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

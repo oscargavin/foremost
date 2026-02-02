@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Button,
   Heading,
@@ -9,8 +9,9 @@ import {
   Card,
   CardContent,
   CTACard,
+  HeroSection,
 } from "@/components/ui";
-import { FadeIn, StaggerChildren, StaggerItem } from "@/components/motion";
+import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, generateBreadcrumbSchema } from "@/components/seo";
 
 const BASE_URL = "https://foremost.ai";
@@ -56,32 +57,32 @@ const useCases = [
   {
     title: "Grid Optimization",
     description:
-      "Balance supply and demand in real-time as renewables and EVs make the grid more complex. Traditional approaches can't keep up. AI can.",
+      "Balance supply and demand in real-time as renewables and EVs complicate the grid. Traditional approaches can't keep up; AI can.",
   },
   {
     title: "Predictive Maintenance",
     description:
-      "Turbines, transformers, substations - fix them before they fail. The ROI is clear. Getting the sensor data is the challenge.",
+      "Turbines, transformers, substations — fix them before they fail. The ROI is clear; getting sensor data is the challenge.",
   },
   {
     title: "Energy Trading",
     description:
-      "Better price forecasting and market analysis. AI spots patterns humans miss. The winners in energy trading are already using it.",
+      "Better price forecasting and market analysis. AI spots patterns humans miss. The winners in energy trading already use it.",
   },
   {
     title: "Demand Forecasting",
     description:
-      "More accurate predictions of energy consumption. Weather, events, economic shifts - AI handles the complexity. Reduces procurement costs.",
+      "More accurate consumption predictions. Weather, events, economic shifts — AI handles the complexity and reduces procurement costs.",
   },
   {
     title: "Asset Management",
     description:
-      "Where to invest when you're managing aging infrastructure and new renewables. AI helps prioritise across a complex portfolio.",
+      "Where to invest when managing aging infrastructure and new renewables. AI helps prioritise across a complex portfolio.",
   },
   {
     title: "Sustainability Analytics",
     description:
-      "Track and report carbon emissions accurately. Regulators want it. Investors want it. AI makes it practical at scale.",
+      "Track and report carbon emissions accurately. Regulators want it; investors want it. AI makes it practical at scale.",
   },
 ];
 
@@ -89,7 +90,7 @@ const differentiators = [
   {
     title: "Infrastructure Expertise",
     description:
-      "Assets that last decades, systems that predate the internet, regulations that change every year. We understand what it takes to deploy AI in this environment.",
+      "Assets that last decades, systems that predate the internet, regulations that change yearly. We understand deploying AI in this environment.",
   },
   {
     title: "Safety-Critical Systems Focus",
@@ -99,7 +100,7 @@ const differentiators = [
   {
     title: "Regulatory Navigation",
     description:
-      "OFGEM, EU regulations, market structures - we help leadership understand where AI governance overlaps with energy compliance. Most consultancies don't.",
+      "OFGEM, EU regulations, market structures — we help leadership understand where AI governance overlaps with energy compliance.",
   },
 ];
 
@@ -120,48 +121,44 @@ export default function EnergyIndustryPage() {
   return (
     <>
       <SchemaScript schema={energyBreadcrumbs} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <FadeIn>
-              <div className="max-w-4xl">
-                <SectionLabel className="mb-6">Energy Industry</SectionLabel>
-                <Heading as="h1" size="hero" className="mb-6">
-                  AI Advisory for Energy
-                </Heading>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-xl text-foreground-muted"
-                >
-                  AI advisory for energy companies balancing grid reliability
-                  with the pressure to decarbonise.
-                </Text>
-              </div>
-            </FadeIn>
-          </Container>
-        </Section>
+        <HeroSection variant="industry-energy">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>AI Advisory for Energy</TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              AI advisory for energy companies balancing grid reliability
+              with the pressure to decarbonise.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Industry Challenges Section */}
-        <Section className="py-20">
+        <Section className="py-20" pattern="grid-subtle" blend="border">
           <Container>
-            <FadeIn>
-              <div className="max-w-3xl">
+            <div className="max-w-3xl">
+              <FadeIn>
                 <SectionLabel className="mb-8">Industry Context</SectionLabel>
-                <Heading as="h2" size="section" className="mb-8">
-                  The AI Imperative in Energy
-                </Heading>
+              </FadeIn>
+              <Heading as="h2" size="section" className="mb-8">
+                <TextReveal>The AI Imperative in Energy</TextReveal>
+              </Heading>
+              <FadeIn delay={0.3}>
                 <div className="space-y-6">
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    The grid is getting more complex every year. Renewables,
-                    distributed generation, EVs, storage - traditional planning
+                    The grid grows more complex every year — renewables,
+                    distributed generation, EVs, storage. Traditional planning
                     tools can't keep up. Add aging infrastructure, volatile prices,
-                    and regulators demanding net zero, and something has to give.
+                    and regulators demanding net zero.
                   </Text>
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    AI can help, but energy is different from other sectors.
+                    AI can help, but energy differs from other sectors.
                     Grid failures aren't acceptable. Safety margins matter.
                     Moving fast and breaking things is not an option.
                   </Text>
@@ -169,28 +166,32 @@ export default function EnergyIndustryPage() {
                     as="p"
                     className="text-[24px] leading-[1.4] text-foreground"
                   >
-                    We help energy leaders figure out where AI actually helps,
-                    and how to deploy it without taking unacceptable risks.
+                    We help energy leaders find where AI helps and deploy it
+                    without unacceptable risks.
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
           </Container>
         </Section>
 
         {/* Use Cases Section */}
         <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">AI Applications</SectionLabel>
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">AI Applications</SectionLabel>
+              </FadeIn>
               <Heading as="h2" size="section" className="mb-6">
-                Industry-Specific Use Cases
+                <TextReveal>Industry-Specific Use Cases</TextReveal>
               </Heading>
-              <Text variant="muted" className="max-w-2xl mb-12">
-                Where AI actually improves energy operations, and what it takes
-                to deploy it safely.
-              </Text>
-            </FadeIn>
+              <FadeIn delay={0.4}>
+                <Text variant="muted" className="max-w-2xl">
+                  Where AI actually improves energy operations, and what it takes
+                  to deploy it safely.
+                </Text>
+              </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {useCases.map((useCase, index) => (
                 <StaggerItem key={index}>
@@ -211,12 +212,14 @@ export default function EnergyIndustryPage() {
         {/* Why Foremost Section */}
         <Section className="py-20" blend="border">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">Why Foremost</SectionLabel>
-              <Heading as="h2" size="section" className="mb-12">
-                AI Advisory Built for Energy
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">Why Foremost</SectionLabel>
+              </FadeIn>
+              <Heading as="h2" size="section">
+                <TextReveal>AI Advisory Built for Energy</TextReveal>
               </Heading>
-            </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {differentiators.map((item, index) => (
                 <StaggerItem key={index}>
@@ -239,10 +242,10 @@ export default function EnergyIndustryPage() {
           <Container>
             <FadeIn>
               <SectionLabel className="mb-4">Related Industries</SectionLabel>
-              <Heading as="h2" size="section" className="mb-8">
-                AI Advisory for Similar Sectors
-              </Heading>
             </FadeIn>
+            <Heading as="h2" size="section" className="mb-8">
+              <TextReveal>AI Advisory for Similar Sectors</TextReveal>
+            </Heading>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {relatedIndustries.map((industry) => (
                 <StaggerItem key={industry.href}>
@@ -269,8 +272,11 @@ export default function EnergyIndustryPage() {
         <Section className="py-20" variant="card" blend="elevated">
           <Container>
             <FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div>
+              <SectionLabel className="mb-4">Continue Exploring</SectionLabel>
+            </FadeIn>
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-work" className="text-lg">
                     How We Work
                   </LinkWithArrow>
@@ -278,7 +284,9 @@ export default function EnergyIndustryPage() {
                     Our partnership model and approach
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Think
                   </LinkWithArrow>
@@ -286,7 +294,9 @@ export default function EnergyIndustryPage() {
                     The beliefs that shape our advice
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/who-we-are" className="text-lg">
                     Who We Are
                   </LinkWithArrow>
@@ -294,21 +304,21 @@ export default function EnergyIndustryPage() {
                     Our story and team
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </StaggerItem>
+            </StaggerChildren>
           </Container>
         </Section>
 
         {/* CTA Card */}
         <CTACard
-          label="Get Started"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to navigate AI with confidence?"
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          heading="The transition won't wait. Neither should you."
+          description="Founding clients work with us directly and pay less than those who come later."
+          buttonText="Talk to Us"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

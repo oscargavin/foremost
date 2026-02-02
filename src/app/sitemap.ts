@@ -47,12 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
-      url: `${baseUrl}/industries`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/industries/financial-services`,
       lastModified: new Date(),
       changeFrequency: "monthly",

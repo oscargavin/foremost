@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Button,
   Heading,
@@ -12,7 +12,7 @@ import {
   CTACard,
   LogoCarousel,
   TiltCard,
-  HeroAnimation,
+  HeroSection,
   ErrorBoundary,
   ScannerFallback,
   IndustryFinder,
@@ -91,33 +91,33 @@ const services = [
     number: "01",
     title: "Strategic Clarity",
     description:
-      "Most AI conversations start with technology. We start with your business goals, then figure out which ones AI actually helps with.",
+      "Most AI conversations start with technology. We start with your business goals, then work backwards to what AI actually helps with.",
     href: "/how-we-think#strategic-clarity",
-    linkText: "Explore strategic clarity",
+    linkText: "See how",
   },
   {
     number: "02",
     title: "Applied Intelligence",
     description:
-      "Pilots are easy. Getting AI to affect your P&L is hard. We focus on the second part.",
+      "Pilots are easy; affecting your P&L is hard. We focus on the second part.",
     href: "/how-we-think#applied-intelligence",
-    linkText: "Explore applied intelligence",
+    linkText: "See how",
   },
   {
     number: "03",
     title: "Human Potential",
     description:
-      "AI projects fail because of people, not technology. We help you design organisations where humans and AI actually work together.",
+      "AI projects fail because of people, not technology. We design organisations where humans and AI work together.",
     href: "/how-we-think#human-potential",
-    linkText: "Explore human potential",
+    linkText: "See how",
   },
   {
     number: "04",
     title: "Governance as Enabler",
     description:
-      "Good governance lets you move faster, not slower. It gives your teams permission to act.",
+      "Good governance lets you move faster. It gives teams permission to act.",
     href: "/how-we-think#governance",
-    linkText: "Explore governance",
+    linkText: "See how",
   },
 ];
 
@@ -126,57 +126,51 @@ export default function Home() {
   return (
     <>
       <SchemaScript schema={[professionalServiceSchema, breadcrumbs.home]} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20 relative overflow-hidden">
-          <HeroAnimation />
-          <Container className="relative z-10">
-            <div className="max-w-4xl">
-              <Heading as="h1" size="hero" className="mb-6">
-                <TextReveal>
-                  AI Strategy Consulting for Executive Teams
-                </TextReveal>
-              </Heading>
-              <FadeIn delay={0.4}>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-xl text-foreground-muted"
+        <HeroSection>
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>
+              AI Strategy Consulting for Executive Teams
+            </TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              Board-level AI advisory. While your competitors run pilots,
+              we help you ship.
+            </Text>
+            <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
+              <Button href="/contact" size="lg" magnetic>
+                Talk to a Founder
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="ml-1"
                 >
-                  Board-level AI advisory. We help leadership teams figure out
-                  what AI actually means for their business, then make it happen.
-                </Text>
-                <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
-                  <Button href="/contact" size="lg" magnetic>
-                    Schedule a Discussion
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      className="ml-1"
-                    >
-                      <path
-                        d="M3.333 8h9.334M8.667 4l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Button>
-                  <Button href="/how-we-work" variant="secondary" size="lg">
-                    See How We Work
-                  </Button>
-                </div>
-                <p className="mt-6 text-sm text-foreground-subtle font-mono">
-                  Advising executive teams across 6 industries
-                </p>
-              </FadeIn>
+                  <path
+                    d="M3.333 8h9.334M8.667 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Button>
+              <Button href="/how-we-work" variant="secondary" size="lg">
+                See How We Work
+              </Button>
             </div>
-          </Container>
-        </Section>
+            <p className="mt-6 text-sm text-foreground-subtle font-mono">
+              Now accepting founding clients · Direct founder access
+            </p>
+          </FadeIn>
+        </HeroSection>
 
         {/* Logo Carousel */}
         <LogoCarousel />
@@ -190,7 +184,7 @@ export default function Home() {
             <blockquote className="max-w-3xl">
               <p className="text-[33px] leading-[1.2] tracking-[-0.5px] text-foreground">
                 <TextReveal>
-                  {`"We don't sell AI strategies. We sharpen business strategies for an AI-enabled world."`}
+                  {`"We don't sell AI strategies. We sharpen business strategies for a world where AI exists."`}
                 </TextReveal>
               </p>
             </blockquote>
@@ -220,8 +214,7 @@ export default function Home() {
                   mono
                   className="max-w-2xl text-foreground-muted"
                 >
-                  For boards tired of hearing what AI could do, and ready to
-                  focus on what it should do for their specific business.
+                  Every month you wait is a month your competitors don&apos;t.
                 </Text>
               </FadeIn>
             </div>
@@ -269,8 +262,7 @@ export default function Home() {
                   mono
                   className="max-w-2xl text-foreground-muted"
                 >
-                  Generic AI advice is useless. Tell us your industry and
-                  we&apos;ll show you what actually matters.
+                  Generic AI advice is useless. Tell us your industry; we&apos;ll show you what matters.
                 </Text>
               </FadeIn>
             </div>
@@ -301,15 +293,14 @@ export default function Home() {
 
         {/* CTA Card */}
         <CTACard
-          label="Start a Conversation"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to cut through the noise?"
-          description="No pitch deck. Just a conversation about your business."
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Availability", href: "/contact" }}
+          heading="We're looking for a handful of founding clients."
+          description="You work with us directly — all three founders, no juniors. Better rates now than later."
+          buttonText="Get in Touch"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

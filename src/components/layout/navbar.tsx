@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useLayoutEffect, useMemo } from "react";
 import { m, AnimatePresence } from "motion/react";
 import { Container } from "./container";
 import { Button } from "@/components/ui";
@@ -24,6 +24,7 @@ const industryLinks = [
   { href: "/industries/energy", label: "Energy" },
 ];
 
+
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,11 +40,67 @@ export function Navbar() {
   const dropdownItemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const [focusedDropdownIndex, setFocusedDropdownIndex] = useState(-1);
 
-  // Check if a link is the current page
-  const isCurrentPage = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
+  // Refs for sliding underline
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const navItemRefs = useRef<(HTMLAnchorElement | HTMLButtonElement | null)[]>([]);
+  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+  const [isUnderlineVisible, setIsUnderlineVisible] = useState(false);
+  const [hasInitialized, setHasInitialized] = useState(false);
+
+  // Find which nav item is active (-1 if none) - memoized to prevent recalculation
+  const activeIndex = useMemo(() => {
+    if (pathname.startsWith("/industries")) {
+      return navLinks.length; // Industries is the last item
+    }
+    return navLinks.findIndex((link) => pathname.startsWith(link.href));
+  }, [pathname]);
+
+  // Measure and update underline position
+  const updateUnderlinePosition = useCallback(() => {
+    const container = navContainerRef.current;
+
+    if (activeIndex === -1 || !container) {
+      setIsUnderlineVisible(false);
+      return;
+    }
+
+    const activeElement = navItemRefs.current[activeIndex];
+    if (!activeElement) {
+      setIsUnderlineVisible(false);
+      return;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const activeRect = activeElement.getBoundingClientRect();
+
+    setUnderlineStyle({
+      left: activeRect.left - containerRect.left,
+      width: activeRect.width,
+    });
+    setIsUnderlineVisible(true);
+    setHasInitialized(true);
+  }, [activeIndex]);
+
+  // Update on pathname change and initial mount
+  useLayoutEffect(() => {
+    updateUnderlinePosition();
+  }, [pathname, updateUnderlinePosition]);
+
+  // Update on window resize
+  useEffect(() => {
+    const handleResize = () => updateUnderlinePosition();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [updateUnderlinePosition]);
+
+  // Check if a link is the current page - memoized to prevent recalculation per render
+  const isCurrentPage = useCallback(
+    (href: string) => {
+      if (href === "/") return pathname === "/";
+      return pathname.startsWith(href);
+    },
+    [pathname]
+  );
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -197,47 +254,85 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-base text-foreground-secondary hover:text-foreground transition-colors duration-200"
-                aria-current={isCurrentPage(link.href) ? "page" : undefined}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-8 relative" ref={navContainerRef}>
+            {/* Shared sliding underline */}
+            <m.span
+              className="absolute -bottom-1 h-[2px] bg-accent-orange pointer-events-none"
+              style={{ borderRadius: "1px 0.5px" }}
+              initial={false}
+              animate={{
+                left: underlineStyle.left,
+                width: underlineStyle.width,
+                opacity: isUnderlineVisible ? 1 : 0,
+              }}
+              transition={{
+                left: { type: "spring", stiffness: 380, damping: 30 },
+                width: { type: "spring", stiffness: 380, damping: 30 },
+                opacity: { duration: hasInitialized ? 0.2 : 0 },
+              }}
+              aria-hidden="true"
+            />
+
+            {navLinks.map((link, index) => {
+              const isActive = isCurrentPage(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  ref={(el) => { navItemRefs.current[index] = el; }}
+                  href={link.href}
+                  className={`relative text-base transition-colors duration-200 ${
+                    isActive
+                      ? "text-foreground"
+                      : "text-foreground-secondary hover:text-foreground"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
 
             {/* Industries Dropdown */}
             <div className="relative" ref={dropdownRef}>
-              <button
-                ref={dropdownButtonRef}
-                onClick={() => setIndustriesOpen(!industriesOpen)}
-                onKeyDown={handleDropdownKeyDown}
-                className="flex items-center gap-1 text-base text-foreground-secondary hover:text-foreground transition-colors duration-200"
-                aria-expanded={industriesOpen}
-                aria-haspopup="menu"
-                aria-controls="industries-menu"
-              >
-                Industries
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  aria-hidden="true"
-                  className={`transition-transform duration-200 ${industriesOpen ? "rotate-180" : ""}`}
-                >
-                  <path
-                    d="M3 4.5L6 7.5L9 4.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+              {(() => {
+                const isIndustryActive = pathname.startsWith("/industries");
+                return (
+                  <button
+                    ref={(el) => {
+                      dropdownButtonRef.current = el;
+                      navItemRefs.current[navLinks.length] = el;
+                    }}
+                    onClick={() => setIndustriesOpen(!industriesOpen)}
+                    onKeyDown={handleDropdownKeyDown}
+                    className={`relative flex items-center gap-1 text-base transition-colors duration-200 ${
+                      isIndustryActive
+                        ? "text-foreground"
+                        : "text-foreground-secondary hover:text-foreground"
+                    }`}
+                    aria-expanded={industriesOpen}
+                    aria-haspopup="menu"
+                    aria-controls="industries-menu"
+                  >
+                    Industries
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      aria-hidden="true"
+                      className={`transition-transform duration-200 ${industriesOpen ? "rotate-180" : ""}`}
+                    >
+                      <path
+                        d="M3 4.5L6 7.5L9 4.5"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                );
+              })()}
               <AnimatePresence>
                 {industriesOpen && (
                   <m.div
@@ -251,24 +346,38 @@ export function Navbar() {
                     className="absolute top-full left-0 mt-2 w-56 bg-background border border-border rounded-lg shadow-lg py-2"
                     onKeyDown={handleDropdownKeyDown}
                   >
-                    {industryLinks.map((link, index) => (
-                      <Link
-                        key={link.href}
-                        ref={(el) => {
-                          dropdownItemsRef.current[index] = el;
-                        }}
-                        href={link.href}
-                        role="menuitem"
-                        className="block px-4 py-2 text-sm text-foreground-secondary hover:text-foreground hover:bg-background-card focus:bg-background-card focus:outline-none transition-colors duration-150"
-                        onClick={() => {
-                          setIndustriesOpen(false);
-                          setFocusedDropdownIndex(-1);
-                        }}
-                        aria-current={isCurrentPage(link.href) ? "page" : undefined}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
+                    {industryLinks.map((link, index) => {
+                      const isActive = isCurrentPage(link.href);
+                      return (
+                        <Link
+                          key={link.href}
+                          ref={(el) => {
+                            dropdownItemsRef.current[index] = el;
+                          }}
+                          href={link.href}
+                          role="menuitem"
+                          className={`flex items-center gap-2 px-4 py-2 text-sm transition-colors duration-150 focus:outline-none ${
+                            isActive
+                              ? "text-foreground bg-accent-orange/[0.08]"
+                              : "text-foreground-secondary hover:text-foreground hover:bg-background-card focus:bg-background-card"
+                          }`}
+                          onClick={() => {
+                            setIndustriesOpen(false);
+                            setFocusedDropdownIndex(-1);
+                          }}
+                          aria-current={isActive ? "page" : undefined}
+                        >
+                          {/* Small dot indicator for active industry */}
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full bg-accent-orange transition-opacity duration-200 ${
+                              isActive ? "opacity-100" : "opacity-0"
+                            }`}
+                            aria-hidden="true"
+                          />
+                          {link.label}
+                        </Link>
+                      );
+                    })}
                   </m.div>
                 )}
               </AnimatePresence>
@@ -291,91 +400,257 @@ export function Navbar() {
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-foreground"
-              aria-hidden="true"
-            >
-              {mobileMenuOpen ? (
-                <path
-                  d="M6 6l12 12M6 18L18 6"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              ) : (
-                <path
-                  d="M4 6h16M4 12h16M4 18h16"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              )}
-            </svg>
+            <div className="relative w-6 h-6" aria-hidden="true">
+              {/* Animated hamburger lines that morph to X */}
+              <m.span
+                className="absolute left-0 w-6 h-[1.5px] bg-foreground rounded-full origin-center"
+                style={{ top: mobileMenuOpen ? 11 : 6 }}
+                animate={{
+                  top: mobileMenuOpen ? 11 : 6,
+                  rotate: mobileMenuOpen ? 45 : 0,
+                }}
+                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              />
+              <m.span
+                className="absolute left-0 top-[11px] w-6 h-[1.5px] bg-foreground rounded-full"
+                animate={{
+                  opacity: mobileMenuOpen ? 0 : 1,
+                  scaleX: mobileMenuOpen ? 0 : 1,
+                }}
+                transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+              />
+              <m.span
+                className="absolute left-0 w-6 h-[1.5px] bg-foreground rounded-full origin-center"
+                style={{ top: mobileMenuOpen ? 11 : 16 }}
+                animate={{
+                  top: mobileMenuOpen ? 11 : 16,
+                  rotate: mobileMenuOpen ? -45 : 0,
+                }}
+                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              />
+            </div>
           </button>
         </nav>
       </Container>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
+      {/* Mobile Menu - Full Screen Overlay */}
+      <AnimatePresence mode="wait">
         {mobileMenuOpen && (
           <m.div
             id="mobile-menu"
             ref={mobileMenuRef}
+            key="mobile-menu"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="md:hidden bg-background border-t border-border overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed inset-0 top-14 sm:top-16 z-40 bg-background overflow-y-auto overscroll-contain safe-area-pb"
           >
-            <Container className="py-6">
+            {/* Decorative orange accent bar with spring physics */}
+            <m.div
+              className="absolute top-0 left-0 right-0 h-[2px] bg-accent-orange origin-left"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              exit={{ scaleX: 0, transition: { duration: 0.15 } }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 30,
+                delay: 0.1
+              }}
+            />
+
+            <div className="flex flex-col px-6 pt-6 pb-8">
               <nav aria-label="Mobile navigation">
-                <div className="flex flex-col gap-4">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="text-lg text-foreground-secondary hover:text-foreground transition-colors duration-200 py-2"
-                      onClick={() => setMobileMenuOpen(false)}
-                      aria-current={isCurrentPage(link.href) ? "page" : undefined}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  {/* Mobile Industries Section */}
-                  <div className="pt-4 border-t border-border">
-                    <span className="text-sm text-foreground-muted mb-3 block" id="mobile-industries-label">
-                      Industries
-                    </span>
-                    <div className="flex flex-col gap-2" role="list" aria-labelledby="mobile-industries-label">
-                      {industryLinks.map((link) => (
+                {/* Main Navigation Links - Staggered with variants */}
+                <m.ul
+                  className="space-y-0"
+                  role="list"
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.06,
+                        delayChildren: 0.1
+                      }
+                    }
+                  }}
+                >
+                  {navLinks.map((link, index) => {
+                    const isActive = isCurrentPage(link.href);
+                    return (
+                      <m.li
+                        key={link.href}
+                        variants={{
+                          hidden: { opacity: 0, x: -24 },
+                          visible: {
+                            opacity: 1,
+                            x: 0,
+                            transition: {
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 28
+                            }
+                          }
+                        }}
+                      >
                         <Link
-                          key={link.href}
                           href={link.href}
-                          role="listitem"
-                          className="text-base text-foreground-secondary hover:text-foreground transition-colors duration-200 py-1 pl-2"
+                          className={`group flex items-center gap-4 min-h-[56px] py-3 border-b border-border/40 transition-colors duration-200 active:bg-surface-subtle/50 ${
+                            isActive
+                              ? "text-foreground"
+                              : "text-foreground-secondary"
+                          }`}
                           onClick={() => setMobileMenuOpen(false)}
-                          aria-current={isCurrentPage(link.href) ? "page" : undefined}
+                          aria-current={isActive ? "page" : undefined}
                         >
-                          {link.label}
+                          {/* Index number */}
+                          <span
+                            className={`text-[11px] font-mono tabular-nums w-5 transition-colors duration-200 ${
+                              isActive ? "text-accent-orange" : "text-foreground-muted"
+                            }`}
+                            aria-hidden="true"
+                          >
+                            0{index + 1}
+                          </span>
+                          <span className="text-[26px] tracking-[-0.02em] font-light flex-1">
+                            {link.label}
+                          </span>
+                          {/* Arrow indicator for active */}
+                          {isActive && (
+                            <m.span
+                              className="text-accent-orange"
+                              aria-hidden="true"
+                              initial={{ opacity: 0, x: -8 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                            >
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path
+                                  d="M4 10h12M12 6l4 4-4 4"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </m.span>
+                          )}
                         </Link>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="pt-4 border-t border-border">
-                    <Button href="/contact" variant="primary" className="w-full">
-                      Contact
-                    </Button>
-                  </div>
-                </div>
+                      </m.li>
+                    );
+                  })}
+                </m.ul>
+
+                {/* Industries Section */}
+                <m.div
+                  className="mt-8"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8, transition: { duration: 0.1 } }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 30,
+                    delay: 0.35,
+                  }}
+                >
+                  <span
+                    className="text-[11px] uppercase tracking-[0.2em] text-foreground-muted mb-4 block font-medium"
+                    id="mobile-industries-label"
+                  >
+                    Industries
+                  </span>
+                  <m.ul
+                    className="grid grid-cols-2 gap-x-4 gap-y-1"
+                    role="list"
+                    aria-labelledby="mobile-industries-label"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.04,
+                          delayChildren: 0.4
+                        }
+                      }
+                    }}
+                  >
+                    {industryLinks.map((link) => {
+                      const isActive = isCurrentPage(link.href);
+                      return (
+                        <m.li
+                          key={link.href}
+                          variants={{
+                            hidden: { opacity: 0, y: 8 },
+                            visible: {
+                              opacity: 1,
+                              y: 0,
+                              transition: {
+                                type: "spring",
+                                stiffness: 500,
+                                damping: 30
+                              }
+                            }
+                          }}
+                        >
+                          <Link
+                            href={link.href}
+                            className={`flex items-center gap-2.5 min-h-[44px] py-2 text-[15px] transition-colors duration-200 active:text-foreground ${
+                              isActive
+                                ? "text-foreground"
+                                : "text-foreground-secondary"
+                            }`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            aria-current={isActive ? "page" : undefined}
+                          >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full bg-accent-orange transition-opacity duration-200 flex-shrink-0 ${
+                                isActive ? "opacity-100" : "opacity-0"
+                              }`}
+                              aria-hidden="true"
+                            />
+                            <span className={isActive ? "" : "-ml-4"}>
+                              {link.label}
+                            </span>
+                          </Link>
+                        </m.li>
+                      );
+                    })}
+                  </m.ul>
+                </m.div>
               </nav>
-            </Container>
+
+              {/* Footer CTA */}
+              <m.div
+                className="mt-10 pt-6 border-t border-border/40"
+                initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, transition: { duration: 0.1 } }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                  delay: 0.5,
+                }}
+              >
+                <Button
+                  href="/contact"
+                  variant="primary"
+                  className="w-full justify-center text-base min-h-[52px]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Get in Touch
+                </Button>
+              </m.div>
+            </div>
           </m.div>
         )}
       </AnimatePresence>

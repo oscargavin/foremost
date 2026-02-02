@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Button,
   Heading,
@@ -9,8 +9,9 @@ import {
   Card,
   CardContent,
   CTACard,
+  HeroSection,
 } from "@/components/ui";
-import { FadeIn, StaggerChildren, StaggerItem } from "@/components/motion";
+import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, generateBreadcrumbSchema } from "@/components/seo";
 
 const BASE_URL = "https://foremost.ai";
@@ -61,22 +62,22 @@ const useCases = [
   {
     title: "Quality Control & Inspection",
     description:
-      "Computer vision catches defects human inspectors miss. Already proven in automotive and electronics. Deployment depends on your line configuration.",
+      "Computer vision catches defects human inspectors miss. Proven in automotive and electronics; deployment depends on your line configuration.",
   },
   {
     title: "Supply Chain Optimization",
     description:
-      "Better demand forecasts, less safety stock. The models work. The challenge is getting accurate data from suppliers who don't want to share it.",
+      "Better demand forecasts, less safety stock. The models work; the challenge is getting accurate data from suppliers who won't share it.",
   },
   {
     title: "Production Planning & Scheduling",
     description:
-      "Dynamic scheduling that adapts when a machine goes down or priorities change. Most planning systems can't do this. AI can, if the data is there.",
+      "Dynamic scheduling that adapts when a machine goes down. Most planning systems can't do this — AI can, if the data is there.",
   },
   {
     title: "Digital Twins",
     description:
-      "Simulate changes before you make them in the real world. Useful for expensive decisions. Not worth the setup cost for simple processes.",
+      "Simulate changes before making them. Useful for expensive decisions, not worth the setup for simple processes.",
   },
 ];
 
@@ -84,17 +85,17 @@ const whyForemost = [
   {
     title: "Operational Excellence Focus",
     description:
-      "We measure AI success the same way you measure manufacturing success: uptime, yield, throughput. Impressive demos don't count.",
+      "We measure AI success the same way you measure manufacturing: uptime, yield, throughput. Impressive demos don't count.",
   },
   {
     title: "Pragmatic Implementation",
     description:
-      "We've seen too many pilots that never scale. We focus on use cases that work in production, not just in controlled environments.",
+      "We've seen too many pilots that never scale. We focus on use cases that work in production, not just controlled environments.",
   },
   {
     title: "Integration Expertise",
     description:
-      "Factory floor reality: 20-year-old PLCs, proprietary protocols, IT teams who've never been to the plant. We've dealt with all of it.",
+      "Factory floor reality: 20-year-old PLCs, proprietary protocols, IT teams who've never seen the plant. We've dealt with all of it.",
   },
 ];
 
@@ -115,76 +116,75 @@ export default function ManufacturingPage() {
   return (
     <>
       <SchemaScript schema={manufacturingBreadcrumbs} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <FadeIn>
-              <div className="max-w-4xl">
-                <SectionLabel className="mb-4">Manufacturing</SectionLabel>
-                <Heading as="h1" size="hero" className="mb-6">
-                  AI Advisory for Manufacturing
-                </Heading>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-xl text-foreground-muted"
-                >
-                  AI advisory for manufacturers who care about what actually
-                  works on the factory floor.
-                </Text>
-              </div>
-            </FadeIn>
-          </Container>
-        </Section>
+        <HeroSection variant="industry-manufacturing">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>AI Advisory for Manufacturing</TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              AI advisory for manufacturers who care about what actually
+              works on the factory floor.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Industry Challenges Section */}
-        <Section className="py-20">
+        <Section className="py-20" pattern="grid-subtle" blend="border">
           <Container>
-            <FadeIn>
-              <div className="max-w-3xl">
+            <div className="max-w-3xl">
+              <FadeIn>
                 <SectionLabel className="mb-4">The Challenge</SectionLabel>
-                <Heading as="h2" size="section" className="mb-8">
-                  AI in Manufacturing: Promise Meets Reality
-                </Heading>
+              </FadeIn>
+              <Heading as="h2" size="section" className="mb-8">
+                <TextReveal>AI in Manufacturing: Promise Meets Reality</TextReveal>
+              </Heading>
+              <FadeIn delay={0.3}>
                 <div className="space-y-6">
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    Industry 4.0 sounds great in presentations. Connected
-                    factories, AI-driven everything. The reality is messier:
+                    Industry 4.0 sounds great in presentations — connected
+                    factories, AI-driven everything. Reality is messier:
                     equipment that predates the internet, data stuck in systems
-                    that don't talk to each other, and pilots that never make it
-                    to production.
+                    that don't talk, pilots that never reach production.
                   </Text>
                   <Text variant="muted" className="text-lg leading-relaxed">
                     Your competitors are probably claiming transformation too.
-                    Most of them are stuck in the same place you are.
+                    Most are stuck in the same place you are.
                   </Text>
                   <Text
                     as="p"
                     className="text-[24px] leading-[1.4] text-foreground"
                   >
-                    AI can transform manufacturing. The question is how to get
-                    from pilot to production without wasting years and millions.
+                    The question is how to get from pilot to production without
+                    wasting years and millions.
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
           </Container>
         </Section>
 
         {/* Use Cases Section */}
         <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">AI Use Cases</SectionLabel>
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">AI Use Cases</SectionLabel>
+              </FadeIn>
               <Heading as="h2" size="section" className="mb-4">
-                Where AI Creates Value in Manufacturing
+                <TextReveal>Where AI Creates Value in Manufacturing</TextReveal>
               </Heading>
-              <Text variant="muted" className="text-lg mb-12 max-w-2xl">
-                Where AI actually improves manufacturing operations.
-              </Text>
-            </FadeIn>
+              <FadeIn delay={0.4}>
+                <Text variant="muted" className="text-lg max-w-2xl">
+                  Where AI actually improves manufacturing operations.
+                </Text>
+              </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {useCases.map((useCase, index) => (
                 <StaggerItem key={index}>
@@ -205,12 +205,14 @@ export default function ManufacturingPage() {
         {/* Why Foremost Section */}
         <Section className="py-20" blend="border">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">Our Approach</SectionLabel>
-              <Heading as="h2" size="section" className="mb-12">
-                Why Manufacturing Leaders Choose Foremost
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">Our Approach</SectionLabel>
+              </FadeIn>
+              <Heading as="h2" size="section">
+                <TextReveal>Why Manufacturing Leaders Choose Foremost</TextReveal>
               </Heading>
-            </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {whyForemost.map((item, index) => (
                 <StaggerItem key={index}>
@@ -233,10 +235,10 @@ export default function ManufacturingPage() {
           <Container>
             <FadeIn>
               <SectionLabel className="mb-4">Related Industries</SectionLabel>
-              <Heading as="h2" size="section" className="mb-8">
-                AI Advisory for Similar Sectors
-              </Heading>
             </FadeIn>
+            <Heading as="h2" size="section" className="mb-8">
+              <TextReveal>AI Advisory for Similar Sectors</TextReveal>
+            </Heading>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {relatedIndustries.map((industry) => (
                 <StaggerItem key={industry.href}>
@@ -263,8 +265,11 @@ export default function ManufacturingPage() {
         <Section className="py-20" variant="card" blend="elevated">
           <Container>
             <FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div>
+              <SectionLabel className="mb-4">Continue Exploring</SectionLabel>
+            </FadeIn>
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Think
                   </LinkWithArrow>
@@ -272,7 +277,9 @@ export default function ManufacturingPage() {
                     Our perspective on AI transformation
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-work" className="text-lg">
                     How We Work
                   </LinkWithArrow>
@@ -280,7 +287,9 @@ export default function ManufacturingPage() {
                     Our partnership model
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/who-we-are" className="text-lg">
                     Who We Are
                   </LinkWithArrow>
@@ -288,21 +297,21 @@ export default function ManufacturingPage() {
                     Meet the team
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </StaggerItem>
+            </StaggerChildren>
           </Container>
         </Section>
 
         {/* CTA Card */}
         <CTACard
-          label="Get Started"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to navigate AI with confidence?"
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          heading="Automation advantages compound. Start now."
+          description="Founding clients work with us directly and pay less than those who come later."
+          buttonText="Talk to Us"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

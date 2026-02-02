@@ -5,6 +5,5 @@ export {
   websiteSchema,
   breadcrumbs,
   generateBreadcrumbSchema,
-  homepageSchemas,
   founderSchema,
 } from "./schema";

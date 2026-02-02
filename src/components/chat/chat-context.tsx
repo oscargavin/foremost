@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, use, useRef, useState, useCallback, type ReactNode } from "react";
+import { createContext, use, useRef, useState, useCallback, useMemo, type ReactNode } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useRouter } from "next/navigation";
@@ -116,20 +116,24 @@ export function ChatProvider({ children }: ChatProviderProps) {
       .join("");
   };
 
-  // Filter visible messages
-  const visibleMessages = messages
-    .filter((msg) => {
-      const content = getMessageContent(msg);
-      const isEmptyOrInit =
-        msg.role === "user" && (content === "" || content === "(initialize)");
-      const isEmptyAssistant = msg.role === "assistant" && content.trim() === "";
-      return !isEmptyOrInit && !isEmptyAssistant;
-    })
-    .map((msg) => ({
-      id: msg.id,
-      role: msg.role as "user" | "assistant" | "system",
-      content: getMessageContent(msg),
-    }));
+  // Filter visible messages - memoized to prevent recalculation on every render
+  const visibleMessages = useMemo(
+    () =>
+      messages
+        .filter((msg) => {
+          const content = getMessageContent(msg);
+          const isEmptyOrInit =
+            msg.role === "user" && (content === "" || content === "(initialize)");
+          const isEmptyAssistant = msg.role === "assistant" && content.trim() === "";
+          return !isEmptyOrInit && !isEmptyAssistant;
+        })
+        .map((msg) => ({
+          id: msg.id,
+          role: msg.role as "user" | "assistant" | "system",
+          content: getMessageContent(msg),
+        })),
+    [messages]
+  );
 
   // Derived values
   const showQuickActions = mode === "idle" && !flowStarted && visibleMessages.length === 0;

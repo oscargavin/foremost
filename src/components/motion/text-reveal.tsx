@@ -60,7 +60,7 @@ export function TextReveal({
           key={`${word}-${index}`}
           variants={wordVariants}
           className="inline-block"
-          style={{ marginRight: "0.25em" }}
+          style={{ marginRight: "0.25em", willChange: "opacity, transform, filter" }}
         >
           {word}
         </m.span>

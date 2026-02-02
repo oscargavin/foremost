@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Button,
   Heading,
@@ -9,8 +9,9 @@ import {
   Card,
   CardContent,
   CTACard,
+  HeroSection,
 } from "@/components/ui";
-import { FadeIn, StaggerChildren, StaggerItem } from "@/components/motion";
+import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, generateBreadcrumbSchema } from "@/components/seo";
 
 const BASE_URL = "https://foremost.ai";
@@ -56,27 +57,27 @@ const useCases = [
   {
     title: "Demand Forecasting",
     description:
-      "Better predictions mean less dead stock and fewer empty shelves. The models exist. Getting them to work with your data is the challenge.",
+      "Better predictions mean less dead stock and fewer empty shelves. The models exist; getting them to work with your data is the challenge.",
   },
   {
     title: "Personalisation at Scale",
     description:
-      "Product recommendations that actually feel relevant. Done badly, it's creepy. Done well, customers buy more and come back.",
+      "Product recommendations that feel relevant. Done badly, it's creepy. Done well, customers buy more and return.",
   },
   {
     title: "Inventory Optimisation",
     description:
-      "Right stock, right place, right time. Sounds obvious. Most retailers still get it wrong because their systems don't talk to each other.",
+      "Right stock, right place, right time. Sounds obvious — most retailers still get it wrong because their systems don't talk.",
   },
   {
     title: "Dynamic Pricing Intelligence",
     description:
-      "Pricing that responds to demand in real-time. Works brilliantly online. Harder in stores. Either way, you need the data infrastructure first.",
+      "Pricing that responds to demand in real-time. Works brilliantly online, harder in stores. Either way, data infrastructure comes first.",
   },
   {
     title: "Customer Experience Enhancement",
     description:
-      "AI chatbots that don't infuriate customers. They're getting better. They still need careful design and human escalation paths.",
+      "AI chatbots that don't infuriate customers. They're getting better, but still need careful design and human escalation paths.",
   },
 ];
 
@@ -84,17 +85,17 @@ const whyForemost = [
   {
     title: "Omnichannel Expertise",
     description:
-      "Stores, e-commerce, marketplaces - they all have different data, different systems, different challenges. AI that works in one channel often breaks in another.",
+      "Stores, e-commerce, marketplaces — different data, different systems, different challenges. AI that works in one channel often breaks in another.",
   },
   {
     title: "Customer-Centric Approach",
     description:
-      "AI that optimises operations but annoys customers is a bad trade. We start with what customers actually want, then figure out how AI helps deliver it.",
+      "AI that optimises operations but annoys customers is a bad trade. We start with what customers want, then figure out how AI delivers it.",
   },
   {
     title: "Practical Implementation Focus",
     description:
-      "We've seen too many retail AI pilots that never scale. Our advice focuses on what actually works when you roll it out to hundreds of stores.",
+      "We've seen too many retail AI pilots that never scale. Our advice focuses on what works when you roll it out to hundreds of stores.",
   },
 ];
 
@@ -115,77 +116,76 @@ export default function RetailIndustryPage() {
   return (
     <>
       <SchemaScript schema={retailBreadcrumbs} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20">
-          <Container>
-            <FadeIn>
-              <div className="max-w-4xl">
-                <SectionLabel className="mb-6">Retail</SectionLabel>
-                <Heading as="h1" size="hero" className="mb-6">
-                  AI Advisory for Retail
-                </Heading>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-xl text-foreground-muted"
-                >
-                  AI advisory for retailers who want results, not impressive
-                  demos.
-                </Text>
-              </div>
-            </FadeIn>
-          </Container>
-        </Section>
+        <HeroSection variant="industry-retail">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>AI Advisory for Retail</TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              AI advisory for retailers who want results, not impressive
+              demos.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Industry Challenge Section */}
-        <Section className="py-20">
+        <Section className="py-20" pattern="grid-subtle" blend="border">
           <Container>
-            <FadeIn>
-              <div className="max-w-3xl">
+            <div className="max-w-3xl">
+              <FadeIn>
                 <SectionLabel className="mb-8">The Challenge</SectionLabel>
-                <Heading as="h2" size="section" className="mb-8">
-                  Retail Is Being Reshaped by AI
-                </Heading>
+              </FadeIn>
+              <Heading as="h2" size="section" className="mb-8">
+                <TextReveal>Retail Is Being Reshaped by AI</TextReveal>
+              </Heading>
+              <FadeIn delay={0.3}>
                 <div className="space-y-6">
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    Customers expect everything to be seamless, personalised, and
-                    instant. They don't care that your systems are held together
-                    with duct tape. They just leave.
+                    Customers expect seamless, personalised, instant. They don't
+                    care that your systems are held together with duct tape.
+                    They just leave.
                   </Text>
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    Meanwhile, margins are shrinking, supply chains are
-                    unpredictable, and your competitors are talking about AI
-                    transformations. Most of them are struggling to get past the
-                    pilot stage, but you can't afford to assume you have time.
+                    Meanwhile, margins shrink, supply chains are unpredictable,
+                    and competitors talk about AI transformations. Most struggle
+                    past the pilot stage, but you can't assume you have time.
                   </Text>
                   <Text
                     as="p"
                     className="text-[24px] leading-[1.4] text-foreground"
                   >
                     AI will reshape retail. The question is whether you're
-                    driving that change or reacting to it.
+                    driving change or reacting to it.
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
           </Container>
         </Section>
 
         {/* Use Cases Section */}
         <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">AI Applications</SectionLabel>
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">AI Applications</SectionLabel>
+              </FadeIn>
               <Heading as="h2" size="section" className="mb-6">
-                Retail AI Use Cases That Drive Value
+                <TextReveal>Retail AI Use Cases That Drive Value</TextReveal>
               </Heading>
-              <Text variant="muted" className="max-w-2xl mb-12">
-                Where AI actually improves retail performance, and what it takes
-                to make it work.
-              </Text>
-            </FadeIn>
+              <FadeIn delay={0.4}>
+                <Text variant="muted" className="max-w-2xl">
+                  Where AI actually improves retail performance, and what it takes
+                  to make it work.
+                </Text>
+              </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {useCases.map((useCase, index) => (
                 <StaggerItem key={index}>
@@ -206,12 +206,14 @@ export default function RetailIndustryPage() {
         {/* Why Foremost Section */}
         <Section className="py-20" blend="border">
           <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">Why Foremost</SectionLabel>
-              <Heading as="h2" size="section" className="mb-12">
-                Retail AI Advisory That Delivers
+            <div className="mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">Why Foremost</SectionLabel>
+              </FadeIn>
+              <Heading as="h2" size="section">
+                <TextReveal>Retail AI Advisory That Delivers</TextReveal>
               </Heading>
-            </FadeIn>
+            </div>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {whyForemost.map((reason, index) => (
                 <StaggerItem key={index}>
@@ -234,10 +236,10 @@ export default function RetailIndustryPage() {
           <Container>
             <FadeIn>
               <SectionLabel className="mb-4">Related Industries</SectionLabel>
-              <Heading as="h2" size="section" className="mb-8">
-                AI Advisory for Similar Sectors
-              </Heading>
             </FadeIn>
+            <Heading as="h2" size="section" className="mb-8">
+              <TextReveal>AI Advisory for Similar Sectors</TextReveal>
+            </Heading>
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {relatedIndustries.map((industry) => (
                 <StaggerItem key={industry.href}>
@@ -264,8 +266,11 @@ export default function RetailIndustryPage() {
         <Section className="py-20" variant="card" blend="elevated">
           <Container>
             <FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div>
+              <SectionLabel className="mb-4">Continue Exploring</SectionLabel>
+            </FadeIn>
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-work" className="text-lg">
                     How We Work
                   </LinkWithArrow>
@@ -273,7 +278,9 @@ export default function RetailIndustryPage() {
                     Our partnership model for retail transformation
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Think
                   </LinkWithArrow>
@@ -281,7 +288,9 @@ export default function RetailIndustryPage() {
                     The principles guiding our AI advisory
                   </Text>
                 </div>
-                <div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="group">
                   <LinkWithArrow href="/who-we-are" className="text-lg">
                     Who We Are
                   </LinkWithArrow>
@@ -289,21 +298,21 @@ export default function RetailIndustryPage() {
                     Meet the team behind Foremost
                   </Text>
                 </div>
-              </div>
-            </FadeIn>
+              </StaggerItem>
+            </StaggerChildren>
           </Container>
         </Section>
 
         {/* CTA Card */}
         <CTACard
-          label="Get Started"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to navigate AI with confidence?"
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          heading="Retail moves fast. So does AI. You should too."
+          description="Founding clients work with us directly and pay less than those who come later."
+          buttonText="Talk to Us"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

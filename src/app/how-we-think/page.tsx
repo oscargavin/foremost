@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar, Container, Section, Footer } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import {
   Heading,
   Text,
@@ -10,7 +10,7 @@ import {
   CTACard,
   TiltCard,
   Highlight,
-  HowWeThinkAnimation,
+  HeroSection,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import { SchemaScript, breadcrumbs } from "@/components/seo";
@@ -52,19 +52,19 @@ const pillars = [
     number: "01",
     title: "Strategic Clarity",
     quote:
-      "There is no such thing as a standalone AI strategy — only business strategies that are more, or less, well accelerated by AI.",
+      "There is no standalone AI strategy — only business strategies more or less accelerated by AI.",
     description:
-      "Everyone's selling AI strategies. We think that's backwards. You have a business strategy. The question is whether AI helps with any of it, and how much.",
-    highlight: "We think that's backwards",
+      "Selling AI strategies is backwards. You have a business strategy. The question is whether AI helps, and how much.",
+    highlight: "backwards",
   },
   {
     id: "applied-intelligence",
     number: "02",
     title: "Applied Intelligence",
     quote:
-      "Value and ROI are key drivers. If it doesn't impact the P&L or the business model, it is just a hobby.",
+      "If it doesn't impact the P&L or the business model, it's a hobby.",
     description:
-      "AI either changes your business model or it makes existing operations cheaper/faster. Pick one and measure it. Everything else is innovation theatre.",
+      "AI either changes your business model or makes operations cheaper. Pick one and measure it. Everything else is innovation theatre.",
     highlight: "innovation theatre",
   },
   {
@@ -72,9 +72,9 @@ const pillars = [
     number: "03",
     title: "Human Potential & Imagination",
     quote:
-      "The limit of AI is human imagination. We build the structures that unleash it.",
+      "The limit of AI is human imagination. We build structures that unleash it.",
     description:
-      "Most AI projects stall because of people problems, not technical ones. Fear, confusion about roles, organisational politics. That's where the real work happens.",
+      "Most AI projects stall because of people problems, not technical ones — fear, role confusion, politics. That's where the real work happens.",
     highlight: "people problems, not technical ones",
   },
   {
@@ -82,10 +82,10 @@ const pillars = [
     number: "04",
     title: "Governance as Enabler",
     quote:
-      "Good governance should create confidence. It is the clarity of direction and guardrails that provides an organisation the permission to move faster, turning risk management into a competitive accelerator.",
+      "Good governance creates confidence. Clear direction and guardrails give organisations permission to move faster.",
     description:
-      "Boards can't delegate AI to IT and hope for the best. They need to own the direction. Good governance doesn't slow things down - it gives people permission to move.",
-    highlight: "gives people permission to move",
+      "Boards can't delegate AI to IT and hope for the best. They need to own direction. Good governance gives people permission to move.",
+    highlight: "permission to move",
   },
 ];
 
@@ -93,29 +93,22 @@ export default function HowWeThinkPage() {
   return (
     <>
       <SchemaScript schema={breadcrumbs.howWeThink} />
-      <Navbar />
       <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
-        <Section className="pt-32 pb-20 relative overflow-hidden">
-          <HowWeThinkAnimation />
-          <Container className="relative z-10">
-            <div className="max-w-2xl">
-              <Heading as="h1" size="hero" className="mb-6">
-                <TextReveal>Our AI Strategy Philosophy</TextReveal>
-              </Heading>
-              <FadeIn delay={0.4}>
-                <Text
-                  variant="bodyLarge"
-                  mono
-                  className="max-w-md text-foreground-muted"
-                >
-                  Four beliefs that shape how we work. They're unfashionable in
-                  an industry that loves hype, but they're why our advice works.
-                </Text>
-              </FadeIn>
-            </div>
-          </Container>
-        </Section>
+        <HeroSection variant="how-we-think">
+          <Heading as="h1" size="hero" className="mb-6">
+            <TextReveal>Our AI Strategy Philosophy</TextReveal>
+          </Heading>
+          <FadeIn delay={0.4}>
+            <Text
+              variant="bodyLarge"
+              mono
+              className="max-w-xl text-foreground-muted"
+            >
+              Four beliefs that shape our work. Unfashionable in an industry that loves hype — but why our advice works.
+            </Text>
+          </FadeIn>
+        </HeroSection>
 
         {/* Pillars */}
         {pillars.map((pillar, index) => (
@@ -226,14 +219,14 @@ export default function HowWeThinkPage() {
 
         {/* CTA Card */}
         <CTACard
-          label="Get Started"
-          topRightLink={{ text: "Contact", href: "/contact" }}
-          heading="Ready to put this thinking to work?"
-          buttonText="Schedule a Discussion"
+          label="Founding Engagements"
+          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          heading="Your competitors are moving. Are you?"
+          description="Early movers in AI build advantages that compound. We'd rather help you lead than catch up."
+          buttonText="Talk to Us"
           buttonHref="/contact"
         />
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { m, useMotionValue, useSpring, useTransform } from "motion/react";
-import { type ReactNode, useRef } from "react";
+import { type ReactNode, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 interface TiltCardProps {
@@ -27,36 +27,40 @@ export function TiltCard({
   const rotateX = useTransform(ySpring, [0, 1], [tiltAmount, -tiltAmount]);
   const rotateY = useTransform(xSpring, [0, 1], [-tiltAmount, tiltAmount]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!ref.current) return;
 
-    const rect = ref.current.getBoundingClientRect();
-    const xPos = (e.clientX - rect.left) / rect.width;
-    const yPos = (e.clientY - rect.top) / rect.height;
+      const rect = ref.current.getBoundingClientRect();
+      const xPos = (e.clientX - rect.left) / rect.width;
+      const yPos = (e.clientY - rect.top) / rect.height;
 
-    x.set(xPos);
-    y.set(yPos);
-  };
+      x.set(xPos);
+      y.set(yPos);
+    },
+    [x, y]
+  );
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     x.set(0.5);
     y.set(0.5);
-  };
+  }, [x, y]);
 
   return (
-    <m.div
-      ref={ref}
-      className={cn("transform-gpu", className)}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-        perspective: 1000,
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
-    </m.div>
+    <div style={{ perspective: 1000, height: "100%" }}>
+      <m.div
+        ref={ref}
+        className={cn("transform-gpu h-full", className)}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {children}
+      </m.div>
+    </div>
   );
 }
