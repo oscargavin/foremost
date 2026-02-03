@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Container, Section } from "@/components/layout";
 import {
-  Button,
   Heading,
   Text,
   SectionLabel,
@@ -46,27 +45,6 @@ export const metadata: Metadata = {
     images: ["https://foremost.ai/og-image.png"],
   },
 };
-
-const differentiators = [
-  {
-    title: "Business outcomes, not technology features",
-    description:
-      "We start with what you're trying to achieve, not what's technically impressive. AI is a means to an end.",
-    highlight: "what you're trying to achieve",
-  },
-  {
-    title: "Capability, not dependency",
-    description:
-      "A good engagement ends with you needing us less. That's how we measure success.",
-    highlight: "needing us less",
-  },
-  {
-    title: "Truth to power",
-    description:
-      "If something's a bad idea, you'll hear it from us. Boards get enough people telling them what they want to hear.",
-    highlight: "you'll hear it from us",
-  },
-];
 
 const values = [
   {
@@ -134,45 +112,6 @@ export default function WhoWeArePage() {
                 </div>
               </FadeIn>
             </div>
-          </Container>
-        </Section>
-
-        {/* Differentiators Section */}
-        <Section className="py-20" blend="border">
-          <Container>
-            <FadeIn>
-              <SectionLabel className="mb-4">Our Approach</SectionLabel>
-            </FadeIn>
-            <Heading as="h2" size="section" className="mb-12">
-              <TextReveal>What makes us different</TextReveal>
-            </Heading>
-
-            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {differentiators.map((item, index) => {
-                const parts = item.description.split(item.highlight);
-                return (
-                  <StaggerItem key={index} className="h-full">
-                    <TiltCard className="h-full">
-                      <Card className="h-full p-6">
-                        <CardContent className="p-0">
-                          <span className="font-mono text-sm text-foreground-muted mb-3 block">
-                            0{index + 1}
-                          </span>
-                          <Heading as="h3" size="card" className="mb-4">
-                            {item.title}
-                          </Heading>
-                          <Text variant="muted">
-                            {parts[0]}
-                            <Highlight>{item.highlight}</Highlight>
-                            {parts[1]}
-                          </Text>
-                        </CardContent>
-                      </Card>
-                    </TiltCard>
-                  </StaggerItem>
-                );
-              })}
-            </StaggerChildren>
           </Container>
         </Section>
 
@@ -367,24 +306,14 @@ export default function WhoWeArePage() {
             <FadeIn>
               <SectionLabel className="mb-4">Continue Exploring</SectionLabel>
             </FadeIn>
-            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               <StaggerItem>
                 <div className="group">
                   <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Think
                   </LinkWithArrow>
                   <Text variant="muted" className="mt-2">
-                    Our four core beliefs
-                  </Text>
-                </div>
-              </StaggerItem>
-              <StaggerItem>
-                <div className="group">
-                  <LinkWithArrow href="/how-we-work" className="text-lg">
-                    How We Work
-                  </LinkWithArrow>
-                  <Text variant="muted" className="mt-2">
-                    Our partnership approach
+                    Our four core beliefs and how we work
                   </Text>
                 </div>
               </StaggerItem>

@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { m, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { FadeIn } from "@/components/motion";
@@ -20,7 +18,7 @@ interface CTACardProps {
 }
 
 export function CTACard({
-  label = "Get Started",
+  label,
   topRightLink,
   heading,
   description,
@@ -28,105 +26,67 @@ export function CTACard({
   buttonHref,
   className,
 }: CTACardProps) {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
-    <div className={cn("py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-9", className)}>
+    <div className={cn("py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-9", className)}>
       <FadeIn>
         <div className="max-w-3xl mx-auto">
           <div
             className={cn(
-              "relative",
-              "bg-background-dark rounded-lg p-5 sm:p-8 md:p-10"
+              "bg-background-dark rounded-xl",
+              "p-8 sm:p-10 md:p-14",
+              "border border-border"
             )}
-            style={{
-              border: "3px dashed rgba(255, 255, 255, 0.4)",
-            }}
           >
-            {/* Subtle diagonal lines */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                backgroundImage: `repeating-linear-gradient(
-                  -55deg,
-                  transparent,
-                  transparent 8px,
-                  rgba(255,255,255,0.04) 8px,
-                  rgba(255,255,255,0.04) 9px
-                )`,
-              }}
-            />
+            {/* Top accent */}
+            <div className="flex items-center gap-3 mb-10 sm:mb-12">
+              <span className="w-2 h-2 rounded-full bg-accent-orange" />
+              {topRightLink && (
+                <span className="font-mono text-[11px] uppercase tracking-wider text-white/40">
+                  {topRightLink.text}
+                </span>
+              )}
+            </div>
 
-            {/* Content */}
-            <div className="relative">
-              {/* Top bar */}
-              <div className="flex items-center justify-between mb-12 sm:mb-16 md:mb-20">
-                {/* Pulsing orange dot - draws attention */}
-                <m.span
-                  className="w-2.5 h-2.5 rounded-full bg-accent-orange flex-shrink-0"
-                  animate={
-                    prefersReducedMotion
-                      ? {}
-                      : {
-                          scale: [1, 1.3, 1],
-                          opacity: [1, 0.7, 1],
-                        }
-                  }
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                {topRightLink && (
-                  <span className="font-mono text-xs uppercase tracking-widest text-white/40">
-                    {topRightLink.text}
-                  </span>
-                )}
-              </div>
+            {/* Main content */}
+            <div className="max-w-xl">
+              <h2 className="text-2xl sm:text-3xl md:text-[38px] leading-[1.2] tracking-[-0.02em] text-white mb-4 sm:mb-5">
+                {heading}
+              </h2>
 
-              {/* Main content */}
-              <div className="max-w-xl mb-12 sm:mb-16 md:mb-20">
-                <h2 className="text-[28px] sm:text-[36px] md:text-[42px] leading-[1.15] tracking-[-0.02em] text-white mb-6">
-                  {heading}
-                </h2>
+              {description && (
+                <p className="text-base sm:text-lg text-white/50 font-mono leading-relaxed mb-8 sm:mb-10">
+                  {description}
+                </p>
+              )}
 
-                {description && (
-                  <p className="text-base sm:text-lg text-white/50 font-mono mb-8">
-                    {description}
-                  </p>
-                )}
+              <Button href={buttonHref} size="lg" variant="secondary" magnetic>
+                {buttonText}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="ml-2"
+                >
+                  <path
+                    d="M3.333 8h9.334M8.667 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Button>
+            </div>
 
-                <Button href={buttonHref} size="lg" variant="secondary" magnetic>
-                  {buttonText}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    className="ml-2"
-                  >
-                    <path
-                      d="M3.333 8h9.334M8.667 4l4 4-4 4"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Button>
-              </div>
-
-              {/* Bottom bar */}
-              <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                <span className="font-mono text-xs uppercase tracking-widest text-white/30">
+            {/* Bottom label - only show if provided */}
+            {label && (
+              <div className="mt-12 sm:mt-14 pt-6 border-t border-white/[0.06]">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-white/25">
                   {label}
                 </span>
-                <span className="font-mono text-xs text-white/30">
-                  foremost.ai
-                </span>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </FadeIn>

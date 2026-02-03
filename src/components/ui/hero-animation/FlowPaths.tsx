@@ -78,6 +78,8 @@ export function FlowPaths({ isMobile }: FlowPathsProps) {
 
   // Create geometries and materials
   const geometries = useMemo(() => {
+    // Reset materials ref when paths change to prevent stale references
+    materialsRef.current = [];
     return paths.map((path) => {
       const curve = new THREE.CatmullRomCurve3(path.points);
       const points = curve.getPoints(50);
@@ -102,7 +104,7 @@ export function FlowPaths({ isMobile }: FlowPathsProps) {
     const time = state.clock.elapsedTime;
 
     materialsRef.current.forEach((mat, i) => {
-      if (mat) {
+      if (mat && paths[i]) {
         // Animated dash offset creates flowing effect
         mat.dashOffset = -time * 0.5 - paths[i].offset;
       }

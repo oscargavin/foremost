@@ -26,3 +26,4 @@ export { CareersAnimation } from "./careers-animation";
 export { IndustriesAnimation } from "./industries-animation";
 export { ContactAnimation } from "./contact-animation";
 export { ErrorBoundary, ScannerFallback, ChatFallback } from "./error-boundary";
+export { ServiceAccordion, type ServiceData } from "./service-accordion";

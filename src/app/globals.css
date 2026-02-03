@@ -285,8 +285,8 @@ h1, h2, h3, h4, h5, h6 {
       -55deg,
       transparent,
       transparent 8px,
-      color-mix(in srgb, var(--border) 35%, transparent) 8px,
-      color-mix(in srgb, var(--border) 35%, transparent) 9px
+      color-mix(in srgb, var(--border) 25%, transparent) 8px,
+      color-mix(in srgb, var(--border) 25%, transparent) 9px
     );
   }
 
@@ -315,8 +315,8 @@ h1, h2, h3, h4, h5, h6 {
       -45deg,
       transparent,
       transparent 10px,
-      color-mix(in srgb, var(--border) 20%, transparent) 10px,
-      color-mix(in srgb, var(--border) 20%, transparent) 11px
+      color-mix(in srgb, var(--border) 0%, transparent) 10px,
+      color-mix(in srgb, var(--border) 0%, transparent) 11px
     );
   }
 

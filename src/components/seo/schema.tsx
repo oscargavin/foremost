@@ -143,10 +143,6 @@ export const breadcrumbs = {
     { name: "Home", url: BASE_URL },
     { name: "How We Think", url: `${BASE_URL}/how-we-think` },
   ]),
-  howWeWork: generateBreadcrumbSchema([
-    { name: "Home", url: BASE_URL },
-    { name: "How We Work", url: `${BASE_URL}/how-we-work` },
-  ]),
   whoWeAre: generateBreadcrumbSchema([
     { name: "Home", url: BASE_URL },
     { name: "Who We Are", url: `${BASE_URL}/who-we-are` },

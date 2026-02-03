@@ -176,23 +176,97 @@ export default function HowWeThinkPage() {
           </Section>
         ))}
 
+        {/* How This Shapes Our Work */}
+        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+          <Container>
+            <FadeIn>
+              <SectionLabel className="mb-4">How This Shapes Our Work</SectionLabel>
+            </FadeIn>
+            <Heading as="h2" size="section" className="mb-16">
+              <TextReveal>Principles in Practice</TextReveal>
+            </Heading>
+
+            <div className="space-y-0">
+              {/* Principle 01 */}
+              <StaggerChildren>
+                <StaggerItem>
+                  <div className="group grid grid-cols-[auto_1fr] gap-6 sm:gap-10 py-10 border-t border-border">
+                    <div className="relative">
+                      <span className="font-mono text-[72px] sm:text-[96px] font-light leading-none text-accent-orange/15 select-none">
+                        01
+                      </span>
+                    </div>
+                    <div className="pt-2 sm:pt-4 max-w-2xl">
+                      <Heading as="h3" size="card" className="mb-3 text-xl sm:text-2xl">
+                        Listen First, Then Challenge
+                      </Heading>
+                      <Text variant="muted" className="text-base sm:text-lg leading-relaxed">
+                        We spend the first part of any engagement listening. Then we <Highlight>push back on assumptions</Highlight>. If you wanted validation, you&apos;d have hired a different firm.
+                      </Text>
+                    </div>
+                  </div>
+                </StaggerItem>
+
+                {/* Principle 02 */}
+                <StaggerItem>
+                  <div className="group grid grid-cols-[auto_1fr] gap-6 sm:gap-10 py-10 border-t border-border">
+                    <div className="relative">
+                      <span className="font-mono text-[72px] sm:text-[96px] font-light leading-none text-accent-orange/15 select-none">
+                        02
+                      </span>
+                    </div>
+                    <div className="pt-2 sm:pt-4 max-w-2xl">
+                      <Heading as="h3" size="card" className="mb-3 text-xl sm:text-2xl">
+                        Your Strategy, Not Ours
+                      </Heading>
+                      <Text variant="muted" className="text-base sm:text-lg leading-relaxed">
+                        We don&apos;t arrive with frameworks to sell. You know your business; we help you think through the AI implications <Highlight>clearly enough to decide</Highlight>.
+                      </Text>
+                    </div>
+                  </div>
+                </StaggerItem>
+
+                {/* Principle 03 */}
+                <StaggerItem>
+                  <div className="group grid grid-cols-[auto_1fr] gap-6 sm:gap-10 py-10 border-t border-border border-b">
+                    <div className="relative">
+                      <span className="font-mono text-[72px] sm:text-[96px] font-light leading-none text-accent-orange/15 select-none">
+                        03
+                      </span>
+                    </div>
+                    <div className="pt-2 sm:pt-4 max-w-2xl">
+                      <Heading as="h3" size="card" className="mb-3 text-xl sm:text-2xl">
+                        Deep Partnerships, Few Clients
+                      </Heading>
+                      <Text variant="muted" className="text-base sm:text-lg leading-relaxed">
+                        We take on fewer clients than we could. Good advisory requires attention, and <Highlight>attention is finite</Highlight>.
+                      </Text>
+                    </div>
+                  </div>
+                </StaggerItem>
+              </StaggerChildren>
+            </div>
+
+            <FadeIn delay={0.4}>
+              <div className="mt-16 max-w-3xl">
+                <Text
+                  as="p"
+                  className="text-[28px] sm:text-[33px] leading-[1.25] tracking-[-0.5px] text-foreground"
+                >
+                  &ldquo;The goal is <span className="text-accent-orange">capability</span>, not dependency. A good engagement ends with you needing us less.&rdquo;
+                </Text>
+              </div>
+            </FadeIn>
+          </Container>
+        </Section>
+
         {/* Explore More */}
         <Section className="py-20" variant="card" blend="elevated">
           <Container>
             <FadeIn>
               <SectionLabel className="mb-4">Continue Exploring</SectionLabel>
             </FadeIn>
-            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              <StaggerItem>
-                <div className="group">
-                  <LinkWithArrow href="/how-we-work" className="text-lg">
-                    How We Work
-                  </LinkWithArrow>
-                  <Text variant="muted" className="mt-2">
-                    See how we apply these principles in practice
-                  </Text>
-                </div>
-              </StaggerItem>
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               <StaggerItem>
                 <div className="group">
                   <LinkWithArrow href="/who-we-are" className="text-lg">

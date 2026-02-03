@@ -11,7 +11,6 @@ import { useScrollDirection } from "@/hooks";
 const navLinks = [
   { href: "/who-we-are", label: "Who We Are" },
   { href: "/how-we-think", label: "How We Think" },
-  { href: "/how-we-work", label: "How We Work" },
   { href: "/careers", label: "Careers" },
 ];
 

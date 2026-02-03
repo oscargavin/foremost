@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/how-we-work",
+        destination: "/how-we-think",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
