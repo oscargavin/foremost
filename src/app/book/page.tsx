@@ -3,16 +3,16 @@ import { Suspense } from "react";
 import { BookingForm } from "./booking-form";
 
 export const metadata: Metadata = {
-  title: "Book a Call | Foremost",
+  title: "Book a Strategy Call | Foremost AI Advisory",
   description:
-    "Schedule a consultation call with our AI strategy experts. Pick a time that works for you.",
+    "Schedule a 30-minute consultation with our AI strategy experts. Discuss your business goals and explore how AI can drive measurable outcomes.",
   alternates: {
     canonical: "/book",
   },
   openGraph: {
-    title: "Book a Call | Foremost",
+    title: "Book a Strategy Call | Foremost AI Advisory",
     description:
-      "Schedule a consultation call with our AI strategy experts. Pick a time that works for you.",
+      "Schedule a 30-minute consultation with our AI strategy experts. Discuss your business goals and explore how AI can drive measurable outcomes.",
     url: "https://foremost.ai/book",
     type: "website",
     images: [
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Book a Call | Foremost",
+    title: "Book a Strategy Call | Foremost AI Advisory",
     description:
-      "Schedule a consultation call with our AI strategy experts. Pick a time that works for you.",
+      "Schedule a 30-minute consultation with our AI strategy experts. Discuss your business goals and explore how AI can drive measurable outcomes.",
     images: ["https://foremost.ai/og-image.png"],
   },
 };

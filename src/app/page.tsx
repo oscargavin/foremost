@@ -7,16 +7,13 @@ import {
   Text,
   SectionLabel,
   LinkWithArrow,
-  Card,
-  CardContent,
   CTACard,
   LogoCarousel,
-  TiltCard,
   HeroSection,
-  ErrorBoundary,
-  ScannerFallback,
   IndustryFinder,
   Testimonials,
+  ServiceAccordion,
+  type ServiceData,
 } from "@/components/ui";
 import { FadeIn, StaggerChildren, StaggerItem, TextReveal } from "@/components/motion";
 import {
@@ -24,16 +21,7 @@ import {
   professionalServiceSchema,
   breadcrumbs,
 } from "@/components/seo";
-import { AIScanner } from "@/components/scanner";
-
 // Loading skeletons for Suspense boundaries
-function ScannerSkeleton() {
-  return (
-    <div className="min-h-[420px] flex items-center justify-center">
-      <div className="text-foreground-muted text-sm font-mono">Loading scanner...</div>
-    </div>
-  );
-}
 
 function IndustryFinderSkeleton() {
   return (
@@ -58,7 +46,7 @@ function TestimonialsSkeleton() {
 export const metadata: Metadata = {
   title: "Foremost.ai | Board-Level AI Advisory",
   description:
-    "Applied intelligence for boards and executive teams. We help leaders navigate AI with clarity, confidence, and measurable outcomes. Strategic AI advisory for UK and EU organisations.",
+    "Applied intelligence for boards and executive teams. Strategic AI advisory that brings clarity, confidence, and measurable outcomes.",
   alternates: {
     canonical: "/",
   },
@@ -86,38 +74,205 @@ export const metadata: Metadata = {
   },
 };
 
-const services = [
+const services: ServiceData[] = [
   {
     number: "01",
     title: "Strategic Clarity",
+    subtitle: "From noise to clear priorities",
     description:
       "There's a lot of noise out there. We help you cut through it, find where AI actually accelerates your goals, and move forward with clear priorities.",
     href: "/how-we-think#strategic-clarity",
-    linkText: "See how",
+    linkText: "Explore strategic clarity",
+    categories: [
+      {
+        label: "",
+        items: [
+          {
+            title: "Business Strategy First, AI Second",
+            description:
+              "We start with your business strategy and competitive positioning, then find where AI creates genuine advantage.",
+          },
+          {
+            title: "Enterprise AI Strategic Positioning",
+            description:
+              "Clarify where AI will create advantage, and where it won't. Define strategic posture and 12-18 month priorities.",
+          },
+          {
+            title: "AI Readiness & Constraints Diagnostic",
+            description:
+              "Assess your ability to execute — data foundations, security, talent, governance. Get a pragmatic plan to remove bottlenecks.",
+          },
+          {
+            title: "GenAI vs Analytics Decision Discipline",
+            description:
+              "Clear logic for when to use generative AI, traditional analytics, automation, or process redesign.",
+          },
+          {
+            title: "Executive & Board Education",
+            description:
+              "Targeted briefings designed for governance, not evangelism. The right questions leaders should be asking.",
+          },
+          {
+            title: "AI Investment & Vendor Strategy",
+            description:
+              "Discipline for platform and partner decisions. Clear build/buy/partner logic to prevent tool sprawl.",
+          },
+        ],
+      },
+    ],
   },
   {
     number: "02",
     title: "Applied Intelligence",
+    subtitle: "From pilots to scaled value",
     description:
       "AI creates value two ways: reimagining your business model, or making operations more efficient. We make sure whichever path you choose hits the P&L.",
     href: "/how-we-think#applied-intelligence",
-    linkText: "See how",
+    linkText: "Explore applied intelligence",
+    categories: [
+      {
+        label: "Reimagination — New Business Models",
+        items: [
+          {
+            title: "Ecosystem & Interaction Reimagination",
+            description:
+              "Reimagine how you interact with customers, suppliers, and employees to transform service models.",
+          },
+          {
+            title: "Core Value Chain Transformation",
+            description:
+              "Redesign critical business functions to apply AI for distinct, long-term competitive advantage.",
+          },
+          {
+            title: "Proprietary AI Product Creation",
+            description:
+              "Develop AI-enabled products where ownership creates defensive moats. Scale, monetisation, governance built in.",
+          },
+          {
+            title: "Human-Agent Workflow Design",
+            description:
+              "Design the new operating model where humans and AI agents collaborate. Automation that amplifies judgement.",
+          },
+        ],
+      },
+      {
+        label: "Efficiency — Productivity & Performance",
+        items: [
+          {
+            title: "Identifying What Moves the Needle",
+            description:
+              "Examine workflows and data to find where AI creates real value. Each use case assessed for P&L impact and risk.",
+          },
+          {
+            title: "Value-First Use Case Delivery",
+            description:
+              "Take high-ROI use cases from concept to production. Delivered into real workflows, measured, and scaled.",
+          },
+          {
+            title: "AI for Core Functions",
+            description:
+              "Targeted AI in Operations (copilots), Marketing (personalisation), and Finance (forecasting).",
+          },
+          {
+            title: "Accelerating Executive Decisions",
+            description:
+              "Improve decision speed and quality through forecasting, scenario analysis, and executive-ready narratives.",
+          },
+        ],
+      },
+    ],
   },
   {
     number: "03",
     title: "Human Potential & Imagination",
+    subtitle: "Elevating people with AI",
     description:
       "AI projects succeed or fail with people. We design organisations where human judgement stays central — and imagination gets unlocked, not stalled by fear.",
     href: "/how-we-think#human-potential",
-    linkText: "See how",
+    linkText: "Explore human potential",
+    categories: [
+      {
+        label: "",
+        items: [
+          {
+            title: "Embedding AI in Your Organisation",
+            description:
+              "Define how AI is governed and delivered — roles, responsibilities, data ownership, and delivery teams.",
+          },
+          {
+            title: "Work Redesign & Job Architecture",
+            description:
+              "Focus on tasks, not titles. Map what's automated, augmented, or redesigned for workforce transition.",
+          },
+          {
+            title: "Leadership & Manager Enablement",
+            description:
+              "Support for leaders navigating uncertainty: setting direction, managing AI-augmented teams, leading change.",
+          },
+          {
+            title: "Adoption & Change Programmes",
+            description:
+              "Manage the human side of AI transformation through clear narratives, champion networks, and adoption metrics.",
+          },
+          {
+            title: "AI Literacy & Capability Building",
+            description:
+              "Tiered learning: Board oversight essentials, executive value-and-risk immersion, practitioner guides.",
+          },
+          {
+            title: "Unlocking Human-AI Potential",
+            description:
+              "Structured spaces for co-creation and innovation. Better outcomes through clear interfaces and escalation paths.",
+          },
+        ],
+      },
+    ],
   },
   {
     number: "04",
     title: "Governance as Enabler",
+    subtitle: "Guardrails for speed with confidence",
     description:
       "Good governance speeds you up. It gives teams the guardrails they need to move with conviction.",
     href: "/how-we-think#governance",
-    linkText: "See how",
+    linkText: "Explore AI governance",
+    categories: [
+      {
+        label: "",
+        items: [
+          {
+            title: "Board AI Oversight & Stewardship",
+            description:
+              "Practical tools for active governance: AI posture, risk appetite, oversight cadences, escalation thresholds.",
+          },
+          {
+            title: "Responsible & Ethical AI in Practice",
+            description:
+              "Translate principles into reality through bias testing, risk assessments, and embedded control libraries.",
+          },
+          {
+            title: "AI Risk Assessment & Continuous Monitoring",
+            description:
+              "Integrate AI into enterprise risk management with defined appetites, ongoing monitoring, and escalation.",
+          },
+          {
+            title: "Regulatory & EU AI Act Readiness",
+            description:
+              "Anticipate regulation through system inventories, risk classification, and compliance gap remediation.",
+          },
+          {
+            title: "Model Risk & Assurance",
+            description:
+              "Clear standards for deployment: accuracy, reliability, explainability, and independent testing.",
+          },
+          {
+            title: "Third-Party & Vendor AI Risk",
+            description:
+              "Manage external exposure through contractual safeguards, audit rights, and incident protocols.",
+          },
+        ],
+      },
+    ],
   },
 ];
 
@@ -161,8 +316,8 @@ export default function Home() {
                   />
                 </svg>
               </Button>
-              <Button href="/how-we-work" variant="secondary" size="lg">
-                See How We Work
+              <Button href="/how-we-think" variant="secondary" size="lg">
+                See How We Think
               </Button>
             </div>
             <p className="mt-6 text-sm text-foreground-subtle font-mono">
@@ -218,30 +373,46 @@ export default function Home() {
               </FadeIn>
             </div>
 
-            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {services.map((service) => (
-                <StaggerItem key={service.number}>
-                  <TiltCard className="h-full">
-                    <Card className="h-full p-6">
-                      <CardContent className="p-0">
-                        <span className="font-mono text-sm text-foreground-muted mb-3 block">
-                          {service.number}
-                        </span>
-                        <Heading as="h3" size="card" className="mb-3">
-                          {service.title}
-                        </Heading>
-                        <Text variant="muted" className="mb-4">
-                          {service.description}
-                        </Text>
-                        <LinkWithArrow href={service.href}>
-                          {service.linkText}
-                        </LinkWithArrow>
-                      </CardContent>
-                    </Card>
-                  </TiltCard>
-                </StaggerItem>
-              ))}
-            </StaggerChildren>
+            <FadeIn delay={0.2}>
+              <ServiceAccordion services={services} />
+            </FadeIn>
+          </Container>
+        </Section>
+
+        {/* AI Explorer CTA */}
+        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+          <Container>
+            <div className="max-w-2xl mx-auto text-center">
+              <Heading as="h2" size="section" className="mb-4">
+                <TextReveal>Explore your AI opportunities</TextReveal>
+              </Heading>
+              <FadeIn delay={0.4}>
+                <Text variant="bodyLarge" mono className="text-foreground-muted mb-8">
+                  Enter your website and get a personalised analysis of strategic AI opportunities tailored to your business priorities.
+                </Text>
+                <Button href="/tools/ai-explorer" size="lg" magnetic>
+                  Try the AI Explorer
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="ml-1"
+                  >
+                    <path
+                      d="M3.333 8h9.334M8.667 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Button>
+                <p className="mt-4 text-sm text-foreground-subtle font-mono">
+                  ~45 seconds · Multi-step analysis · Free
+                </p>
+              </FadeIn>
+            </div>
           </Container>
         </Section>
 
@@ -279,21 +450,9 @@ export default function Home() {
           <Testimonials />
         </Suspense>
 
-        {/* AI Scanner Section - Streams in via PPR */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
-          <Container>
-            <ErrorBoundary fallback={<ScannerFallback />}>
-              <Suspense fallback={<ScannerSkeleton />}>
-                <AIScanner />
-              </Suspense>
-            </ErrorBoundary>
-          </Container>
-        </Section>
-
         {/* CTA Card */}
         <CTACard
-          label="Ready to cut through the noise?"
-          topRightLink={{ text: "Schedule a Discussion", href: "/contact" }}
+          topRightLink={{ text: "Get in touch", href: "/contact" }}
           heading="Let's talk about what's actually on your mind."
           description="We take on a small number of clients. That's intentional — good advice takes attention."
           buttonText="Start a Conversation"

@@ -49,7 +49,6 @@ export const metadata: Metadata = {
 
 const manufacturingBreadcrumbs = generateBreadcrumbSchema([
   { name: "Home", url: BASE_URL },
-  { name: "Industries", url: `${BASE_URL}/industries` },
   { name: "Manufacturing", url: `${BASE_URL}/industries/manufacturing` },
 ]);
 
@@ -280,7 +279,7 @@ export default function ManufacturingPage() {
               </StaggerItem>
               <StaggerItem>
                 <div className="group">
-                  <LinkWithArrow href="/how-we-work" className="text-lg">
+                  <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Work
                   </LinkWithArrow>
                   <Text variant="muted" className="mt-2">

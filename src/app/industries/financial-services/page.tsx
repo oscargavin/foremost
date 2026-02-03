@@ -49,7 +49,6 @@ export const metadata: Metadata = {
 
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: "Home", url: BASE_URL },
-  { name: "Industries", url: `${BASE_URL}/industries` },
   { name: "Financial Services", url: `${BASE_URL}/industries/financial-services` },
 ]);
 
@@ -292,7 +291,7 @@ export default function FinancialServicesPage() {
               </StaggerItem>
               <StaggerItem>
                 <div className="group">
-                  <LinkWithArrow href="/how-we-work" className="text-lg">
+                  <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Work
                   </LinkWithArrow>
                   <Text variant="muted" className="mt-2">

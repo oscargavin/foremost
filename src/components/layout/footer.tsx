@@ -6,7 +6,7 @@ import { CopyrightYear } from "./copyright-year";
 const exploreLinks = [
   { href: "/who-we-are", label: "Who We Are" },
   { href: "/how-we-think", label: "How We Think" },
-  { href: "/how-we-work", label: "How We Work" },
+  { href: "/tools/ai-explorer", label: "AI Explorer" },
   { href: "/careers", label: "Careers" },
 ];
 

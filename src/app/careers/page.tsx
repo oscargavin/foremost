@@ -210,7 +210,7 @@ export default function CareersPage() {
               </StaggerItem>
               <StaggerItem>
                 <div className="group">
-                  <LinkWithArrow href="/how-we-work" className="text-lg">
+                  <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Work
                   </LinkWithArrow>
                   <Text variant="muted" className="mt-2">

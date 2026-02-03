@@ -218,9 +218,9 @@ export function BookingForm() {
             >
               Schedule a call
             </m.span>
-            <h1 className="text-2xl sm:text-3xl tracking-tight text-foreground mb-3" style={{ letterSpacing: '-0.02em' }}>
+            <p className="text-2xl sm:text-3xl tracking-tight text-foreground mb-3" style={{ letterSpacing: '-0.02em' }}>
               Let&apos;s talk about <span className="text-accent-orange">your vision</span>
-            </h1>
+            </p>
 
             {/* Mobile step indicator - horizontal dots with spring animations */}
             <div className="flex items-center gap-2 mt-4">

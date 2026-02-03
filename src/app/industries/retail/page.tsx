@@ -49,7 +49,6 @@ export const metadata: Metadata = {
 
 const retailBreadcrumbs = generateBreadcrumbSchema([
   { name: "Home", url: BASE_URL },
-  { name: "Industries", url: `${BASE_URL}/industries` },
   { name: "Retail", url: `${BASE_URL}/industries/retail` },
 ]);
 
@@ -271,7 +270,7 @@ export default function RetailIndustryPage() {
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               <StaggerItem>
                 <div className="group">
-                  <LinkWithArrow href="/how-we-work" className="text-lg">
+                  <LinkWithArrow href="/how-we-think" className="text-lg">
                     How We Work
                   </LinkWithArrow>
                   <Text variant="muted" className="mt-2">
