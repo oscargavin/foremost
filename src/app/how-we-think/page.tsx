@@ -52,19 +52,19 @@ const pillars = [
     number: "01",
     title: "Strategic Clarity",
     quote:
-      "There is no standalone AI strategy — only business strategies more or less accelerated by AI.",
+      "There's no such thing as an AI strategy — only business strategies that AI accelerates, or doesn't.",
     description:
-      "Selling AI strategies is backwards. You have a business strategy. The question is whether AI helps, and how much.",
-    highlight: "backwards",
+      "Everyone's drowning in AI noise. We help boards and executive teams cut through it, focus on what matters, and make confident choices.",
+    highlight: "cut through it",
   },
   {
     id: "applied-intelligence",
     number: "02",
     title: "Applied Intelligence",
     quote:
-      "If it doesn't impact the P&L or the business model, it's a hobby.",
+      "If it doesn't hit the P&L or change the business model, it's a hobby.",
     description:
-      "AI either changes your business model or makes operations cheaper. Pick one and measure it. Everything else is innovation theatre.",
+      "AI creates value two ways: rethinking business models or driving productivity. Pick one and measure it. Everything else is innovation theatre.",
     highlight: "innovation theatre",
   },
   {
@@ -82,10 +82,10 @@ const pillars = [
     number: "04",
     title: "Governance as Enabler",
     quote:
-      "Good governance creates confidence. Clear direction and guardrails give organisations permission to move faster.",
+      "Good governance gives people permission to move faster. It turns risk management into a competitive advantage.",
     description:
-      "Boards can't delegate AI to IT and hope for the best. They need to own direction. Good governance gives people permission to move.",
-    highlight: "permission to move",
+      "Boards can't delegate AI to IT and hope for the best. They need to own direction, ask the hard questions, and guide trade-offs. Good governance speeds things up.",
+    highlight: "speeds things up",
   },
 ];
 
@@ -97,7 +97,7 @@ export default function HowWeThinkPage() {
         {/* Hero Section */}
         <HeroSection variant="how-we-think">
           <Heading as="h1" size="hero" className="mb-6">
-            <TextReveal>Our AI Strategy Philosophy</TextReveal>
+            <TextReveal>Clarity in Complexity.</TextReveal>
           </Heading>
           <FadeIn delay={0.4}>
             <Text
@@ -105,7 +105,7 @@ export default function HowWeThinkPage() {
               mono
               className="max-w-xl text-foreground-muted"
             >
-              Four beliefs that shape our work. Unfashionable in an industry that loves hype — but why our advice works.
+              Business strategy, accelerated by intelligence, not isolated &ldquo;AI projects.&rdquo; Four beliefs guide our advice.
             </Text>
           </FadeIn>
         </HeroSection>
@@ -219,11 +219,11 @@ export default function HowWeThinkPage() {
 
         {/* CTA Card */}
         <CTACard
-          label="Founding Engagements"
-          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          label="Ready to put this thinking to work?"
+          topRightLink={{ text: "Schedule a Discussion", href: "/contact" }}
           heading="Your competitors are moving. Are you?"
-          description="Early movers in AI build advantages that compound. We'd rather help you lead than catch up."
-          buttonText="Talk to Us"
+          description="Early movers build advantages that compound. We'd rather help you lead than catch up."
+          buttonText="Start a Conversation"
           buttonHref="/contact"
         />
       </main>

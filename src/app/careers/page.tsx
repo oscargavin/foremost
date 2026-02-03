@@ -81,7 +81,7 @@ export default function CareersPage() {
         {/* Hero Section */}
         <HeroSection variant="careers">
           <Heading as="h1" size="hero" className="mb-6">
-            <TextReveal>AI Consulting Careers at Foremost</TextReveal>
+            <TextReveal>Join Foremost.</TextReveal>
           </Heading>
           <FadeIn delay={0.4}>
             <Text
@@ -89,8 +89,7 @@ export default function CareersPage() {
               mono
               className="max-w-xl text-foreground-muted"
             >
-              We're looking for people who'd rather give honest advice than
-              impressive presentations.
+              We're looking for people who'd rather give honest advice than impressive presentations.
             </Text>
           </FadeIn>
         </HeroSection>
@@ -107,11 +106,7 @@ export default function CareersPage() {
               </Heading>
               <FadeIn delay={0.3}>
                 <Text variant="muted" className="text-lg leading-relaxed">
-                  We advise boards and executives on AI — the technology and
-                  the organisational reality. The politics, the fear, the concerns
-                  that never make it into strategy documents. If you're good at{" "}
-                  <Highlight>reading rooms and cutting through noise</Highlight>,
-                  we should talk.
+                  We advise boards and executives on AI — the technology and the organisational reality. The politics, the fear, the concerns that never make it into strategy documents. If you're good at <Highlight>reading rooms and cutting through noise</Highlight>, we should talk.
                 </Text>
               </FadeIn>
             </div>
@@ -174,8 +169,7 @@ export default function CareersPage() {
                   as="p"
                   className="text-[24px] leading-[1.4] text-foreground mb-6"
                 >
-                  Small team. No layers. Direct work with clients who actually
-                  want <Highlight>honest advice, not validation</Highlight>.
+                  Small team. No layers. Direct work with clients who actually want <Highlight>honest advice, not validation</Highlight>.
                 </Text>
               </FadeIn>
               <FadeIn delay={0.5}>

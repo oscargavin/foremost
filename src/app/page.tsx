@@ -56,16 +56,16 @@ function TestimonialsSkeleton() {
 }
 
 export const metadata: Metadata = {
-  title: "Board-Level AI Advisory for Leaders | Foremost",
+  title: "Foremost.ai | Board-Level AI Advisory",
   description:
-    "Cut through AI noise with board-level advisory. Get strategic clarity, measurable outcomes, and governance that enables speed.",
+    "Applied intelligence for boards and executive teams. We help leaders navigate AI with clarity, confidence, and measurable outcomes. Strategic AI advisory for UK and EU organisations.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Board-Level AI Advisory for Leaders | Foremost",
+    title: "Foremost.ai | Board-Level AI Advisory",
     description:
-      "Cut through AI noise with board-level advisory. Get strategic clarity, measurable outcomes, and governance that enables speed.",
+      "Applied intelligence for boards and executive teams. Strategic AI advisory that brings clarity, confidence, and measurable outcomes.",
     url: "https://foremost.ai",
     type: "website",
     images: [
@@ -79,9 +79,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Board-Level AI Advisory for Leaders | Foremost",
+    title: "Foremost.ai | Board-Level AI Advisory",
     description:
-      "Cut through AI noise with board-level advisory. Get strategic clarity, measurable outcomes, and governance that enables speed.",
+      "Applied intelligence for boards and executive teams. Strategic AI advisory that brings clarity, confidence, and measurable outcomes.",
     images: ["https://foremost.ai/og-image.png"],
   },
 };
@@ -91,7 +91,7 @@ const services = [
     number: "01",
     title: "Strategic Clarity",
     description:
-      "Most AI conversations start with technology. We start with your business goals, then work backwards to what AI actually helps with.",
+      "There's a lot of noise out there. We help you cut through it, find where AI actually accelerates your goals, and move forward with clear priorities.",
     href: "/how-we-think#strategic-clarity",
     linkText: "See how",
   },
@@ -99,15 +99,15 @@ const services = [
     number: "02",
     title: "Applied Intelligence",
     description:
-      "Pilots are easy; affecting your P&L is hard. We focus on the second part.",
+      "AI creates value two ways: reimagining your business model, or making operations more efficient. We make sure whichever path you choose hits the P&L.",
     href: "/how-we-think#applied-intelligence",
     linkText: "See how",
   },
   {
     number: "03",
-    title: "Human Potential",
+    title: "Human Potential & Imagination",
     description:
-      "AI projects fail because of people, not technology. We design organisations where humans and AI work together.",
+      "AI projects succeed or fail with people. We design organisations where human judgement stays central — and imagination gets unlocked, not stalled by fear.",
     href: "/how-we-think#human-potential",
     linkText: "See how",
   },
@@ -115,7 +115,7 @@ const services = [
     number: "04",
     title: "Governance as Enabler",
     description:
-      "Good governance lets you move faster. It gives teams permission to act.",
+      "Good governance speeds you up. It gives teams the guardrails they need to move with conviction.",
     href: "/how-we-think#governance",
     linkText: "See how",
   },
@@ -131,7 +131,7 @@ export default function Home() {
         <HeroSection>
           <Heading as="h1" size="hero" className="mb-6">
             <TextReveal>
-              AI Strategy Consulting for Executive Teams
+              Applied intelligence for the boardroom.
             </TextReveal>
           </Heading>
           <FadeIn delay={0.4}>
@@ -140,8 +140,7 @@ export default function Home() {
               mono
               className="max-w-xl text-foreground-muted"
             >
-              Board-level AI advisory. While your competitors run pilots,
-              we help you ship.
+              We help boards and executive teams cut through AI noise and get to clear priorities that actually move the business.
             </Text>
             <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
               <Button href="/contact" size="lg" magnetic>
@@ -184,7 +183,7 @@ export default function Home() {
             <blockquote className="max-w-3xl">
               <p className="text-[33px] leading-[1.2] tracking-[-0.5px] text-foreground">
                 <TextReveal>
-                  {`"We don't sell AI strategies. We sharpen business strategies for a world where AI exists."`}
+                  {`"We don't sell AI strategies. We sharpen business strategies for an AI-enabled world."`}
                 </TextReveal>
               </p>
             </blockquote>
@@ -214,7 +213,7 @@ export default function Home() {
                   mono
                   className="max-w-2xl text-foreground-muted"
                 >
-                  Every month you wait is a month your competitors don&apos;t.
+                  For boards and executive teams who want to stop circling and start deciding.
                 </Text>
               </FadeIn>
             </div>
@@ -293,11 +292,11 @@ export default function Home() {
 
         {/* CTA Card */}
         <CTACard
-          label="Founding Engagements"
-          topRightLink={{ text: "Limited Availability", href: "/contact" }}
-          heading="We're looking for a handful of founding clients."
-          description="You work with us directly — all three founders, no juniors. Better rates now than later."
-          buttonText="Get in Touch"
+          label="Ready to cut through the noise?"
+          topRightLink={{ text: "Schedule a Discussion", href: "/contact" }}
+          heading="Let's talk about what's actually on your mind."
+          description="We take on a small number of clients. That's intentional — good advice takes attention."
+          buttonText="Start a Conversation"
           buttonHref="/contact"
         />
       </main>

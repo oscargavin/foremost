@@ -46,7 +46,7 @@ export default function ContactPage() {
         {/* Hero Section */}
         <HeroSection variant="contact">
           <Heading as="h1" size="hero" className="mb-6">
-            <TextReveal>Start a Conversation</TextReveal>
+            <TextReveal>Start a Conversation.</TextReveal>
           </Heading>
           <FadeIn delay={0.4}>
             <Text
@@ -54,8 +54,7 @@ export default function ContactPage() {
               mono
               className="max-w-xl text-foreground-muted"
             >
-              We&apos;re looking for a few founding clients. You&apos;d work
-              directly with all three of us — no account managers in between.
+              We take on a few clients at a time. You&apos;d work directly with the founders — no account managers in between.
             </Text>
           </FadeIn>
         </HeroSection>

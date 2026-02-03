@@ -25,11 +25,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://foremost.ai"),
   title: {
-    default: "Board-Level AI Advisory - Strategic Clarity for Leaders | Foremost",
+    default: "Foremost.ai | Board-Level AI Advisory",
     template: "%s",
   },
   description:
-    "Applied intelligence for the boardroom. We help boards and executive teams cut through AI noise with clarity, rigour, and measurable outcomes.",
+    "Applied intelligence for boards and executive teams. We help leaders navigate AI with clarity, confidence, and measurable outcomes. Strategic AI advisory for UK and EU organisations.",
   keywords: [
     "AI advisory",
     "board advisory",
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://foremost.ai",
     siteName: "Foremost.ai",
-    title: "Board-Level AI Advisory - Strategic Clarity for Leaders | Foremost",
+    title: "Foremost.ai | Board-Level AI Advisory",
     description:
-      "Applied intelligence for the boardroom. Cut through AI noise with clarity, rigour, and measurable outcomes.",
+      "Applied intelligence for boards and executive teams. Strategic AI advisory that brings clarity, confidence, and measurable outcomes.",
     images: [
       {
         url: "https://foremost.ai/og-image.png",
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Board-Level AI Advisory - Strategic Clarity for Leaders | Foremost",
+    title: "Foremost.ai | Board-Level AI Advisory",
     description:
-      "Applied intelligence for the boardroom. Cut through AI noise with clarity, rigour, and measurable outcomes.",
+      "Applied intelligence for boards and executive teams. Strategic AI advisory that brings clarity, confidence, and measurable outcomes.",
     images: ["https://foremost.ai/og-image.png"],
   },
   robots: {

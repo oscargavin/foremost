@@ -51,19 +51,19 @@ const differentiators = [
   {
     title: "Business outcomes, not technology features",
     description:
-      "We don't care what's technically impressive. We care whether it moves your P&L or changes your business model.",
-    highlight: "moves your P&L or changes your business model",
+      "We start with what you're trying to achieve, not what's technically impressive. AI is a means to an end.",
+    highlight: "what you're trying to achieve",
   },
   {
     title: "Capability, not dependency",
     description:
-      "A good engagement ends with you needing us less. That's the only honest measure of success.",
+      "A good engagement ends with you needing us less. That's how we measure success.",
     highlight: "needing us less",
   },
   {
     title: "Truth to power",
     description:
-      "If an AI initiative is a bad idea, you'll hear it from us. Boards get enough people telling them what they want to hear.",
+      "If something's a bad idea, you'll hear it from us. Boards get enough people telling them what they want to hear.",
     highlight: "you'll hear it from us",
   },
 ];
@@ -71,11 +71,11 @@ const differentiators = [
 const values = [
   {
     name: "Clarity",
-    description: "If we can't explain it simply, we don't understand it.",
+    description: "If we can't explain it simply, we don't understand it well enough.",
   },
   {
     name: "Rigour",
-    description: "We follow evidence, even when unfashionable.",
+    description: "We follow evidence, even when it's unfashionable.",
   },
   {
     name: "Integrity",
@@ -83,7 +83,7 @@ const values = [
   },
   {
     name: "Impact",
-    description: "Slide decks don't count. Did anything change?",
+    description: "Slide decks don't count. Did anything actually change?",
   },
 ];
 
@@ -96,7 +96,7 @@ export default function WhoWeArePage() {
         <HeroSection variant="who-we-are">
           <Heading as="h1" size="hero" className="mb-6">
             <TextReveal>
-              About Foremost: AI Advisory for Boards and Executives
+              About Foremost.
             </TextReveal>
           </Heading>
           <FadeIn delay={0.4}>
@@ -105,7 +105,7 @@ export default function WhoWeArePage() {
               mono
               className="max-w-xl text-foreground-muted"
             >
-              We help boards and executives make sense of AI — not the hype, the actual business implications.
+              Clarity, confidence, and meaningful progress for leaders embracing AI.
             </Text>
           </FadeIn>
         </HeroSection>
@@ -123,19 +123,13 @@ export default function WhoWeArePage() {
               <FadeIn delay={0.3}>
                 <div className="space-y-6">
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    We started Foremost because we kept seeing the same problem:
-                    boards drowning in AI pitches, but nobody helping them think through
-                    what it meant for their specific business. <Highlight>Everyone sold solutions.
-                    Nobody helped them understand the problem.</Highlight>
+                    We started Foremost because we kept seeing the same thing: boards drowning in AI pitches, vendors selling solutions, consultancies selling methodologies — but <Highlight>nobody sitting with leadership</Highlight> and helping them think through what AI actually meant for their business.
                   </Text>
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    <Highlight>Most AI projects fail because of people, not technology.</Highlight>{" "}
-                    The fears, the politics, the organisational dynamics nobody
-                    wants to discuss — that's where we spend most of our time.
+                    <Highlight>Technology alone doesn't transform organisations; people do.</Highlight> Most of our work focuses on the human side — the fears, the politics, the dynamics that determine whether AI initiatives fly or stall.
                   </Text>
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    UK and EU businesses must get serious about AI or fall behind.
-                    We help them move without making expensive mistakes.
+                    UK and EU businesses need to get serious about AI or fall behind. We help them move — thoughtfully, strategically, with governance that speeds things up rather than slowing them down.
                   </Text>
                 </div>
               </FadeIn>
@@ -250,11 +244,7 @@ export default function WhoWeArePage() {
                         </div>
                       </div>
                       <Text variant="muted" className="text-sm flex-grow">
-                        Spent years as a non-executive director watching boards
-                        drown in AI pitches — too much hype, not enough practical
-                        guidance. Founded Foremost to fix that. MIT AI programme,
-                        but more importantly: someone who's sat through board
-                        meetings and knows which questions matter.
+                        Spent years as a non-executive director watching boards drown in AI pitches — too much hype, not enough practical guidance. Founded Foremost to fix that. MIT AI programme, but more importantly: someone who&apos;s sat through the board meetings and knows which questions actually matter.
                       </Text>
                       <div className="mt-5">
                         <LinkWithArrow
@@ -364,9 +354,7 @@ export default function WhoWeArePage() {
               </Heading>
               <FadeIn delay={0.3}>
                 <Text variant="muted" className="text-lg leading-relaxed">
-                  We don't know everything. When your challenge requires specialist
-                  knowledge — regulatory, technical, sector-specific — we bring in
-                  people who've done it before.
+                  A curated network of domain experts in specific verticals, regulatory frameworks, and technical implementation. When your challenge requires specialist knowledge, we bring in people who&apos;ve done it before.
                 </Text>
               </FadeIn>
             </div>
@@ -416,11 +404,11 @@ export default function WhoWeArePage() {
 
         {/* CTA Card */}
         <CTACard
-          label="Founding Engagements"
-          topRightLink={{ text: "Limited Spots", href: "/contact" }}
+          label="Ready to bring clarity to your AI agenda?"
+          topRightLink={{ text: "Start a Conversation", href: "/contact" }}
           heading="We take few clients so we can go deep."
-          description="You work with all three founders. No handoffs, no layers."
-          buttonText="See If We Fit"
+          description="You work with the founders directly. No handoffs, no layers."
+          buttonText="Start a Conversation"
           buttonHref="/contact"
         />
       </main>

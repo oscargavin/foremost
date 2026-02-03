@@ -63,7 +63,7 @@ const approaches = [
   {
     title: "Deep Partnerships, Few Clients",
     description:
-      "We take on fewer clients than we could. We don't scale. Good advisory requires attention, and attention is finite.",
+      "We take on fewer clients than we could. Good advisory requires attention, and attention is finite.",
     highlight: "attention is finite",
   },
 ];
@@ -77,7 +77,7 @@ export default function HowWeWorkPage() {
         <HeroSection variant="how-we-work">
           <Heading as="h1" size="hero" className="mb-6">
             <TextReveal>
-              Our AI Consulting Partnership Model
+              How We Work.
             </TextReveal>
           </Heading>
           <FadeIn delay={0.4}>
@@ -103,9 +103,7 @@ export default function HowWeWorkPage() {
               </Heading>
               <FadeIn delay={0.3}>
                 <Text variant="muted" className="text-lg leading-relaxed">
-                  Most consultancies create dependency — that's their business
-                  model. Ours is the opposite: build your capability
-                  until <Highlight>you don't need us anymore</Highlight>.
+                  Most consultancies create dependency — that's their business model. Ours is the opposite: build your capability until <Highlight>you don't need us anymore</Highlight>.
                 </Text>
               </FadeIn>
             </div>
@@ -163,8 +161,7 @@ export default function HowWeWorkPage() {
               <FadeIn delay={0.3}>
                 <div className="space-y-8">
                   <Text variant="muted" className="text-lg leading-relaxed">
-                    Long engagements aren't a sign of success.{" "}
-                    <Highlight>Your team knowing what to do without calling us</Highlight> — that's success.
+                    Long engagements aren't a sign of success. <Highlight>Your team knowing what to do without calling us</Highlight> — that's success.
                   </Text>
                   <blockquote className="border-l-2 border-accent-orange pl-6 py-2">
                     <Text
@@ -223,7 +220,7 @@ export default function HowWeWorkPage() {
 
         {/* CTA Card */}
         <CTACard
-          label="Founding Engagements"
+          label="Ready to build capability, not dependency?"
           topRightLink={{ text: "Limited Spots", href: "/contact" }}
           heading="Waiting has a cost."
           description="Founding clients work with us directly and pay less than those who come later."
