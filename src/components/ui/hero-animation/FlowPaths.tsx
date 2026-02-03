@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -19,6 +19,16 @@ type DashedMaterial = THREE.LineDashedMaterial & { dashOffset: number };
 export function FlowPaths({ isMobile }: FlowPathsProps) {
   const groupRef = useRef<THREE.Group>(null);
   const materialsRef = useRef<DashedMaterial[]>([]);
+  const pathCountRef = useRef<number>(0);
+
+  // Reset materials ref when path count changes (mobile/desktop switch)
+  useEffect(() => {
+    const expectedCount = isMobile ? 3 : 6;
+    if (pathCountRef.current !== expectedCount) {
+      materialsRef.current = [];
+      pathCountRef.current = expectedCount;
+    }
+  }, [isMobile]);
 
   // Define flow paths between peaks
   const paths: FlowPath[] = useMemo(() => {
@@ -76,10 +86,8 @@ export function FlowPaths({ isMobile }: FlowPathsProps) {
     }));
   }, [isMobile]);
 
-  // Create geometries and materials
+  // Create geometries - materials ref is managed separately via ref callbacks
   const geometries = useMemo(() => {
-    // Reset materials ref when paths change to prevent stale references
-    materialsRef.current = [];
     return paths.map((path) => {
       const curve = new THREE.CatmullRomCurve3(path.points);
       const points = curve.getPoints(50);
@@ -147,6 +155,11 @@ export function FlowParticles({ isMobile }: { isMobile: boolean }) {
 
   const maxParticles = isMobile ? 8 : 15;
 
+  // Clear particles when isMobile changes to prevent stale pathIndex references
+  useEffect(() => {
+    particlesRef.current = [];
+  }, [isMobile]);
+
   // Peak positions for path calculations
   const peakPositions = useMemo(
     () => [
@@ -208,6 +221,11 @@ export function FlowParticles({ isMobile }: { isMobile: boolean }) {
 
       // Interpolate position along path
       const conn = pathConnections[particle.pathIndex];
+      // Guard against stale particles with out-of-bounds pathIndex
+      if (!conn) {
+        particlesRef.current.splice(i, 1);
+        continue;
+      }
       const start = peakPositions[conn[0]];
       const end = peakPositions[conn[1]];
 

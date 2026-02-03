@@ -39,6 +39,8 @@ export function HeroAnimation({ variant }: HeroAnimationProps) {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [isReady, setIsReady] = useState(false);
+  // Track if component has mounted to handle navigation remounts
+  const [isMounted, setIsMounted] = useState(false);
 
   // Detect mobile/desktop
   useEffect(() => {
@@ -69,12 +71,16 @@ export function HeroAnimation({ variant }: HeroAnimationProps) {
 
   // Delayed ready state for fade-in
   useEffect(() => {
+    setIsMounted(true);
     const timer = setTimeout(() => setIsReady(true), 100);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      setIsMounted(false);
+    };
   }, []);
 
-  // Don't render until we know which version to show
-  if (isMobile === null) return null;
+  // Don't render until we know which version to show and component is mounted
+  if (isMobile === null || !isMounted) return null;
 
   return (
     <m.div
@@ -85,7 +91,11 @@ export function HeroAnimation({ variant }: HeroAnimationProps) {
       transition={{ duration: 0.8, ease: "easeOut" }}
       aria-hidden="true"
     >
-      <TopologyCanvas isMobile={isMobile} isVisible={isVisible} variant={variantConfig} />
+      <TopologyCanvas
+        isMobile={isMobile}
+        isVisible={isVisible}
+        variant={variantConfig}
+      />
     </m.div>
   );
 }

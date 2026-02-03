@@ -380,39 +380,54 @@ export default function Home() {
         </Section>
 
         {/* AI Explorer CTA */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+        <Section className="py-20 sm:py-24 md:py-28">
           <Container>
-            <div className="max-w-2xl mx-auto text-center">
-              <Heading as="h2" size="section" className="mb-4">
-                <TextReveal>Explore your AI opportunities</TextReveal>
-              </Heading>
-              <FadeIn delay={0.4}>
-                <Text variant="bodyLarge" mono className="text-foreground-muted mb-8">
+            <FadeIn>
+              <div className="max-w-4xl">
+                {/* Top label */}
+                <div className="flex items-center gap-3 mb-8 md:mb-10">
+                  <span className="w-2 h-2 rounded-full bg-accent-orange" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-subtle">
+                    Interactive Tool
+                  </span>
+                </div>
+
+                {/* Heading */}
+                <Heading as="h2" size="section" className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-light tracking-[-0.03em] leading-[1.05] mb-6 md:mb-8 max-w-3xl">
+                  <TextReveal>Explore your AI opportunities</TextReveal>
+                </Heading>
+
+                {/* Description */}
+                <Text className="text-lg sm:text-xl md:text-2xl text-foreground-muted leading-relaxed max-w-2xl mb-10 md:mb-12">
                   Enter your website and get a personalised analysis of strategic AI opportunities tailored to your business priorities.
                 </Text>
-                <Button href="/tools/ai-explorer" size="lg" magnetic>
-                  Try the AI Explorer
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    className="ml-1"
-                  >
-                    <path
-                      d="M3.333 8h9.334M8.667 4l4 4-4 4"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Button>
-                <p className="mt-4 text-sm text-foreground-subtle font-mono">
-                  ~45 seconds · Multi-step analysis · Free
-                </p>
-              </FadeIn>
-            </div>
+
+                {/* Button and metadata */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+                  <Button href="/tools/ai-explorer" size="lg" magnetic>
+                    Try the AI Explorer
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      className="ml-2"
+                    >
+                      <path
+                        d="M3.333 8h9.334M8.667 4l4 4-4 4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Button>
+                  <p className="text-sm text-foreground-subtle font-mono tracking-wide">
+                    ~45 seconds · Multi-step analysis
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
           </Container>
         </Section>
 

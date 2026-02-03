@@ -115,61 +115,102 @@ export default function HowWeThinkPage() {
           <Section
             key={pillar.id}
             id={pillar.id}
-            className={index === 0 ? "py-28" : "py-20"}
-            variant={index % 2 === 0 ? "card" : "default"}
-            pattern={index % 2 === 0 ? "grid-subtle" : "none"}
-            blend={index % 2 === 0 ? "elevated" : "border"}
+            className={index === 0 ? "py-20 sm:py-24 md:py-28" : "py-16 sm:py-20"}
+            pattern={index === 0 || index === 2 ? "diagonal" : "none"}
+            blend={index === 0 || index === 2 ? "border" : undefined}
           >
             <Container>
-              <div className="max-w-3xl">
+              <div className="max-w-4xl mx-auto">
                 <FadeIn>
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-10 h-10 rounded-lg bg-accent-orange/10 flex items-center justify-center">
-                      <span className="text-accent-orange font-mono text-sm font-medium">
-                        {pillar.number}
-                      </span>
+                  <div>
+                    {/* Title with number */}
+                    <div className="mb-8 md:mb-10">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-lg bg-accent-orange/10 flex items-center justify-center">
+                          <span className="text-accent-orange font-mono text-sm font-medium">
+                            {pillar.number}
+                          </span>
+                        </div>
+                        <div className="h-px flex-1 bg-gradient-to-r from-accent-orange/30 to-transparent" />
+                      </div>
+                      <Heading as="h2" size="section" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[-0.02em] leading-[1.1]">
+                        <TextReveal>{pillar.title}</TextReveal>
+                      </Heading>
                     </div>
-                    <div className="w-8 h-px bg-border" />
+
+                    {/* Quote - alternate styles by index */}
+                    <div className="relative mb-8 md:mb-10">
+                      {index % 2 === 1 ? (
+                        // Style A: Minimal with large orange quote mark
+                        <div className="relative pl-8 sm:pl-12">
+                          <div className="absolute left-0 top-0 text-[80px] sm:text-[100px] font-serif leading-none text-accent-orange/20 select-none pointer-events-none" style={{lineHeight: '0.7'}}>
+                            &ldquo;
+                          </div>
+                          <blockquote className="relative">
+                            <Text
+                              as="p"
+                              className="text-xl sm:text-2xl md:text-3xl leading-[1.4] text-foreground font-light italic mb-4"
+                            >
+                              {pillar.quote}
+                            </Text>
+                            <div className="flex items-center gap-2">
+                              <div className="h-px w-8 bg-accent-orange" />
+                              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent-orange">
+                                Foremost Thinking
+                              </span>
+                            </div>
+                          </blockquote>
+                        </div>
+                      ) : (
+                        // Style B: Card with top accent - glassy with fade edges
+                        <div className="relative overflow-hidden rounded-lg p-6 sm:p-8">
+                          {/* Glassy background with fade */}
+                          <div className="absolute inset-0 bg-background-card/40 backdrop-blur-sm" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background-card/20 to-transparent" />
+                          <div className="absolute inset-0 border border-white/10 rounded-lg" />
+
+                          {/* Top accent */}
+                          <div className="absolute top-0 left-8 w-16 h-[3px] bg-accent-orange -translate-y-1/2 z-10" />
+
+                          {/* Content */}
+                          <div className="relative z-10">
+                            <div className="mb-4">
+                              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent-orange">
+                                Foremost Thinking
+                              </span>
+                            </div>
+                            <blockquote>
+                              <Text
+                                as="p"
+                                className="text-xl sm:text-2xl md:text-3xl leading-[1.4] text-foreground font-light italic"
+                              >
+                                &ldquo;{pillar.quote}&rdquo;
+                              </Text>
+                            </blockquote>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Description */}
+                    <div className="mb-8">
+                      <Text
+                        variant="muted"
+                        className="text-base sm:text-lg leading-relaxed max-w-2xl"
+                      >
+                        {pillar.description.split(pillar.highlight)[0]}
+                        <Highlight>{pillar.highlight}</Highlight>
+                        {pillar.description.split(pillar.highlight)[1]}
+                      </Text>
+                    </div>
+
+                    {/* Link */}
+                    <div>
+                      <LinkWithArrow href="/contact">
+                        See related services
+                      </LinkWithArrow>
+                    </div>
                   </div>
-                </FadeIn>
-
-                <Heading as="h2" size="section" className="mb-8">
-                  <TextReveal>{pillar.title}</TextReveal>
-                </Heading>
-
-                <FadeIn delay={0.3}>
-                  <TiltCard className="mb-8">
-                    <Card className="p-6">
-                      <CardContent className="p-0">
-                        <SectionLabel className="mb-4">
-                          Foremost Thinking
-                        </SectionLabel>
-                        <blockquote className="border-l-2 border-accent-orange pl-6">
-                          <Text
-                            as="p"
-                            className="text-[24px] leading-[1.4] text-foreground italic"
-                          >
-                            &ldquo;{pillar.quote}&rdquo;
-                          </Text>
-                        </blockquote>
-                      </CardContent>
-                    </Card>
-                  </TiltCard>
-                </FadeIn>
-
-                <FadeIn delay={0.4}>
-                  <Text
-                    variant="muted"
-                    className="text-lg leading-relaxed mb-8"
-                  >
-                    {pillar.description.split(pillar.highlight)[0]}
-                    <Highlight>{pillar.highlight}</Highlight>
-                    {pillar.description.split(pillar.highlight)[1]}
-                  </Text>
-
-                  <LinkWithArrow href="/contact">
-                    See related services
-                  </LinkWithArrow>
                 </FadeIn>
               </div>
             </Container>

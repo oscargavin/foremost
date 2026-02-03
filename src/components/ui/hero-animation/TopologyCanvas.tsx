@@ -156,7 +156,7 @@ function VisibilityController({ isVisible }: { isVisible: boolean }) {
   return null;
 }
 
-// Scene content
+// Scene content - always mounted to prevent WebGL context issues on navigation
 function Scene({ isMobile, isVisible, variant }: TopologyCanvasProps) {
   const [mousePosition, setMousePosition] = useState({ x: -100, z: -100, active: false });
 
@@ -167,10 +167,9 @@ function Scene({ isMobile, isVisible, variant }: TopologyCanvasProps) {
     []
   );
 
-  // Don't render complex scene if not visible (basic optimization)
-  if (!isVisible) {
-    return null;
-  }
+  // Note: We no longer return null when !isVisible
+  // The frameloop="never" on Canvas handles pausing, and keeping objects mounted
+  // prevents WebGL context issues when navigating back to the page
 
   return (
     <>
