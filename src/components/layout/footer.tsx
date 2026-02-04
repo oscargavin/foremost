@@ -14,6 +14,7 @@ const connectLinks = [
   { href: "mailto:office@foremost.ai", label: "office@foremost.ai" },
   { href: "/contact", label: "Schedule a Discussion" },
   { href: "https://linkedin.com/company/foremost-ai", label: "LinkedIn", external: true },
+  { href: "/privacy-policy", label: "Privacy Policy" },
 ];
 
 const industryLinks = [
@@ -29,7 +30,7 @@ export function Footer() {
   return (
     <footer className="bg-background-card border-t border-border mt-20" role="contentinfo">
       <Container className="py-10 sm:py-12 md:py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 md:gap-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-3 md:col-span-1">
             <Link href="/" className="inline-block" aria-label="Foremost.ai - Go to homepage">
@@ -85,18 +86,6 @@ export function Footer() {
                   </AnimatedLink>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className="text-sm font-sans text-foreground mb-4">Legal</h3>
-            <ul className="space-y-3">
-              <li>
-                <AnimatedLink href="/privacy-policy" className="text-sm">
-                  Privacy Policy
-                </AnimatedLink>
-              </li>
             </ul>
           </div>
         </div>

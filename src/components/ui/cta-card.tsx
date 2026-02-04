@@ -31,13 +31,7 @@ export function CTACard({
       <FadeIn>
         <div className="max-w-7xl mx-auto">
           {/* Editorial frame */}
-          <div className="relative border border-white/10 bg-background-dark">
-            {/* Corner accent marks */}
-            <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-accent-orange" />
-            <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-accent-orange" />
-            <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-accent-orange" />
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-accent-orange" />
-
+          <div className="relative bg-background-dark rounded-lg overflow-hidden">
             {/* Split screen layout */}
             <div className="grid md:grid-cols-2 gap-0 md:divide-x divide-white/10">
               {/* Left: Editorial quote/heading */}

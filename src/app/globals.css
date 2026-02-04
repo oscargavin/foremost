@@ -361,24 +361,30 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Logo dot ambient pulse animation */
+/* Logo dot ambient pulse animation - subtle with built-in pauses */
 @keyframes logo-dot-pulse {
   0%, 100% {
     transform: scale(1);
     opacity: 1;
   }
-  50% {
-    transform: scale(1.25);
-    opacity: 0.85;
+  /* Pulse happens in first 30% of cycle, then holds for remaining 70% */
+  15% {
+    transform: scale(1.15);
+    opacity: 0.9;
+  }
+  30%, 100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
 .animate-logo-pulse {
-  animation: logo-dot-pulse 2.5s ease-in-out infinite;
+  animation: logo-dot-pulse 4s ease-in-out infinite;
 }
 
 .group:hover .animate-logo-pulse {
   animation: none;
+  transform: scale(1.15);
 }
 
 /* Bubble float animation for sector pills - organic bobbing */

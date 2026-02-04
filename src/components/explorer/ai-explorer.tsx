@@ -315,80 +315,98 @@ export function AIExplorer() {
       transition={motionConfig.transition}
       className={cn(STEP_MIN_HEIGHTS.input, "flex flex-col justify-center py-8 sm:py-12")}
     >
-      {/* Header */}
-      <header className="text-center mb-8 sm:mb-10 md:mb-14 px-2">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-foreground mb-4 sm:mb-5 tracking-tight leading-[1.1]">
-          Explore your{" "}
-          <span className="text-accent-orange">AI</span>
-          <br className="hidden sm:block" />
-          <span className="sm:hidden"> </span>
-          opportunities
-        </h1>
-
-        <p className="text-sm sm:text-base md:text-lg text-foreground-muted max-w-lg mx-auto leading-relaxed">
-          Enter your website and we&apos;ll identify strategic AI opportunities tailored to your business priorities.
-        </p>
-      </header>
-
-      {/* Input area */}
-      <div className="max-w-xl mx-auto px-2 sm:px-0">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor={`${formId}-url`} className="sr-only">
-            Website URL
-          </label>
-
-          <div
-            className={cn(
-              "bg-background-card border border-border rounded-lg p-2",
-              "focus-within:border-accent-orange/50 focus-within:shadow-md focus-within:shadow-accent-orange/5"
-            )}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <div className="flex items-center gap-3 px-3 sm:px-4 py-3 flex-1">
-                <Globe className="w-5 h-5 text-foreground-subtle flex-shrink-0" aria-hidden="true" />
-                <input
-                  ref={inputRef}
-                  id={`${formId}-url`}
-                  type="url"
-                  value={state.url}
-                  onChange={(e) => dispatch({ type: "SET_URL", url: e.target.value })}
-                  onKeyDown={handleKeyDown}
-                  placeholder="yourwebsite.com"
-                  autoComplete="url"
-                  spellCheck={false}
-                  disabled={state.isAnalysing}
-                  className={cn(
-                    "flex-1 bg-transparent border-none min-w-0",
-                    "text-base sm:text-lg text-foreground",
-                    "placeholder:text-foreground-subtle",
-                    "focus:outline-none",
-                    "disabled:opacity-50"
-                  )}
-                />
+      <div className="max-w-5xl mx-auto px-2 sm:px-4 w-full">
+        {/* Editorial frame */}
+        <div className="relative">
+          <div className="p-8 sm:p-10 md:p-12 lg:p-16">
+            {/* Top label */}
+            <div className="mb-8 md:mb-10">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-accent-orange" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-subtle">
+                  AI Use Case Explorer
+                </span>
               </div>
-              <button
-                type="submit"
-                disabled={state.isAnalysing || !state.url.trim()}
-                className={cn(
-                  "bg-background-button text-foreground-light",
-                  "w-full sm:w-auto min-h-12 px-6 py-3 rounded-md",
-                  "disabled:opacity-30 disabled:cursor-not-allowed",
-                  "enabled:hover:bg-[#1a1a1a]",
-                  "transition-colors cursor-pointer",
-                  "text-base font-medium",
-                  "flex items-center justify-center gap-2"
-                )}
-              >
-                <span>Analyse</span>
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </button>
+            </div>
+
+            {/* Header */}
+            <header className="mb-10 md:mb-12">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-foreground mb-5 md:mb-6 tracking-[-0.02em] leading-[1.1] max-w-3xl">
+                Explore your{" "}
+                <span className="text-accent-orange">AI</span>
+                {" "}opportunities
+              </h1>
+
+              <p className="text-base sm:text-lg md:text-xl text-foreground-muted max-w-2xl leading-relaxed">
+                Enter your website and we&apos;ll identify strategic AI opportunities tailored to your business priorities.
+              </p>
+            </header>
+
+            {/* Input area */}
+            <div className="max-w-2xl">
+              <form onSubmit={handleSubmit}>
+                <label htmlFor={`${formId}-url`} className="sr-only">
+                  Website URL
+                </label>
+
+                <div
+                  className={cn(
+                    "bg-background-card border border-border rounded-lg p-2",
+                    "focus-within:border-accent-orange/50 focus-within:shadow-md focus-within:shadow-accent-orange/5"
+                  )}
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                    <div className="flex items-center gap-3 px-3 sm:px-4 py-3 flex-1">
+                      <Globe className="w-5 h-5 text-foreground-subtle flex-shrink-0" aria-hidden="true" />
+                      <input
+                        ref={inputRef}
+                        id={`${formId}-url`}
+                        type="url"
+                        value={state.url}
+                        onChange={(e) => dispatch({ type: "SET_URL", url: e.target.value })}
+                        onKeyDown={handleKeyDown}
+                        placeholder="yourwebsite.com"
+                        autoComplete="url"
+                        spellCheck={false}
+                        disabled={state.isAnalysing}
+                        className={cn(
+                          "flex-1 bg-transparent border-none min-w-0",
+                          "text-base sm:text-lg text-foreground",
+                          "placeholder:text-foreground-subtle",
+                          "focus:outline-none",
+                          "disabled:opacity-50"
+                        )}
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={state.isAnalysing || !state.url.trim()}
+                      className={cn(
+                        "bg-background-button text-foreground-light",
+                        "w-full sm:w-auto min-h-12 px-6 py-3 rounded-md",
+                        "disabled:opacity-30 disabled:cursor-not-allowed",
+                        "enabled:hover:bg-[#1a1a1a]",
+                        "transition-colors cursor-pointer",
+                        "text-base font-medium",
+                        "flex items-center justify-center gap-2"
+                      )}
+                    >
+                      <span>Analyse</span>
+                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            {/* Bottom metadata */}
+            <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-white/10 max-w-2xl">
+              <p className="text-xs sm:text-sm text-foreground-subtle font-mono tracking-wide">
+                ~45 seconds · Multi-step analysis
+              </p>
             </div>
           </div>
-        </form>
-
-        <p className="text-center mt-5 sm:mt-6 text-xs sm:text-sm text-foreground-subtle font-mono">
-          ~45 seconds · Multi-step analysis
-        </p>
+        </div>
       </div>
     </m.div>
   );

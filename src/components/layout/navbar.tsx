@@ -595,7 +595,7 @@ export function Navbar() {
                     Industries
                   </span>
                   <m.ul
-                    className="grid grid-cols-2 gap-x-4 gap-y-1"
+                    className="flex flex-col"
                     role="list"
                     aria-labelledby="mobile-industries-label"
                     initial="hidden"
@@ -630,7 +630,7 @@ export function Navbar() {
                         >
                           <Link
                             href={link.href}
-                            className={`flex items-center gap-2.5 min-h-[44px] py-2 text-[15px] transition-colors duration-200 active:text-foreground ${
+                            className={`flex items-center gap-3 min-h-[48px] py-2.5 text-base transition-colors duration-200 active:text-foreground ${
                               isActive
                                 ? "text-foreground"
                                 : "text-foreground-secondary"
@@ -644,7 +644,7 @@ export function Navbar() {
                               }`}
                               aria-hidden="true"
                             />
-                            <span className={isActive ? "" : "-ml-4"}>
+                            <span className={isActive ? "" : "-ml-4.5"}>
                               {link.label}
                             </span>
                           </Link>

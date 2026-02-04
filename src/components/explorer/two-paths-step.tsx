@@ -64,9 +64,9 @@ function UseCaseCard({ useCase, index, isExpanded, onToggle, pathType, prefersRe
     >
       <div
         className={cn(
-          "relative bg-background-card rounded-md overflow-hidden",
+          "relative bg-background-card rounded-lg overflow-hidden transition-all",
           "border",
-          isExpanded ? "border-accent-orange" : "border-border hover:border-border-secondary"
+          isExpanded ? "border-accent-orange shadow-md shadow-accent-orange/10" : "border-white/10 hover:border-white/20"
         )}
       >
         {/* Header - touch-friendly with min-height for mobile */}
@@ -287,30 +287,43 @@ export function TwoPathsStep({
       initial={prefersReducedMotion ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease }}
+      className="max-w-6xl mx-auto px-2 sm:px-4"
     >
-      {/* Header */}
-      <div className="text-center mb-8 sm:mb-12 px-2">
-        <m.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.1, ease }}
-        >
-          {/* Section label with orange dot indicator */}
-          <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-            <span className="w-2 h-2 bg-accent-orange rounded-full" />
-            <span className="text-[10px] sm:text-xs font-mono text-foreground-subtle uppercase tracking-wider">
-              {totalOpportunities} Opportunities Identified
-            </span>
+      {/* Editorial frame */}
+      <div className="relative border border-white/10">
+        {/* Corner accent marks */}
+        <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-accent-orange" />
+        <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-accent-orange" />
+        <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-accent-orange" />
+        <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-accent-orange" />
+
+        <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+          {/* Top label */}
+          <div className="mb-6 md:mb-8">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-accent-orange" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-subtle">
+                Step 3 · AI Opportunities · {totalOpportunities} Identified
+              </span>
+            </div>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal text-foreground tracking-tight mb-2 sm:mb-3">
-            Your AI Opportunities
-          </h2>
-          <p className="text-sm sm:text-base text-foreground-muted max-w-xl mx-auto leading-relaxed font-mono">
-            Based on your strategic priorities, we&apos;ve identified two paths to AI value.
-            Tap each opportunity to explore the full analysis.
-          </p>
-        </m.div>
-      </div>
+
+          {/* Header */}
+          <div className="mb-10 md:mb-12">
+            <m.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.1, ease }}
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-foreground tracking-[-0.02em] leading-[1.1] mb-4">
+                Your AI Opportunities
+              </h2>
+              <p className="text-base sm:text-lg text-foreground-muted max-w-2xl leading-relaxed">
+                Based on your strategic priorities, we&apos;ve identified two paths to AI value.
+                Tap each opportunity to explore the full analysis.
+              </p>
+            </m.div>
+          </div>
 
       {/* Two Paths Grid - stack on mobile, side-by-side on lg */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
@@ -385,49 +398,51 @@ export function TwoPathsStep({
         </m.div>
       </div>
 
-      {/* CTA Section - dark card style like Factory.ai */}
-      <m.div
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.4, ease }}
-        className="rounded-xl sm:rounded-2xl bg-background-dark p-6 sm:p-8 md:p-10"
-      >
-        <div className="max-w-2xl">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-normal text-foreground-light mb-2 sm:mb-3 tracking-tight">
-            Ready to explore these opportunities?
-          </h3>
-          <p className="text-sm sm:text-base text-foreground-light-muted mb-6 sm:mb-8 leading-relaxed font-mono">
-            Let&apos;s discuss how Foremost can help you implement these AI initiatives,
-            from strategy through to deployment.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-background text-foreground min-h-12 px-6 py-3 rounded-md font-normal border border-border-secondary hover:bg-surface-subtle transition-colors duration-200 cursor-pointer"
-            >
-              Schedule a Discussion
-              <ArrowRight className="w-4 h-4" />
-            </a>
+          {/* CTA Section */}
+          <m.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.4, ease }}
+            className="rounded-xl sm:rounded-2xl bg-background-dark p-6 sm:p-8 md:p-10 mt-10 md:mt-12"
+          >
+            <div className="max-w-2xl">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-foreground-light mb-2 sm:mb-3 tracking-[-0.02em] leading-[1.1]">
+                Ready to explore these opportunities?
+              </h3>
+              <p className="text-sm sm:text-base text-foreground-light-muted mb-6 sm:mb-8 leading-relaxed">
+                Let&apos;s discuss how Foremost can help you implement these AI initiatives,
+                from strategy through to deployment.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 bg-background text-foreground min-h-12 px-6 py-3 rounded-md font-normal border border-border-secondary hover:bg-surface-subtle transition-colors duration-200 cursor-pointer"
+                >
+                  Schedule a Discussion
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={onBack}
+                  className="inline-flex items-center justify-center gap-2 border border-border-darker text-foreground-light min-h-12 px-6 py-3 rounded-md font-normal hover:bg-white/5 transition-colors duration-200 cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Adjust Priorities
+                </button>
+              </div>
+            </div>
+          </m.div>
+
+          {/* Back link */}
+          <div className="flex items-center justify-start pt-6 md:pt-8 border-t border-white/10 mt-10 md:mt-12">
             <button
               onClick={onBack}
-              className="inline-flex items-center justify-center gap-2 border border-border-darker text-foreground-light min-h-12 px-6 py-3 rounded-md font-normal hover:bg-white/5 transition-colors duration-200 cursor-pointer"
+              className="min-h-11 text-foreground-muted hover:text-foreground transition-colors duration-200 flex items-center gap-2 text-sm cursor-pointer px-2 -ml-2"
             >
               <ArrowLeft className="w-4 h-4" />
-              Adjust Priorities
+              Back to priorities
             </button>
           </div>
         </div>
-      </m.div>
-
-      {/* Back link */}
-      <div className="flex items-center justify-start pt-6 sm:pt-8">
-        <button
-          onClick={onBack}
-          className="min-h-11 text-foreground-muted hover:text-foreground transition-colors duration-200 flex items-center gap-2 text-sm cursor-pointer px-2 -ml-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to priorities
-        </button>
       </div>
     </m.div>
   );

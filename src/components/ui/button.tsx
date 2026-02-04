@@ -56,7 +56,7 @@ export function Button({
 }: ButtonProps) {
   const baseStyles = cn(
     "inline-flex items-center justify-center gap-2 font-sans text-base font-normal cursor-pointer transition-colors duration-200",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:shadow-[0_0_0_4px_rgba(238,96,24,0.15)]",
     "disabled:pointer-events-none disabled:opacity-50",
     {
       "bg-background-button text-foreground-light border border-transparent rounded-[4px] hover:bg-[#1a1a1a] hover:shadow-lg hover:shadow-black/10":

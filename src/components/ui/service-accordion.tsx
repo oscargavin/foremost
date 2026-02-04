@@ -79,7 +79,7 @@ function ServiceAccordionItem({
           // Touch target compliance
           "min-h-[88px]",
           "hover:bg-accent-orange/[0.02] transition-colors duration-150",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:shadow-[0_0_0_4px_rgba(238,96,24,0.12)]"
         )}
         aria-expanded={isExpanded}
       >

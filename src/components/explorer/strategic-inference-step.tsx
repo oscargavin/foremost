@@ -156,15 +156,34 @@ export function StrategicInferenceStep({
       animate={{ opacity: 1, y: 0 }}
       exit={prefersReducedMotion ? undefined : { opacity: 0, y: -20 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease }}
-      className="max-w-5xl mx-auto"
+      className="max-w-6xl mx-auto px-2 sm:px-4"
     >
-      <h2 className="text-2xl sm:text-3xl font-normal text-foreground tracking-tight mb-3">
-        Strategic Inference
-      </h2>
-      <p className="text-base text-foreground-muted mb-8 leading-relaxed">
-        Based on public signals, here&apos;s our inferred view of your strategic priorities.
-        <span className="text-foreground"> Vote on each or add your own.</span>
-      </p>
+      {/* Editorial frame */}
+      <div className="relative border border-white/10">
+        {/* Corner accent marks */}
+        <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-accent-orange" />
+        <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-accent-orange" />
+        <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-accent-orange" />
+        <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-accent-orange" />
+
+        <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+          {/* Top label */}
+          <div className="mb-6 md:mb-8">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-accent-orange" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-subtle">
+                Step 2 · Strategic Priorities
+              </span>
+            </div>
+          </div>
+
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-foreground tracking-[-0.02em] leading-[1.1] mb-4">
+            Strategic Inference
+          </h2>
+          <p className="text-base sm:text-lg text-foreground-muted mb-10 md:mb-12 leading-relaxed max-w-3xl">
+            Based on public signals, here&apos;s our inferred view of your strategic priorities.
+            <span className="text-foreground"> Vote on each or add your own.</span>
+          </p>
 
       {/* Two-column layout - mobile first: stack, then side-by-side on lg */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -521,24 +540,26 @@ export function StrategicInferenceStep({
         </div>
       </div>
 
-      {/* Disclaimer */}
-      <div className="bg-surface-subtle border border-border rounded-md p-4 mb-6">
-        <p className="text-sm text-foreground-muted leading-relaxed">
-          <strong className="text-foreground">Note:</strong> This analysis is based on your company&apos;s
-          public information. Strategic priorities are inferred from available signals and should be validated
-          against your internal strategy.
-        </p>
-      </div>
+          {/* Disclaimer */}
+          <div className="bg-surface-subtle border border-border rounded-md p-4 mt-10 md:mt-12">
+            <p className="text-sm text-foreground-muted leading-relaxed">
+              <strong className="text-foreground">Note:</strong> This analysis is based on your company&apos;s
+              public information. Strategic priorities are inferred from available signals and should be validated
+              against your internal strategy.
+            </p>
+          </div>
 
-      {/* Navigation */}
-      <div className="flex items-center justify-start pt-6 border-t border-border">
-        <button
-          onClick={onBack}
-          className="min-h-11 px-4 py-2 text-foreground-muted hover:text-foreground transition-colors duration-200 flex items-center gap-2 cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </button>
+          {/* Navigation */}
+          <div className="flex items-center justify-start pt-6 md:pt-8 border-t border-white/10 mt-10 md:mt-12">
+            <button
+              onClick={onBack}
+              className="min-h-11 px-4 py-2 text-foreground-muted hover:text-foreground transition-colors duration-200 flex items-center gap-2 cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </button>
+          </div>
+        </div>
       </div>
     </m.div>
   );

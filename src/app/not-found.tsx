@@ -24,6 +24,21 @@ export default function NotFound() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button href="/" size="lg">
                 Return home
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="ml-2"
+                >
+                  <path
+                    d="M3.333 8h9.334M8.667 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </Button>
               <Button href="/contact" variant="secondary" size="lg">
                 Contact us

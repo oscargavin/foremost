@@ -297,7 +297,7 @@ export default function Home() {
             >
               We help boards and executive teams cut through AI noise and get to clear priorities that actually move the business.
             </Text>
-            <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row items-start gap-6">
               <Button href="/contact" size="lg" magnetic>
                 Talk to a Founder
                 <svg
@@ -316,13 +316,15 @@ export default function Home() {
                   />
                 </svg>
               </Button>
-              <Button href="/how-we-think" variant="secondary" size="lg">
+              <LinkWithArrow href="/how-we-think" className="sm:mt-2.5">
                 See How We Think
-              </Button>
+              </LinkWithArrow>
             </div>
-            <p className="mt-6 text-sm text-foreground-subtle font-mono">
-              Now accepting founding clients · Direct founder access
-            </p>
+            <div className="mt-10 pt-6 border-t border-border/40">
+              <p className="text-sm text-foreground-subtle font-mono">
+                Now accepting founding clients · Direct founder access
+              </p>
+            </div>
           </FadeIn>
         </HeroSection>
 
@@ -330,7 +332,7 @@ export default function Home() {
         <LogoCarousel />
 
         {/* Foremost Thinking Section */}
-        <Section className="py-20" pattern="grid-subtle" blend="border">
+        <Section className="py-16 sm:py-20 md:py-24" pattern="grid-subtle" blend="border">
           <Container>
             <FadeIn>
               <SectionLabel className="mb-8">Foremost Thinking</SectionLabel>
@@ -353,7 +355,7 @@ export default function Home() {
         </Section>
 
         {/* Strategic Clarity Section */}
-        <Section className="py-20" blend="border">
+        <Section className="py-16 sm:py-20 md:py-24" blend="border">
           <Container>
             <div className="mb-12">
               <FadeIn>
@@ -432,7 +434,7 @@ export default function Home() {
         </Section>
 
         {/* Industries Section - Conversational Search */}
-        <Section className="py-20" variant="card" pattern="grid-subtle" blend="elevated">
+        <Section className="py-16 sm:py-20 md:py-24" variant="card" pattern="grid-subtle" blend="elevated">
           <Container>
             <div className="mb-12">
               <FadeIn>
@@ -464,6 +466,74 @@ export default function Home() {
         <Suspense fallback={<TestimonialsSkeleton />}>
           <Testimonials />
         </Suspense>
+
+        {/* Insights Section */}
+        <Section className="py-16 sm:py-20 md:py-24" variant="card" blend="elevated">
+          <Container>
+            <div className="mb-10 md:mb-12">
+              <FadeIn>
+                <SectionLabel className="mb-4">From the Practice</SectionLabel>
+              </FadeIn>
+              <Heading as="h2" size="section">
+                <TextReveal>Insights</TextReveal>
+              </Heading>
+            </div>
+
+            <FadeIn delay={0.2}>
+              <div className="max-w-2xl">
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-border via-border/50 to-transparent mb-8" />
+
+                {/* Article Card */}
+                <article className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-orange" />
+                    <span className="font-mono text-xs text-foreground-muted uppercase tracking-wider">
+                      Thought Leadership · 2025
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-normal text-foreground mb-4 tracking-tight leading-tight">
+                    Beyond the Hype: 12 Things Every Business Leader Needs to Know About AI
+                  </h3>
+
+                  <p className="text-foreground-muted leading-relaxed mb-6 max-w-xl">
+                    A practical framework for understanding AI&apos;s strategic potential — why it&apos;s comparable to electrification, and how to redesign business processes rather than merely automate existing ones.
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <a
+                      href="https://www.amcham.lu/newsletter/vitalij-farafonov-beyond-the-hype-12-things-every-business-leader-needs-to-know-about-ai/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-foreground hover:text-accent-orange transition-colors duration-200 group/link"
+                    >
+                      <span className="font-medium">Read Article</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        className="transition-transform duration-200 group-hover/link:translate-x-1"
+                      >
+                        <path
+                          d="M3.333 8h9.334M8.667 4l4 4-4 4"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </a>
+                    <span className="text-foreground-subtle text-sm font-mono">
+                      AmCham Luxembourg
+                    </span>
+                  </div>
+                </article>
+              </div>
+            </FadeIn>
+          </Container>
+        </Section>
 
         {/* CTA Card */}
         <CTACard
